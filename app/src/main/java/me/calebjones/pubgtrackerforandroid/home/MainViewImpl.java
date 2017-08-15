@@ -62,6 +62,7 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         setUpColors();
         searchView.setOnQueryTextListener(this);
         searchView.setOnMenuClickListener(this);
+        searchView.setHint(context.getResources().getString(R.string.hint));
         navigation.setOnBottomNavigationItemClickListener(this);
         setupNavigationView();
     }
@@ -140,8 +141,8 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
 
         ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), currentColor, color);
         ValueAnimator topColorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), currentTopColor, topColor);
-        colorAnimation.setDuration(250); // milliseconds
-        topColorAnimation.setDuration(250);
+        colorAnimation.setDuration(350); // milliseconds
+        topColorAnimation.setDuration(350);
         colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 
             @Override
@@ -156,8 +157,8 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
                 window.setStatusBarColor((int) animator.getAnimatedValue());
             }
         });
-        colorAnimation.setStartDelay(175);
-        topColorAnimation.setStartDelay(175);
+        colorAnimation.setStartDelay(200);
+        topColorAnimation.setStartDelay(200);
         colorAnimation.start();
         topColorAnimation.start();
     }

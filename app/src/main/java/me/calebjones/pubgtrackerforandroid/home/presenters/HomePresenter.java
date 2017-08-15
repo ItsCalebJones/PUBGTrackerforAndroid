@@ -1,11 +1,12 @@
 package me.calebjones.pubgtrackerforandroid.home.presenters;
 
+import com.pixplicity.easyprefs.library.Prefs;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.Timer;
-
+import me.calebjones.pubgtrackerforandroid.data.Config;
 import me.calebjones.pubgtrackerforandroid.data.events.UserSelected;
 import me.calebjones.pubgtrackerforandroid.home.contracts.HomeContract;
 import timber.log.Timber;
@@ -42,6 +43,11 @@ public class HomePresenter implements HomeContract.Presenter {
     public void unRegisterEventBus() {
         Timber.v("Unregistering EventBus");
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void setInformationCardDismissed(boolean state) {
+        Prefs.putBoolean(Config.PREF_INFORMATION_CARD_DISMISSED, state);
     }
 
     @Override

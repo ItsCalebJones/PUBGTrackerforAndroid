@@ -1,107 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-
-        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/avatar"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_margin="@dimen/material_baseline_grid_2x"
-            android:src="@drawable/default_avatar"
-            app:civ_border_color="@color/colorPrimary"
-            app:civ_border_width="4dp" />
-
-        <TextView
-            android:id="@+id/profile_name"
-            style="@style/TextAppearance.AppCompat.Headline"
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginEnd="@dimen/material_baseline_grid_5x"
-            android:layout_marginStart="@dimen/material_baseline_grid_5x"
-            android:text="Player Name: " />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/current_rating"
-            style="@style/TextAppearance.AppCompat.Subhead"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginEnd="@dimen/material_baseline_grid_5x"
-            android:layout_marginStart="@dimen/material_baseline_grid_5x"
-            android:text="Current Rating:" />
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/information_card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/material_card_edge_margin"
-            android:animateLayoutChanges="true"
-            android:padding="@dimen/material_card_edge_margin"
-            android:paddingBottom="@dimen/material_card_title_block_large_padding_bottom_last_block"
-            app:cardCornerRadius="4dp"
-            app:cardElevation="@dimen/material_card_elevation_resting"
-            app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/material_card_edge_margin"
-                android:paddingTop="@dimen/material_card_edge_margin">
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
 
-                <TextView
-                    style="@style/MaterialTypography.Dense.Title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:paddingBottom="@dimen/material_card_title_block_large_padding_bottom"
-                    android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
-                    android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
-                    android:paddingTop="@dimen/material_baseline_grid_1x"
-                    android:text="Information" />
+                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/avatar"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="@dimen/material_baseline_grid_2x"
+                    android:src="@drawable/default_avatar"
+                    app:civ_border_color="@color/colorPrimary"
+                    app:civ_border_width="4dp" />
 
                 <TextView
-                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:id="@+id/profile_name"
+                    style="@style/TextAppearance.AppCompat.Headline"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:paddingEnd="@dimen/material_card_supporting_text_padding_horizontal"
-                    android:paddingStart="@dimen/material_card_supporting_text_padding_horizontal"
-                    android:text="@string/lorem_paragraph" />
+                    android:layout_marginEnd="@dimen/material_baseline_grid_5x"
+                    android:layout_marginStart="@dimen/material_baseline_grid_5x"
+                    android:text="Player Name: " />
 
-                <RelativeLayout
+                <TextView
+                    android:id="@+id/current_rating"
+                    style="@style/TextAppearance.AppCompat.Subhead"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/material_baseline_grid_8x">
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginEnd="@dimen/material_baseline_grid_5x"
+                    android:layout_marginStart="@dimen/material_baseline_grid_5x"
+                    android:text="Current Rating:" />
 
-                    <android.support.v7.widget.AppCompatButton
-                        android:id="@+id/exploreButton"
-                        style="@style/Base.Widget.AppCompat.Button.Borderless"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginBottom="@dimen/material_baseline_grid_1x"
-                        android:text="Got It" />
-                </RelativeLayout>
+                <android.support.v7.widget.CardView
+                    android:id="@+id/information_card"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/material_card_edge_margin"
+                    android:animateLayoutChanges="true"
+                    android:padding="@dimen/material_card_edge_margin"
+                    android:paddingBottom="@dimen/material_card_title_block_large_padding_bottom_last_block"
+                    app:cardCornerRadius="4dp"
+                    app:cardElevation="@dimen/material_card_elevation_resting"
+                    app:cardPreventCornerOverlap="true"
+                    app:cardUseCompatPadding="true">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/material_card_edge_margin"
+                        android:paddingTop="@dimen/material_card_edge_margin">
+
+
+                        <TextView
+                            style="@style/MaterialTypography.Dense.Title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:paddingBottom="@dimen/material_card_title_block_large_padding_bottom"
+                            android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
+                            android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
+                            android:paddingTop="@dimen/material_baseline_grid_1x"
+                            android:text="Information" />
+
+                        <TextView
+                            style="@style/TextAppearance.AppCompat.Body1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:paddingEnd="@dimen/material_card_supporting_text_padding_horizontal"
+                            android:paddingStart="@dimen/material_card_supporting_text_padding_horizontal"
+                            android:text="@string/lorem_paragraph" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/material_baseline_grid_6x">
+
+                            <android.support.v7.widget.AppCompatButton
+                                android:id="@+id/exploreButton"
+                                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                                android:layout_marginEnd="@dimen/material_baseline_grid_2x"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentTop="true"
+                                android:text="Got It" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
             </LinearLayout>
-        </android.support.v7.widget.CardView>
-    </LinearLayout>
-
-
+        </android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </android.support.design.widget.CoordinatorLayout>

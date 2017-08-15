@@ -7,7 +7,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="search_hint" format="string">Enter a Username</item>
+        <item name="search_hint" format="string">Enter Username</item>
     </style>
 
 </resources>

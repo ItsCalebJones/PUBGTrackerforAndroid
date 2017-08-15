@@ -2,6 +2,7 @@ package me.calebjones.pubgtrackerforandroid.home.views;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,8 @@ public class HomeViewImpl implements HomeContract.View {
     TextView name;
     @BindView(R.id.current_rating)
     TextView rating;
+    @BindView(R.id.information_card)
+    CardView informationCard;
 
     private HomeContract.Presenter homePresenter;
     private View mRootView;
@@ -66,5 +69,26 @@ public class HomeViewImpl implements HomeContract.View {
     public void setCurrentRating(String rating) {
         String message = context.getString(R.string.current_rating) + rating;
         this.rating.setText(message);
+    }
+
+    @Override
+    public void showInformationCard() {
+        informationCard.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideInformationCard() {
+        informationCard.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showIntroHelper() {
+
+    }
+
+    @Override
+    public void onInformationCardDismissClicked() {
+        hideInformationCard();
+        homePresenter.setInformationCardDismissed(true);
     }
 }

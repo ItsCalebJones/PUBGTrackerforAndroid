@@ -6,4 +6,5 @@
     <string name="title_statistics">Statistics</string>
     <string name="current_rating">Current Rating:</string>
     <string name="lorem_paragraph">Lorem ipsum dolor sit amet, ultricies arcu id neque, sit pretium id sed, a tristique dis felis ac. Tempus gravida natoque in, id quis dui porta sodales, vestibulum arcu vestibulum lectus ut, odio wisi itaque est. Condimentum amet ut volutpat vel, phasellus id rutrum porta, urna malesuada nibh arcu. Nulla ultrices provident turpis, sed fermentum dolore in, erat nulla enim felis cras.</string>
+    <string name="hint">Enter Username</string>
 </resources>

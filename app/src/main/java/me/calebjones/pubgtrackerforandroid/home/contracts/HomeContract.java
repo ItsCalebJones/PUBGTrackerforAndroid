@@ -26,6 +26,10 @@ public interface HomeContract {
         void setProfileAvatar(String name);
         void setProfileName(String name);
         void setCurrentRating(String name);
+        void showInformationCard();
+        void hideInformationCard();
+        void showIntroHelper();
+        void onInformationCardDismissClicked();
 
     }
 
@@ -36,5 +40,7 @@ public interface HomeContract {
         void registerEventBus();
 
         void unRegisterEventBus();
+
+        void setInformationCardDismissed(boolean b);
     }
 }
