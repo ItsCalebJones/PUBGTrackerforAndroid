@@ -5,12 +5,14 @@ import com.google.gson.annotations.SerializedName;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
-public class APIResponse extends RealmObject {
+public class User extends RealmObject {
 
     @SerializedName("platformId")
     @Expose
     private int platformId;
+    @PrimaryKey
     @SerializedName("AccountId")
     @Expose
     private String accountId;

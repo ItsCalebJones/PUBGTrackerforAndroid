@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/overview_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/material_baseline_grid_2x"
+    android:animateLayoutChanges="true"
+    android:padding="@dimen/material_card_edge_margin"
+    android:paddingBottom="@dimen/material_card_title_block_large_padding_bottom_last_block"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="@dimen/material_card_elevation_resting"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/material_baseline_grid_1x"
+            android:orientation="horizontal"
+            android:padding="@dimen/material_baseline_grid_1x"
+            android:paddingTop="@dimen/material_baseline_grid_1x">
+
+            <TextView
+                style="@style/MaterialTypography.Dense.Title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".60"
+                android:paddingBottom="@dimen/material_card_title_block_large_padding_bottom"
+                android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
+                android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
+                android:paddingTop="@dimen/material_baseline_grid_0.5x"
+                android:text="Overview" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".20"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MaterialTypography.Dense.Subheading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/material_baseline_grid_1x"
+                    android:paddingStart="@dimen/material_baseline_grid_1x"
+                    android:text="Duo"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/MaterialTypography.Dense.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/material_baseline_grid_1x"
+                    android:paddingStart="@dimen/material_baseline_grid_1x"
+                    android:text="739th" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".20"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MaterialTypography.Dense.Subheading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/material_baseline_grid_1x"
+                    android:paddingStart="@dimen/material_baseline_grid_1x"
+                    android:text="Solo"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/MaterialTypography.Dense.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/material_baseline_grid_1x"
+                    android:paddingStart="@dimen/material_baseline_grid_1x"
+                    android:text="123th" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            style="@style/MaterialTypography.Dense.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/material_baseline_grid_1x"
+            android:padding="@dimen/material_baseline_grid_1x"
+            android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
+            android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
+            android:paddingTop="@dimen/material_baseline_grid_0.5x"
+            android:text="Duo NA - Season 3" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/material_baseline_grid_1x">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".25"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MaterialTypography.Dense.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/material_baseline_grid_1x"
+                    android:paddingStart="@dimen/material_baseline_grid_1x"
+                    android:text="RATING"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/MaterialTypography.Dense.Subheading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/material_baseline_grid_1x"
+                    android:paddingStart="@dimen/material_baseline_grid_1x"
+                    android:text="1,872"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/MaterialTypography.Regular.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/material_baseline_grid_1x"
+                    android:paddingStart="@dimen/material_baseline_grid_1x"
+                    android:text="739th" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".25"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/MaterialTypography.Dense.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="WIN %"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        style="@style/MaterialTypography.Dense.Subheading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="25.4%"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        style="@style/MaterialTypography.Regular.Body1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="1,209th" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".25"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/MaterialTypography.Dense.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="TOP 10 RATE"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        style="@style/MaterialTypography.Dense.Subheading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="60.3%"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        style="@style/MaterialTypography.Regular.Body1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="7,714th" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".25"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/MaterialTypography.Dense.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="K/D RATIO"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        style="@style/MaterialTypography.Dense.Subheading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="3.94"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        style="@style/MaterialTypography.Regular.Body1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="8,718st" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            style="@style/MaterialTypography.Dense.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/material_baseline_grid_1x"
+            android:padding="@dimen/material_baseline_grid_1x"
+            android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
+            android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
+            android:paddingTop="@dimen/material_baseline_grid_0.5x"
+            android:text="Solo NA - Season 3" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/material_baseline_grid_1x">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".25"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MaterialTypography.Dense.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/material_baseline_grid_1x"
+                    android:paddingStart="@dimen/material_baseline_grid_1x"
+                    android:text="RATING"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/MaterialTypography.Dense.Subheading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/material_baseline_grid_1x"
+                    android:paddingStart="@dimen/material_baseline_grid_1x"
+                    android:text="1,872"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/MaterialTypography.Regular.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/material_baseline_grid_1x"
+                    android:paddingStart="@dimen/material_baseline_grid_1x"
+                    android:text="739th" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".25"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/MaterialTypography.Dense.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="WIN %"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        style="@style/MaterialTypography.Dense.Subheading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="25.4%"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        style="@style/MaterialTypography.Regular.Body1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="1,209th" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".25"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/MaterialTypography.Dense.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="TOP 10 RATE"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        style="@style/MaterialTypography.Dense.Subheading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="60.3%"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        style="@style/MaterialTypography.Regular.Body1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="7,714th" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".25"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/MaterialTypography.Dense.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="K/D RATIO"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        style="@style/MaterialTypography.Dense.Subheading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="3.94"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        style="@style/MaterialTypography.Regular.Body1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="8,718st" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

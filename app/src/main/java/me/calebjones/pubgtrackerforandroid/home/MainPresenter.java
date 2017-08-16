@@ -1,20 +1,22 @@
 package me.calebjones.pubgtrackerforandroid.home;
 
 
+import android.provider.SearchRecentSuggestions;
 import android.support.annotation.NonNull;
-import android.support.v7.app.WindowDecorActionBar;
 
 import org.greenrobot.eventbus.EventBus;
 
+import io.realm.Realm;
+import me.calebjones.pubgtrackerforandroid.common.BasePresenter;
 import me.calebjones.pubgtrackerforandroid.data.events.UserSelected;
-import me.calebjones.pubgtrackerforandroid.data.models.APIResponse;
+import me.calebjones.pubgtrackerforandroid.data.models.User;
 import me.calebjones.pubgtrackerforandroid.data.networking.DataClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
-public class MainPresenter implements MainContract.Presenter {
+public class MainPresenter extends BasePresenter implements MainContract.Presenter {
 
     private final MainContract.View homeView;
     private MainContract.Navigator homeNavigator;
@@ -29,17 +31,18 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public boolean searchQuerySubmitted(String query) {
-        DataClient.getInstance().getProfileByName(query, new Callback<APIResponse>() {
+    public boolean searchQuerySubmitted(final String query) {
+        DataClient.getInstance().getProfileByName(query, new Callback<User>() {
             @Override
-            public void onResponse(Call<APIResponse> call, Response<APIResponse> response) {
+            public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful()){
-                    APIResponse apiResponse = response.body();
-                    if (apiResponse != null) {
-                        if (apiResponse.getError() != null && apiResponse.getMessage() != null) {
-                            homeView.createSnackbar(apiResponse.getMessage());
-                        } else if (apiResponse.getPlayerName() != null) {
-                            EventBus.getDefault().post(new UserSelected(apiResponse));
+                    User user = response.body();
+                    if (user != null) {
+                        if (user.getError() != null && user.getMessage() != null) {
+                            homeView.createSnackbar(user.getMessage());
+                        } else if (user.getPlayerName() != null) {
+                            saveToRealm(user);
+                            EventBus.getDefault().post(new UserSelected(user));
                         }
                     }
                 } else {
@@ -50,13 +53,22 @@ public class MainPresenter implements MainContract.Presenter {
             }
 
             @Override
-            public void onFailure(Call<APIResponse> call, Throwable t) {
+            public void onFailure(Call<User> call, Throwable t) {
                 Timber.e(t);
                 homeView.createSnackbar(t.getLocalizedMessage());
                 homeView.closeSearchView();
             }
         });
         return true;
+    }
+    private void saveToRealm(final User user) {
+        getRealm().executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.copyToRealmOrUpdate(user);
+            }
+        });
+
     }
 
     @Override

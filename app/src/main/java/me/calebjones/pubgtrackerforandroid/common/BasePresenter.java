@@ -1,9 +1,14 @@
 package me.calebjones.pubgtrackerforandroid.common;
 
-public interface BasePresenter {
-    void onStart();
+import io.realm.Realm;
 
-    void onStop();
+/**
+ * Created by ALPCJONESM2 on 8/15/17.
+ */
 
-    void onResume();
+public class BasePresenter  {
+
+    public Realm getRealm() {
+        return Realm.getDefaultInstance();
+    }
 }

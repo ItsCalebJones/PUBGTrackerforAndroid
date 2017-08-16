@@ -4,7 +4,6 @@ import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -17,7 +16,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
+import com.lapism.searchview.SearchAdapter;
+import com.lapism.searchview.SearchHistoryTable;
+import com.lapism.searchview.SearchItem;
 import com.lapism.searchview.SearchView;
 
 import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationItem;
@@ -48,6 +51,7 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
 
     private View mRootView;
     private MainContract.Presenter mainPresenter;
+    private SearchHistoryTable historyDatabase;
     private Context context;
     private int[] image;
     private int[] color;
@@ -60,11 +64,16 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         mRootView = LayoutInflater.from(context).inflate(R.layout.activity_home, container);
         ButterKnife.bind(this, mRootView);
         setUpColors();
+        setUpSearchView();
+        navigation.setOnBottomNavigationItemClickListener(this);
+        setupNavigationView();
+    }
+
+    private void setUpSearchView() {
+        historyDatabase = new SearchHistoryTable(context);
         searchView.setOnQueryTextListener(this);
         searchView.setOnMenuClickListener(this);
         searchView.setHint(context.getResources().getString(R.string.hint));
-        navigation.setOnBottomNavigationItemClickListener(this);
-        setupNavigationView();
     }
 
     private void setUpColors() {
@@ -171,7 +180,8 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     @Override
     public boolean onQueryTextSubmit(String string) {
         mainPresenter.searchQuerySubmitted(string);
-        return false;
+        searchView.close(true);
+        return true;
     }
 
     @Override

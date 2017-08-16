@@ -1,13 +1,13 @@
 package me.calebjones.pubgtrackerforandroid.data.events;
 
 
-import me.calebjones.pubgtrackerforandroid.data.models.APIResponse;
+import me.calebjones.pubgtrackerforandroid.data.models.User;
 
 public class UserSelected {
 
-    public final APIResponse response;
+    public final User response;
 
-    public UserSelected(APIResponse response){
+    public UserSelected(User response){
         this.response = response;
     }
 }

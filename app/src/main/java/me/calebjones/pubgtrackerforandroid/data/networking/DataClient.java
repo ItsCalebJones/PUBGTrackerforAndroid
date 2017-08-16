@@ -1,8 +1,7 @@
 package me.calebjones.pubgtrackerforandroid.data.networking;
 
-import me.calebjones.pubgtrackerforandroid.data.models.APIResponse;
+import me.calebjones.pubgtrackerforandroid.data.models.User;
 import me.calebjones.pubgtrackerforandroid.data.networking.interfaces.TrackerService;
-import me.calebjones.pubgtrackerforandroid.data.networking.response.TrackerResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -36,14 +35,14 @@ public class DataClient {
         return mInstance;
     }
 
-    public Call<APIResponse> getProfileByName(String name, Callback<APIResponse> callback){
-        Call<APIResponse> call = apiService.getProfileByName(name);
+    public Call<User> getProfileByName(String name, Callback<User> callback){
+        Call<User> call = apiService.getProfileByName(name);
         call.enqueue(callback);
         return call;
     }
 
-    public Call<APIResponse> getProfileBySteamID(int steamID, Callback<APIResponse> callback){
-        Call<APIResponse> call = apiService.getProfileBySteamID(steamID);
+    public Call<User> getProfileBySteamID(int steamID, Callback<User> callback){
+        Call<User> call = apiService.getProfileBySteamID(steamID);
         call.enqueue(callback);
         return call;
     }

@@ -1,10 +1,10 @@
 package me.calebjones.pubgtrackerforandroid.data.networking.response;
 
 
-import me.calebjones.pubgtrackerforandroid.data.models.APIResponse;
+import me.calebjones.pubgtrackerforandroid.data.models.User;
 
 public class TrackerResponse {
-    private APIResponse response;
+    private User response;
 
-    public APIResponse getResponse() {return response;}
+    public User getResponse() {return response;}
 }

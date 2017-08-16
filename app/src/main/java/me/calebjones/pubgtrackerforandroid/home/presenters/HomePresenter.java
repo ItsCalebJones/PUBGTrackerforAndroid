@@ -6,13 +6,15 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import me.calebjones.pubgtrackerforandroid.common.BasePresenter;
 import me.calebjones.pubgtrackerforandroid.data.Config;
 import me.calebjones.pubgtrackerforandroid.data.events.UserSelected;
+import me.calebjones.pubgtrackerforandroid.data.models.User;
 import me.calebjones.pubgtrackerforandroid.home.contracts.HomeContract;
 import timber.log.Timber;
 
 
-public class HomePresenter implements HomeContract.Presenter {
+public class HomePresenter extends BasePresenter implements HomeContract.Presenter {
 
     private final HomeContract.View homeView;
 
@@ -22,12 +24,17 @@ public class HomePresenter implements HomeContract.Presenter {
 
     }
 
+    @Override
+    public void applyUser(User user) {
+        homeView.setProfileAvatar(user.getAvatar());
+        homeView.setProfileName(user.getPlayerName());
+        homeView.setCurrentRating(String.valueOf(Math.round(user.getMatchHistory().first().getRating())));
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     @Override
     public void onMessageReceived(UserSelected userSelected) {
-        homeView.setProfileAvatar(userSelected.response.getAvatar());
-        homeView.setProfileName(userSelected.response.getPlayerName());
-        homeView.setCurrentRating(String.valueOf(Math.round(userSelected.response.getMatchHistory().first().getRating())));
+        applyUser(userSelected.response);
     }
 
     @Override
@@ -48,6 +55,14 @@ public class HomePresenter implements HomeContract.Presenter {
     @Override
     public void setInformationCardDismissed(boolean state) {
         Prefs.putBoolean(Config.PREF_INFORMATION_CARD_DISMISSED, state);
+    }
+
+    @Override
+    public void retrieveCachedUser() {
+        User user = getRealm().where(User.class).findFirst();
+        if (user != null){
+            applyUser(user);
+        }
     }
 
     @Override

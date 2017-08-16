@@ -4,7 +4,7 @@ package me.calebjones.pubgtrackerforandroid.home;
 import android.support.annotation.NonNull;
 
 import me.calebjones.pubgtrackerforandroid.common.BaseNavigator;
-import me.calebjones.pubgtrackerforandroid.common.BasePresenter;
+import me.calebjones.pubgtrackerforandroid.common.BasePresenterInterfacce;
 import me.calebjones.pubgtrackerforandroid.common.BaseView;
 
 public interface MainContract {
@@ -22,7 +22,7 @@ public interface MainContract {
     interface NavigatorProvider {
 
         @NonNull
-        Navigator getNavigator(MainContract.Presenter presenter);
+        Navigator getNavigator(Presenter presenter);
     }
 
     interface View extends BaseView<Presenter> {
@@ -43,7 +43,7 @@ public interface MainContract {
 
     }
 
-    interface Presenter extends BasePresenter {
+    interface Presenter extends BasePresenterInterfacce {
 
         boolean searchQuerySubmitted(String query);
 

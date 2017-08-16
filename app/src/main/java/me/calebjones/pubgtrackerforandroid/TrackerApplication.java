@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatDelegate;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import me.calebjones.pubgtrackerforandroid.data.networking.DataClient;
 import timber.log.Timber;
 
@@ -15,6 +16,10 @@ public class TrackerApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Realm.init(this);
+        RealmConfiguration config = new RealmConfiguration.Builder()
+                .deleteRealmIfMigrationNeeded()
+                .build();
+        Realm.setDefaultConfiguration(config);
         DataClient.create();
         Timber.plant(new Timber.DebugTree());
         AppCompatDelegate.setDefaultNightMode(

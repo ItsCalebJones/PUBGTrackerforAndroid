@@ -2,6 +2,7 @@ package me.calebjones.pubgtrackerforandroid.home.views;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.bumptech.glide.Glide;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import me.calebjones.pubgtrackerforandroid.home.contracts.HomeContract;
 import me.calebjones.pubgtrackerforandroid.R;
 
@@ -27,6 +29,8 @@ public class HomeViewImpl implements HomeContract.View {
     TextView rating;
     @BindView(R.id.information_card)
     CardView informationCard;
+    @BindView(R.id.refresh)
+    SwipeRefreshLayout refresh;
 
     private HomeContract.Presenter homePresenter;
     private View mRootView;
@@ -86,9 +90,15 @@ public class HomeViewImpl implements HomeContract.View {
 
     }
 
+    @OnClick(R.id.exploreButton)
     @Override
     public void onInformationCardDismissClicked() {
         hideInformationCard();
         homePresenter.setInformationCardDismissed(true);
+    }
+
+    @Override
+    public void setRefreshEnabled(boolean state) {
+        refresh.setEnabled(state);
     }
 }
