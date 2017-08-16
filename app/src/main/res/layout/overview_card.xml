@@ -109,7 +109,8 @@
             android:padding="@dimen/material_baseline_grid_1x"
             android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
             android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
-            android:paddingTop="@dimen/material_baseline_grid_0.5x" />
+            android:paddingTop="@dimen/material_baseline_grid_0.5x"
+            android:text="Unknown Season"/>
 
         <View
             android:layout_width="fill_parent"
@@ -148,7 +149,8 @@
                     android:layout_height="wrap_content"
                     android:paddingEnd="@dimen/material_baseline_grid_1x"
                     android:paddingStart="@dimen/material_baseline_grid_1x"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:text="- -"/>
 
                 <TextView
                     style="@style/MaterialTypography.Regular.Body1"
@@ -188,7 +190,8 @@
                         android:layout_height="wrap_content"
                         android:paddingEnd="@dimen/material_baseline_grid_1x"
                         android:paddingStart="@dimen/material_baseline_grid_1x"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:text="- -"/>
 
                     <TextView
                         style="@style/MaterialTypography.Regular.Body1"
@@ -237,7 +240,8 @@
                         android:layout_height="wrap_content"
                         android:paddingEnd="@dimen/material_baseline_grid_1x"
                         android:paddingStart="@dimen/material_baseline_grid_1x"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:text="- -"/>
 
                     <TextView
                         style="@style/MaterialTypography.Regular.Body1"
@@ -269,7 +273,8 @@
                         android:paddingEnd="@dimen/material_baseline_grid_1x"
                         android:paddingStart="@dimen/material_baseline_grid_1x"
                         android:text="K/D RATIO"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        />
 
                     <TextView
                         style="@style/MaterialTypography.Dense.Subheading"
@@ -278,7 +283,8 @@
                         android:layout_height="wrap_content"
                         android:paddingEnd="@dimen/material_baseline_grid_1x"
                         android:paddingStart="@dimen/material_baseline_grid_1x"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:text="- -"/>
 
                     <TextView
                         style="@style/MaterialTypography.Regular.Body1"
@@ -303,7 +309,9 @@
             android:padding="@dimen/material_baseline_grid_1x"
             android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
             android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
-            android:paddingTop="@dimen/material_baseline_grid_0.5x"/>
+            android:paddingTop="@dimen/material_baseline_grid_0.5x"
+            android:text="Unknown Season"/>
+
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dp"
@@ -340,7 +348,8 @@
                     android:layout_height="wrap_content"
                     android:paddingEnd="@dimen/material_baseline_grid_1x"
                     android:paddingStart="@dimen/material_baseline_grid_1x"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:text="- -"/>
 
                 <TextView
                     style="@style/MaterialTypography.Regular.Body1"
@@ -380,7 +389,8 @@
                         android:layout_height="wrap_content"
                         android:paddingEnd="@dimen/material_baseline_grid_1x"
                         android:paddingStart="@dimen/material_baseline_grid_1x"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:text="- -"/>
 
                     <TextView
                         style="@style/MaterialTypography.Regular.Body1"
@@ -429,7 +439,8 @@
                         android:layout_height="wrap_content"
                         android:paddingEnd="@dimen/material_baseline_grid_1x"
                         android:paddingStart="@dimen/material_baseline_grid_1x"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:text="- -"/>
 
                     <TextView
                         style="@style/MaterialTypography.Regular.Body1"
@@ -470,7 +481,8 @@
                         android:layout_height="wrap_content"
                         android:paddingEnd="@dimen/material_baseline_grid_1x"
                         android:paddingStart="@dimen/material_baseline_grid_1x"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:text="- -"/>
 
                     <TextView
                         style="@style/MaterialTypography.Regular.Body1"

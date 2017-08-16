@@ -34,6 +34,7 @@ public class HomeFragment extends Fragment {
         homeView = new HomeViewImpl(getContext(), inflater, container);
         homePresenter = new HomePresenter(homeView);
         homePresenter.registerEventBus();
+        homePresenter.retrieveCachedUser();
         checkFirstBoot();
         checkInformationCard();
         return homeView.getRootView();
@@ -41,7 +42,7 @@ public class HomeFragment extends Fragment {
 
     private void checkInformationCard() {
         if (!informationDismissed){
-            homeView.showInformationCard();
+            homeView.setInformationCardVisible(true);
         }
     }
 
@@ -55,7 +56,6 @@ public class HomeFragment extends Fragment {
         super.onStart();
         Timber.v("onStart");
         homePresenter.onStart();
-        homePresenter.retrieveCachedUser();
     }
 
     @Override

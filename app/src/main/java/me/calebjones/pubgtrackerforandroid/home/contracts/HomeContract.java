@@ -30,15 +30,15 @@ public interface HomeContract {
 
         void setCurrentRating(String name);
 
-        void showInformationCard();
-
-        void hideInformationCard();
-
         void showIntroHelper();
 
         void onInformationCardDismissClicked();
 
         void setRefreshEnabled(boolean state);
+
+        void setInformationCardVisible(boolean state);
+
+        void setOverviewCardVisible(boolean state);
 
     }
 

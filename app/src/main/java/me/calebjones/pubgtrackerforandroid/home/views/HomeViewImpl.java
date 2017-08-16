@@ -1,5 +1,7 @@
 package me.calebjones.pubgtrackerforandroid.home.views;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -7,10 +9,12 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.transitionseverywhere.TransitionManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,8 +33,13 @@ public class HomeViewImpl implements HomeContract.View {
     TextView rating;
     @BindView(R.id.information_card)
     CardView informationCard;
+    @BindView(R.id.overview_card)
+    CardView overviewCard;
     @BindView(R.id.refresh)
     SwipeRefreshLayout refresh;
+    @BindView(R.id.root)
+    ViewGroup container;
+
 
     private HomeContract.Presenter homePresenter;
     private View mRootView;
@@ -76,14 +85,17 @@ public class HomeViewImpl implements HomeContract.View {
     }
 
     @Override
-    public void showInformationCard() {
-        informationCard.setVisibility(View.VISIBLE);
+    public void setInformationCardVisible(boolean state) {
+        TransitionManager.beginDelayedTransition(container);
+        informationCard.setVisibility(state ? View.VISIBLE : View.GONE);
     }
 
     @Override
-    public void hideInformationCard() {
-        informationCard.setVisibility(View.GONE);
+    public void setOverviewCardVisible(boolean state) {
+        TransitionManager.beginDelayedTransition(container);
+        overviewCard.setVisibility(state ? View.VISIBLE : View.GONE);
     }
+
 
     @Override
     public void showIntroHelper() {
@@ -93,8 +105,8 @@ public class HomeViewImpl implements HomeContract.View {
     @OnClick(R.id.exploreButton)
     @Override
     public void onInformationCardDismissClicked() {
-        hideInformationCard();
-        homePresenter.setInformationCardDismissed(true);
+        setInformationCardVisible(false);
+//        homePresenter.setInformationCardDismissed(true);
     }
 
     @Override
