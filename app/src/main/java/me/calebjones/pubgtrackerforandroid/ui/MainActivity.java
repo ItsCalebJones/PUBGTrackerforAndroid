@@ -1,25 +1,28 @@
-package me.calebjones.pubgtrackerforandroid.home;
+package me.calebjones.pubgtrackerforandroid.ui;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
-import me.calebjones.pubgtrackerforandroid.home.adapters.ViewPagerAdapter;
-import me.calebjones.pubgtrackerforandroid.home.fragments.HomeFragment;
-import me.calebjones.pubgtrackerforandroid.home.fragments.TestFragment;
+import com.transitionseverywhere.Recolor;
+import com.transitionseverywhere.TransitionManager;
+
+import me.calebjones.pubgtrackerforandroid.ui.adapters.ViewPagerAdapter;
+import me.calebjones.pubgtrackerforandroid.ui.home.HomeFragment;
+import me.calebjones.pubgtrackerforandroid.ui.fragments.TestFragment;
 
 public class MainActivity extends AppCompatActivity implements MainContract.NavigatorProvider {
 
     private MainPresenter mainPresenter;
     private MainViewImpl mainView;
-    private ViewPagerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mainView = new MainViewImpl(this, null);
         setContentView(mainView.getRootView());
-        setSupportActionBar(mainView.getToolbar());
+//        setSupportActionBar(mainView.getToolbar());
 
         mainPresenter = new MainPresenter(mainView);
         mainPresenter.setNavigator(getNavigator(mainPresenter));
@@ -37,6 +40,22 @@ public class MainActivity extends AppCompatActivity implements MainContract.Navi
         adapter.addFragment(historyFragment);
         mainView.viewPager.setAdapter(adapter);
         mainView.viewPager.setCurrentItem(1);
+        mainView.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mainView.onPageChaged(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         return adapter;
     }
 

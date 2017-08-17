@@ -31,7 +31,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:gravity="center">
 
 
                     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -45,7 +46,7 @@
                         app:civ_border_width="4dp" />
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginTop="@dimen/material_baseline_grid_2x"
                         android:layout_marginBottom="@dimen/material_baseline_grid_2x"
@@ -61,17 +62,36 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_marginEnd="@dimen/material_baseline_grid_1x"
                             android:layout_marginStart="@dimen/material_baseline_grid_1x"
+                            android:textStyle="bold"
                             android:text="Select a Username " />
 
                         <TextView
                             android:id="@+id/current_rating"
-                            style="@style/TextAppearance.AppCompat.Subhead"
+                            style="@style/TextAppearance.AppCompat.Caption"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginEnd="@dimen/material_baseline_grid_1x"
                             android:layout_marginStart="@dimen/material_baseline_grid_1x"
-                            android:text="Current Rating:" />
+                            android:text="Rating: " />
+                        <TextView
+                            android:id="@+id/current_rank"
+                            style="@style/TextAppearance.AppCompat.Caption"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginEnd="@dimen/material_baseline_grid_1x"
+                            android:layout_marginStart="@dimen/material_baseline_grid_1x"
+                            android:text="Rank: " />
+                        <TextView
+                            android:id="@+id/current_KD"
+                            style="@style/TextAppearance.AppCompat.Caption"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginEnd="@dimen/material_baseline_grid_1x"
+                            android:layout_marginStart="@dimen/material_baseline_grid_1x"
+                            android:text="K/D: " />
                     </LinearLayout>
 
                 </LinearLayout>

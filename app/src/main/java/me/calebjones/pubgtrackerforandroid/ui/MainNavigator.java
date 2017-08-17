@@ -1,4 +1,4 @@
-package me.calebjones.pubgtrackerforandroid.home;
+package me.calebjones.pubgtrackerforandroid.ui;
 
 
 import android.support.v4.view.ViewPager;

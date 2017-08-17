@@ -1,4 +1,4 @@
-package me.calebjones.pubgtrackerforandroid.home;
+package me.calebjones.pubgtrackerforandroid.ui;
 
 
 import android.support.annotation.NonNull;
@@ -34,6 +34,8 @@ public interface MainContract {
         void onMatchHistoryClicked();
 
         void onStatisticsClicked();
+
+        void onPageChaged(int position);
 
         void closeSearchView();
 

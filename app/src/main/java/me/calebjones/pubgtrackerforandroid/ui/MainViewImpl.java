@@ -1,4 +1,4 @@
-package me.calebjones.pubgtrackerforandroid.home;
+package me.calebjones.pubgtrackerforandroid.ui;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
@@ -10,22 +10,19 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.TextView;
-
-import com.lapism.searchview.SearchAdapter;
 import com.lapism.searchview.SearchHistoryTable;
-import com.lapism.searchview.SearchItem;
 import com.lapism.searchview.SearchView;
 
 import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationItem;
 import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationView;
 import com.luseen.luseenbottomnavigation.BottomNavigation.OnBottomNavigationItemClickListener;
+import com.transitionseverywhere.Recolor;
+import com.transitionseverywhere.TransitionManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,8 +39,6 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     BottomNavigationView navigation;
     @BindView(R.id.searchView)
     SearchView searchView;
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
     @BindView(R.id.contentFrame)
     ViewPager viewPager;
     @BindView(R.id.appbar)
@@ -54,8 +49,8 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     private SearchHistoryTable historyDatabase;
     private Context context;
     private int[] image;
-    private int[] color;
-    private int[] topColor;
+    public int[] color;
+    public int[] topColor;
     private int currentColor;
     private int currentTopColor;
 
@@ -65,8 +60,8 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         ButterKnife.bind(this, mRootView);
         setUpColors();
         setUpSearchView();
-        navigation.setOnBottomNavigationItemClickListener(this);
         setupNavigationView();
+        navigation.setOnBottomNavigationItemClickListener(this);
     }
 
     private void setUpSearchView() {
@@ -117,11 +112,6 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         navigation.addTab(historyItem);
     }
 
-
-    public Toolbar getToolbar() {
-        return toolbar;
-    }
-
     @Override
     public void onNavigationItemClick(int item) {
         switch (item) {
@@ -140,7 +130,7 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         }
     }
 
-    private void updateTopColor(int color, final int topColor) {
+    private void updateTopColor(int color, int topColor) {
         final Window window = ((Activity) context).getWindow();
         // clear FLAG_TRANSLUCENT_STATUS flag:
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -148,28 +138,10 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
-        ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), currentColor, color);
-        ValueAnimator topColorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), currentTopColor, topColor);
-        colorAnimation.setDuration(350); // milliseconds
-        topColorAnimation.setDuration(350);
-        colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-
-            @Override
-            public void onAnimationUpdate(ValueAnimator animator) {
-                appbar.setBackgroundColor((int) animator.getAnimatedValue());
-            }
-        });
-        topColorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-
-            @Override
-            public void onAnimationUpdate(ValueAnimator animator) {
-                window.setStatusBarColor((int) animator.getAnimatedValue());
-            }
-        });
-        colorAnimation.setStartDelay(200);
-        topColorAnimation.setStartDelay(200);
-        colorAnimation.start();
-        topColorAnimation.start();
+        ViewGroup viewGroup = coordinator;
+        TransitionManager.beginDelayedTransition(viewGroup, new Recolor());
+        appbar.setBackgroundColor(color);
+        window.setStatusBarColor(topColor);
     }
 
     @Override
@@ -208,7 +180,6 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
 
     @Override
     public void setSupportToolbar(String title) {
-        toolbar.setTitle(title);
     }
 
     @Override
@@ -224,6 +195,24 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     @Override
     public void onStatisticsClicked() {
         mainPresenter.goStatisticsClicked();
+    }
+
+    @Override
+    public void onPageChaged(int position) {
+        switch (position) {
+            case 0:
+                navigation.selectTab(0);
+                updateTopColor(color[0], topColor[0]);
+                break;
+            case 1:
+                navigation.selectTab(1);
+                updateTopColor(color[1], topColor[1]);
+                break;
+            case 2:
+                navigation.selectTab(2);
+                updateTopColor(color[2], topColor[2]);
+                break;
+        }
     }
 
     @Override

@@ -16,8 +16,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
->
+        android:orientation="vertical">
 
         <!--This is the heading.-->
         <LinearLayout
@@ -28,472 +27,531 @@
             android:padding="@dimen/material_baseline_grid_1x"
             android:paddingTop="@dimen/material_baseline_grid_1x">
 
-            <TextView
-                style="@style/MaterialTypography.Dense.Title"
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight=".60"
-                android:paddingBottom="@dimen/material_card_title_block_large_padding_bottom"
+                android:layout_weight=".50"
+                android:orientation="vertical"
                 android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
-                android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
-                android:paddingTop="@dimen/material_baseline_grid_0.5x"
-                android:text="Overview" />
+                android:paddingStart="@dimen/material_card_title_block_padding_horizontal" >
 
-            <LinearLayout
-                android:layout_width="0dp"
+            <TextView
+                style="@style/MaterialTypography.Tall.Title"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight=".20"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:text="Overview"
+                android:textStyle="bold" />
 
-                <TextView
-                    style="@style/MaterialTypography.Dense.Subheading"
-                    android:id="@+id/overview_stat_one"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingEnd="@dimen/material_baseline_grid_1x"
-                    android:paddingStart="@dimen/material_baseline_grid_1x"
-                    android:textStyle="bold" />
-
-                <TextView
-                    style="@style/MaterialTypography.Dense.Body1"
-                    android:id="@+id/overview_stat_one_ranking"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingEnd="@dimen/material_baseline_grid_1x"
-                    android:paddingStart="@dimen/material_baseline_grid_1x" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="0dp"
+            <TextView
+                style="@style/MaterialTypography.Tall.Caption"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight=".20"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/MaterialTypography.Dense.Subheading"
-                    android:id="@+id/overview_stat_two"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingEnd="@dimen/material_baseline_grid_1x"
-                    android:paddingStart="@dimen/material_baseline_grid_1x"
-                    android:textStyle="bold" />
-
-                <TextView
-                    style="@style/MaterialTypography.Dense.Body1"
-                    android:id="@+id/overview_stat_two_ranking"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingEnd="@dimen/material_baseline_grid_1x"
-                    android:paddingStart="@dimen/material_baseline_grid_1x"/>
-            </LinearLayout>
+                android:text="Top Ranked Playlist"
+                android:textStyle="bold" />
         </LinearLayout>
 
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="@color/divider"
-            android:layout_marginStart="@dimen/material_baseline_grid_2x"
-            android:layout_marginEnd="@dimen/material_baseline_grid_2x"/>
-
-        <!--Second Header-->
-        <TextView
-            style="@style/MaterialTypography.Tall.Subheading"
-            android:id="@+id/season_one"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:layout_margin="@dimen/material_baseline_grid_1x"
-            android:padding="@dimen/material_baseline_grid_1x"
-            android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
-            android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
-            android:paddingTop="@dimen/material_baseline_grid_0.5x"
-            android:text="Unknown Season"/>
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="@dimen/material_baseline_grid_2x"
-            android:layout_marginEnd="@dimen/material_baseline_grid_2x"
-            android:background="@color/divider"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_weight=".20"
             android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="@dimen/material_baseline_grid_1x">
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight=".5"
-                android:gravity="center"
-                android:orientation="vertical">
+            <TextView
+                android:id="@+id/overview_stat_one"
+                style="@style/MaterialTypography.Dense.Subheading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/material_baseline_grid_1x"
+                android:paddingStart="@dimen/material_baseline_grid_1x"
+                android:textStyle="bold" />
 
-                <TextView
-                    style="@style/MaterialTypography.Dense.Caption"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingEnd="@dimen/material_baseline_grid_1x"
-                    android:paddingStart="@dimen/material_baseline_grid_1x"
-                    android:text="RATING"
-                    android:textStyle="bold" />
-
-                <TextView
-                    style="@style/MaterialTypography.Dense.Subheading"
-                    android:id="@+id/season_one_rating"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingEnd="@dimen/material_baseline_grid_1x"
-                    android:paddingStart="@dimen/material_baseline_grid_1x"
-                    android:textStyle="bold"
-                    android:text="- -"/>
-
-                <TextView
-                    style="@style/MaterialTypography.Regular.Body1"
-                    android:id="@+id/season_one_rating_rank"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingEnd="@dimen/material_baseline_grid_1x"
-                    android:paddingStart="@dimen/material_baseline_grid_1x"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight=".5"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/MaterialTypography.Dense.Caption"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingEnd="@dimen/material_baseline_grid_1x"
-                        android:paddingStart="@dimen/material_baseline_grid_1x"
-                        android:text="WIN %"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        style="@style/MaterialTypography.Dense.Subheading"
-                        android:id="@+id/season_one_win_rate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingEnd="@dimen/material_baseline_grid_1x"
-                        android:paddingStart="@dimen/material_baseline_grid_1x"
-                        android:textStyle="bold"
-                        android:text="- -"/>
-
-                    <TextView
-                        style="@style/MaterialTypography.Regular.Body1"
-                        android:id="@+id/season_one_win_rate_ranking"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingEnd="@dimen/material_baseline_grid_1x"
-                        android:paddingStart="@dimen/material_baseline_grid_1x" />
-                </LinearLayout>
-            </LinearLayout>
+            <TextView
+                android:id="@+id/overview_stat_one_ranking"
+                style="@style/MaterialTypography.Dense.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/material_baseline_grid_1x"
+                android:paddingStart="@dimen/material_baseline_grid_1x" />
         </LinearLayout>
 
+
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="@dimen/material_baseline_grid_1x">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight=".5"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/MaterialTypography.Dense.Caption"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingEnd="@dimen/material_baseline_grid_1x"
-                        android:paddingStart="@dimen/material_baseline_grid_1x"
-                        android:text="TOP 10 RATE"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        style="@style/MaterialTypography.Dense.Subheading"
-                        android:id="@+id/season_one_top_ten_rate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingEnd="@dimen/material_baseline_grid_1x"
-                        android:paddingStart="@dimen/material_baseline_grid_1x"
-                        android:textStyle="bold"
-                        android:text="- -"/>
-
-                    <TextView
-                        style="@style/MaterialTypography.Regular.Body1"
-                        android:id="@+id/season_one_top_ten_ranking"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingEnd="@dimen/material_baseline_grid_1x"
-                        android:paddingStart="@dimen/material_baseline_grid_1x" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight=".5"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/MaterialTypography.Dense.Caption"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingEnd="@dimen/material_baseline_grid_1x"
-                        android:paddingStart="@dimen/material_baseline_grid_1x"
-                        android:text="K/D RATIO"
-                        android:textStyle="bold"
-                        />
-
-                    <TextView
-                        style="@style/MaterialTypography.Dense.Subheading"
-                        android:id="@+id/season_one_KD_rate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingEnd="@dimen/material_baseline_grid_1x"
-                        android:paddingStart="@dimen/material_baseline_grid_1x"
-                        android:textStyle="bold"
-                        android:text="- -"/>
-
-                    <TextView
-                        style="@style/MaterialTypography.Regular.Body1"
-                        android:id="@+id/season_one_KD_ranking"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingEnd="@dimen/material_baseline_grid_1x"
-                        android:paddingStart="@dimen/material_baseline_grid_1x"/>
-                </LinearLayout>
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <!--Third Header-->
-        <TextView
-            style="@style/MaterialTypography.Tall.Subheading"
-            android:id="@+id/season_two"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:layout_margin="@dimen/material_baseline_grid_1x"
-            android:padding="@dimen/material_baseline_grid_1x"
-            android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
-            android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
-            android:paddingTop="@dimen/material_baseline_grid_0.5x"
-            android:text="Unknown Season"/>
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="@dimen/material_baseline_grid_2x"
-            android:layout_marginEnd="@dimen/material_baseline_grid_2x"
-            android:background="@color/divider"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_weight=".20"
             android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="@dimen/material_baseline_grid_1x">
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight=".5"
-                android:gravity="center"
-                android:orientation="vertical">
+            <TextView
+                android:id="@+id/overview_stat_two"
+                style="@style/MaterialTypography.Dense.Subheading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/material_baseline_grid_1x"
+                android:paddingStart="@dimen/material_baseline_grid_1x"
+                android:textStyle="bold" />
 
-                <TextView
-                    style="@style/MaterialTypography.Dense.Caption"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingEnd="@dimen/material_baseline_grid_1x"
-                    android:paddingStart="@dimen/material_baseline_grid_1x"
-                    android:text="RATING"
-                    android:textStyle="bold" />
-
-                <TextView
-                    style="@style/MaterialTypography.Dense.Subheading"
-                    android:id="@+id/season_two_rating"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingEnd="@dimen/material_baseline_grid_1x"
-                    android:paddingStart="@dimen/material_baseline_grid_1x"
-                    android:textStyle="bold"
-                    android:text="- -"/>
-
-                <TextView
-                    style="@style/MaterialTypography.Regular.Body1"
-                    android:id="@+id/season_two_ranking"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingEnd="@dimen/material_baseline_grid_1x"
-                    android:paddingStart="@dimen/material_baseline_grid_1x" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight=".5"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/MaterialTypography.Dense.Caption"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingEnd="@dimen/material_baseline_grid_1x"
-                        android:paddingStart="@dimen/material_baseline_grid_1x"
-                        android:text="WIN %"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        style="@style/MaterialTypography.Dense.Subheading"
-                        android:id="@+id/season_two_win_rate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingEnd="@dimen/material_baseline_grid_1x"
-                        android:paddingStart="@dimen/material_baseline_grid_1x"
-                        android:textStyle="bold"
-                        android:text="- -"/>
-
-                    <TextView
-                        style="@style/MaterialTypography.Regular.Body1"
-                        android:id="@+id/season_two_win_ranking"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingEnd="@dimen/material_baseline_grid_1x"
-                        android:paddingStart="@dimen/material_baseline_grid_1x" />
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="@dimen/material_baseline_grid_1x">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight=".5"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/MaterialTypography.Dense.Caption"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingEnd="@dimen/material_baseline_grid_1x"
-                        android:paddingStart="@dimen/material_baseline_grid_1x"
-                        android:text="TOP 10 RATE"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        style="@style/MaterialTypography.Dense.Subheading"
-                        android:id="@+id/season_two_top_ten_rate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingEnd="@dimen/material_baseline_grid_1x"
-                        android:paddingStart="@dimen/material_baseline_grid_1x"
-                        android:textStyle="bold"
-                        android:text="- -"/>
-
-                    <TextView
-                        style="@style/MaterialTypography.Regular.Body1"
-                        android:id="@+id/season_two_top_ten_rank"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingEnd="@dimen/material_baseline_grid_1x"
-                        android:paddingStart="@dimen/material_baseline_grid_1x" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight=".5"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/MaterialTypography.Dense.Caption"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingEnd="@dimen/material_baseline_grid_1x"
-                        android:paddingStart="@dimen/material_baseline_grid_1x"
-                        android:text="K/D RATIO"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        style="@style/MaterialTypography.Dense.Subheading"
-                        android:id="@+id/season_two_kd_rate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingEnd="@dimen/material_baseline_grid_1x"
-                        android:paddingStart="@dimen/material_baseline_grid_1x"
-                        android:textStyle="bold"
-                        android:text="- -"/>
-
-                    <TextView
-                        style="@style/MaterialTypography.Regular.Body1"
-                        android:id="@+id/season_two_kd_ranking"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingEnd="@dimen/material_baseline_grid_1x"
-                        android:paddingStart="@dimen/material_baseline_grid_1x"/>
-                </LinearLayout>
-            </LinearLayout>
-
+            <TextView
+                android:id="@+id/overview_stat_two_ranking"
+                style="@style/MaterialTypography.Dense.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/material_baseline_grid_1x"
+                android:paddingStart="@dimen/material_baseline_grid_1x" />
         </LinearLayout>
     </LinearLayout>
-</android.support.v7.widget.CardView>
+
+    <!--Second Header-->
+    <LinearLayout
+        android:id="@+id/season_one_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginEnd="@dimen/material_baseline_grid_2x"
+            android:layout_marginStart="@dimen/material_baseline_grid_2x"
+            android:background="@color/divider" />
+
+        <TextView
+            android:id="@+id/season_one_overview_match"
+            style="@style/MaterialTypography.Tall.Subheading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/material_baseline_grid_1x"
+            android:layout_marginStart="@dimen/material_baseline_grid_1x"
+            android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
+            android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
+            android:paddingTop="@dimen/material_baseline_grid_0.5x"
+            android:text="Unknown Season"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/season_one_overview_season"
+            style="@style/MaterialTypography.Tall.Caption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/material_baseline_grid_1x"
+            android:layout_marginStart="@dimen/material_baseline_grid_1x"
+            android:paddingBottom="@dimen/material_baseline_grid_1x"
+            android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
+            android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
+            android:text="Unknown Season"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginEnd="@dimen/material_baseline_grid_2x"
+            android:layout_marginStart="@dimen/material_baseline_grid_2x"
+            android:background="@color/divider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/material_baseline_grid_1x">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".5"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MaterialTypography.Dense.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/material_baseline_grid_1x"
+                    android:paddingStart="@dimen/material_baseline_grid_1x"
+                    android:text="RATING"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/season_one_rating"
+                    style="@style/MaterialTypography.Dense.Subheading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/material_baseline_grid_1x"
+                    android:paddingStart="@dimen/material_baseline_grid_1x"
+                    android:text="- -"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/season_one_rating_rank"
+                    style="@style/MaterialTypography.Regular.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/material_baseline_grid_1x"
+                    android:paddingStart="@dimen/material_baseline_grid_1x" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".5"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/MaterialTypography.Dense.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="WIN %"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/season_one_win_rate"
+                        style="@style/MaterialTypography.Dense.Subheading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="- -"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/season_one_win_rate_ranking"
+                        style="@style/MaterialTypography.Regular.Body1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/material_baseline_grid_1x">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".5"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/MaterialTypography.Dense.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="TOP 10 RATE"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/season_one_top_ten_rate"
+                        style="@style/MaterialTypography.Dense.Subheading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="- -"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/season_one_top_ten_ranking"
+                        style="@style/MaterialTypography.Regular.Body1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".5"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/MaterialTypography.Dense.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="K/D RATIO"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/season_one_KD_rate"
+                        style="@style/MaterialTypography.Dense.Subheading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="- -"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/season_one_KD_ranking"
+                        style="@style/MaterialTypography.Regular.Body1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!--Third Header-->
+    <LinearLayout
+        android:id="@+id/season_two_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginEnd="@dimen/material_baseline_grid_2x"
+            android:layout_marginStart="@dimen/material_baseline_grid_2x"
+            android:background="@color/divider" />
+
+        <TextView
+            android:id="@+id/season_two_overview_match"
+            style="@style/MaterialTypography.Tall.Subheading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/material_baseline_grid_1x"
+            android:layout_marginStart="@dimen/material_baseline_grid_1x"
+            android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
+            android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
+            android:paddingTop="@dimen/material_baseline_grid_0.5x"
+            android:text="Unknown Season"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/season_two_overview_season"
+            style="@style/MaterialTypography.Tall.Caption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/material_baseline_grid_1x"
+            android:layout_marginStart="@dimen/material_baseline_grid_1x"
+            android:paddingBottom="@dimen/material_baseline_grid_1x"
+            android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
+            android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
+            android:text="Unknown Season"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginEnd="@dimen/material_baseline_grid_2x"
+            android:layout_marginStart="@dimen/material_baseline_grid_2x"
+            android:background="@color/divider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/material_baseline_grid_1x">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".5"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MaterialTypography.Dense.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/material_baseline_grid_1x"
+                    android:paddingStart="@dimen/material_baseline_grid_1x"
+                    android:text="RATING"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/season_two_rating"
+                    style="@style/MaterialTypography.Dense.Subheading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/material_baseline_grid_1x"
+                    android:paddingStart="@dimen/material_baseline_grid_1x"
+                    android:text="- -"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/season_two_ranking"
+                    style="@style/MaterialTypography.Regular.Body1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/material_baseline_grid_1x"
+                    android:paddingStart="@dimen/material_baseline_grid_1x" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".5"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/MaterialTypography.Dense.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="WIN %"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/season_two_win_rate"
+                        style="@style/MaterialTypography.Dense.Subheading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="- -"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/season_two_win_ranking"
+                        style="@style/MaterialTypography.Regular.Body1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/material_baseline_grid_1x">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".5"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/MaterialTypography.Dense.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="TOP 10 RATE"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/season_two_top_ten_rate"
+                        style="@style/MaterialTypography.Dense.Subheading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="- -"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/season_two_top_ten_rank"
+                        style="@style/MaterialTypography.Regular.Body1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".5"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/MaterialTypography.Dense.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="K/D RATIO"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/season_two_kd_rate"
+                        style="@style/MaterialTypography.Dense.Subheading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="- -"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/season_two_kd_ranking"
+                        style="@style/MaterialTypography.Regular.Body1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout></android.support.v7.widget.CardView>

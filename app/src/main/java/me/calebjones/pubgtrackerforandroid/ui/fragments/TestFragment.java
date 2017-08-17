@@ -1,4 +1,4 @@
-package me.calebjones.pubgtrackerforandroid.home.fragments;
+package me.calebjones.pubgtrackerforandroid.ui.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -1,4 +1,4 @@
-package me.calebjones.pubgtrackerforandroid.home.adapters;
+package me.calebjones.pubgtrackerforandroid.ui.adapters;
 
 
 import android.support.v4.app.Fragment;

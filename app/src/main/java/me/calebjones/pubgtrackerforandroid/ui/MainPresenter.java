@@ -1,7 +1,6 @@
-package me.calebjones.pubgtrackerforandroid.home;
+package me.calebjones.pubgtrackerforandroid.ui;
 
 
-import android.provider.SearchRecentSuggestions;
 import android.support.annotation.NonNull;
 
 import org.greenrobot.eventbus.EventBus;

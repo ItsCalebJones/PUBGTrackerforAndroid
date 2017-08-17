@@ -1,4 +1,4 @@
-package me.calebjones.pubgtrackerforandroid.home.fragments;
+package me.calebjones.pubgtrackerforandroid.ui.home;
 
 
 import android.os.Bundle;
@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import me.calebjones.pubgtrackerforandroid.data.Config;
-import me.calebjones.pubgtrackerforandroid.home.presenters.HomePresenter;
-import me.calebjones.pubgtrackerforandroid.home.views.HomeViewImpl;
+import me.calebjones.pubgtrackerforandroid.ui.home.HomePresenter;
+import me.calebjones.pubgtrackerforandroid.ui.home.HomeViewImpl;
 import timber.log.Timber;
 
 
