@@ -48,6 +48,12 @@ dependencies {
     compile 'com.adammcneilly:actioncardview:1.0.1'
     compile 'com.pixplicity.easyprefs:library:1.9.0'
     compile 'com.andkulikov:transitionseverywhere:1.7.5'
+    compile 'com.mikepenz:iconics-core:2.8.2@aar'
+    compile 'com.mikepenz:google-material-typeface:2.2.0.3.original@aar'
+    compile('com.mikepenz:materialdrawer:5.8.1@aar') {
+        transitive = true
+    }
+    compile 'com.mikepenz:fontawesome-typeface:4.7.0.0@aar'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'

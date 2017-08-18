@@ -53,6 +53,16 @@ public class User extends RealmObject {
     @SerializedName("message")
     private String message;
 
+    private boolean defaultUser = false;
+
+    public boolean isDefaultUser() {
+        return defaultUser;
+    }
+
+    public void setDefaultUser(boolean defaultUser) {
+        this.defaultUser = defaultUser;
+    }
+
     public String getMessage() {
         return message;
     }

@@ -45,6 +45,16 @@ public interface HomeContract {
 
         void setOverviewSeasonTwo(PlayerStat playerStat);
 
+        void setOverviewSeasonOneVisible(boolean state);
+
+        void setOverviewSeasonTwoVisible(boolean state);
+
+        void setDefaultUserIcon(boolean state);
+
+        void createSnackbar(String localizedMessage);
+
+        void setRefreshing(boolean state);
+
     }
 
     interface Presenter extends BasePresenterInterfacce {
@@ -60,5 +70,9 @@ public interface HomeContract {
         void setInformationCardDismissed(boolean b);
 
         void retrieveCachedUser();
+
+        void setDefaultUserState(boolean defaultUserState);
+
+        void refreshCurrentUser();
     }
 }

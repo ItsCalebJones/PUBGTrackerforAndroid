@@ -17,20 +17,17 @@ public class MainNavigator implements MainContract.Navigator {
 
     @Override
     public void goStatistics() {
-        Toast.makeText(homeActivity, "Stats", Toast.LENGTH_SHORT).show();
         mViewPager.setCurrentItem(0);
 
     }
 
     @Override
     public void goHome() {
-        Toast.makeText(homeActivity, "Home", Toast.LENGTH_SHORT).show();
         mViewPager.setCurrentItem(1);
     }
 
     @Override
     public void goMatchHistory() {
-        Toast.makeText(homeActivity, "History", Toast.LENGTH_SHORT).show();
         mViewPager.setCurrentItem(2);
     }
 }

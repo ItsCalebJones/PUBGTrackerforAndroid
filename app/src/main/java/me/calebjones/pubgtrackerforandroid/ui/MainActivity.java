@@ -8,11 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import com.transitionseverywhere.Recolor;
 import com.transitionseverywhere.TransitionManager;
 
+import me.calebjones.pubgtrackerforandroid.common.BaseActivity;
 import me.calebjones.pubgtrackerforandroid.ui.adapters.ViewPagerAdapter;
 import me.calebjones.pubgtrackerforandroid.ui.home.HomeFragment;
 import me.calebjones.pubgtrackerforandroid.ui.fragments.TestFragment;
 
-public class MainActivity extends AppCompatActivity implements MainContract.NavigatorProvider {
+public class MainActivity extends BaseActivity implements MainContract.NavigatorProvider {
 
     private MainPresenter mainPresenter;
     private MainViewImpl mainView;

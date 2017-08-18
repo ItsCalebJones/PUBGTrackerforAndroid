@@ -6,7 +6,9 @@ import android.support.annotation.NonNull;
 import org.greenrobot.eventbus.EventBus;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 import me.calebjones.pubgtrackerforandroid.common.BasePresenter;
+import me.calebjones.pubgtrackerforandroid.data.DataManager;
 import me.calebjones.pubgtrackerforandroid.data.events.UserSelected;
 import me.calebjones.pubgtrackerforandroid.data.models.User;
 import me.calebjones.pubgtrackerforandroid.data.networking.DataClient;
@@ -17,12 +19,14 @@ import timber.log.Timber;
 
 public class MainPresenter extends BasePresenter implements MainContract.Presenter {
 
-    private final MainContract.View homeView;
+    private final MainContract.View mainView;
     private MainContract.Navigator homeNavigator;
+    private DataManager dataManager;
 
     public MainPresenter(MainContract.View view){
-        homeView = view;
-        homeView.setPresenter(this);
+        mainView = view;
+        mainView.setPresenter(this);
+        dataManager = new DataManager();
     }
 
     public void setNavigator(@NonNull MainContract.Navigator navigator) {
@@ -31,43 +35,43 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
 
     @Override
     public boolean searchQuerySubmitted(final String query) {
-        DataClient.getInstance().getProfileByName(query, new Callback<User>() {
+        dataManager.getUserByProfileName(query, new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful()){
                     User user = response.body();
                     if (user != null) {
                         if (user.getError() != null && user.getMessage() != null) {
-                            homeView.createSnackbar(user.getMessage());
+                            mainView.createSnackbar(user.getMessage());
                         } else if (user.getPlayerName() != null) {
-                            saveToRealm(user);
-                            EventBus.getDefault().post(new UserSelected(user));
+                            dataManager.getDataSaver().save(user);
+                            mainView.createSnackbarSetDefaultUser(
+                                    String.format("Set %s as default user?",
+                                    user.getPlayerName()),
+                                    user);
+                            sendUserToEventBus(user);
                         }
                     }
                 } else {
-                    homeView.createSnackbar(response.message());
+                    mainView.createSnackbar(response.message());
                     Timber.e(response.message());
                 }
-                homeView.closeSearchView();
+                mainView.closeSearchView();
             }
+
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Timber.e(t);
-                homeView.createSnackbar(t.getLocalizedMessage());
-                homeView.closeSearchView();
+                mainView.createSnackbar(t.getLocalizedMessage());
+                mainView.closeSearchView();
             }
         });
         return true;
     }
-    private void saveToRealm(final User user) {
-        getRealm().executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                realm.copyToRealmOrUpdate(user);
-            }
-        });
 
+    private void sendUserToEventBus(User user) {
+        EventBus.getDefault().post(new UserSelected(user));
     }
 
     @Override
@@ -83,6 +87,23 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
     @Override
     public void goStatisticsClicked() {
         homeNavigator.goStatistics();
+    }
+
+    @Override
+    public void setUserAsDefault(final User newDefaultUser) {
+        getRealm().executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                RealmResults<User> users = realm.where(User.class).equalTo("defaultUser", true).findAll();
+                for (User defaultUser: users){
+                    defaultUser.setDefaultUser(false);
+                    realm.copyToRealmOrUpdate(defaultUser);
+                }
+                newDefaultUser.setDefaultUser(true);
+                realm.copyToRealmOrUpdate(newDefaultUser);
+                sendUserToEventBus(newDefaultUser);
+            }
+        });
     }
 
     @Override

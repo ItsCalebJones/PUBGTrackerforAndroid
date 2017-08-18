@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import me.calebjones.pubgtrackerforandroid.common.BaseNavigator;
 import me.calebjones.pubgtrackerforandroid.common.BasePresenterInterfacce;
 import me.calebjones.pubgtrackerforandroid.common.BaseView;
+import me.calebjones.pubgtrackerforandroid.data.models.User;
 
 public interface MainContract {
 
@@ -43,6 +44,7 @@ public interface MainContract {
 
         void createSnackbar(String message);
 
+        void createSnackbarSetDefaultUser(String message, User user);
     }
 
     interface Presenter extends BasePresenterInterfacce {
@@ -55,5 +57,6 @@ public interface MainContract {
 
         void goStatisticsClicked();
 
+        void setUserAsDefault(User user);
     }
 }

@@ -6,31 +6,38 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.Collections;
 import java.util.Objects;
-import java.util.Timer;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
 import me.calebjones.pubgtrackerforandroid.common.BasePresenter;
 import me.calebjones.pubgtrackerforandroid.data.Config;
+import me.calebjones.pubgtrackerforandroid.data.DataManager;
 import me.calebjones.pubgtrackerforandroid.data.events.UserSelected;
 import me.calebjones.pubgtrackerforandroid.data.models.PlayerStat;
-import me.calebjones.pubgtrackerforandroid.data.models.Stats;
 import me.calebjones.pubgtrackerforandroid.data.models.User;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import timber.log.Timber;
 
 
 public class HomePresenter extends BasePresenter implements HomeContract.Presenter {
 
     private final HomeContract.View homeView;
+    private User currentUser;
+    private DataManager dataManager;
 
     public HomePresenter(HomeContract.View view) {
         homeView = view;
         homeView.setPresenter(this);
+        dataManager = new DataManager();
 
     }
 
     @Override
     public void applyUser(User user) {
+        currentUser = user;
         PlayerStat highestElo = null;
         PlayerStat secondElo = null;
         for (PlayerStat playerStat : user.getStats()) {
@@ -43,7 +50,9 @@ public class HomePresenter extends BasePresenter implements HomeContract.Present
                     secondElo = highestElo;
                     highestElo = playerStat;
                 } else if (secondElo == null) {
-                    secondElo = playerStat;
+                    if(playerStat.getStats().get(9).getRank() < 10000) {
+                        secondElo = playerStat;
+                    }
                 } else if (secondElo.getStats().get(9).getValueDec() < elo) {
                     secondElo = playerStat;
                 }
@@ -51,9 +60,13 @@ public class HomePresenter extends BasePresenter implements HomeContract.Present
         }
         if (highestElo != null) {
             homeView.setOverviewSeasonOne(highestElo);
+        } else {
+            homeView.setOverviewSeasonOneVisible(false);
         }
         if (secondElo != null) {
             homeView.setOverviewSeasonTwo(secondElo);
+        } else {
+            homeView.setOverviewSeasonTwoVisible(false);
         }
         homeView.setProfileAvatar(user.getAvatar());
         homeView.setProfileName(user.getPlayerName());
@@ -61,6 +74,7 @@ public class HomePresenter extends BasePresenter implements HomeContract.Present
                 highestElo.getStats().get(9).getValue(),
                 String.valueOf(highestElo.getStats().get(9).getRank()),
                 findKD(user));
+        homeView.setDefaultUserIcon(user.isDefaultUser());
     }
 
     private String findKD(User user) {
@@ -86,6 +100,7 @@ public class HomePresenter extends BasePresenter implements HomeContract.Present
     @Subscribe(threadMode = ThreadMode.MAIN)
     @Override
     public void onMessageReceived(UserSelected userSelected) {
+        homeView.setRefreshEnabled(true);
         applyUser(userSelected.response);
     }
 
@@ -111,10 +126,73 @@ public class HomePresenter extends BasePresenter implements HomeContract.Present
 
     @Override
     public void retrieveCachedUser() {
-        User user = getRealm().where(User.class).findFirst();
+        User user = getRealm().where(User.class).equalTo("defaultUser", true).findFirst();
         if (user != null) {
             applyUser(user);
+            homeView.setRefreshEnabled(true);
+        } else {
+            homeView.setRefreshEnabled(false);
         }
+    }
+
+    @Override
+    public void setDefaultUserState(boolean state) {
+        if (state) {
+            getRealm().executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    RealmResults<User> users = realm.where(User.class).equalTo("defaultUser", true).findAll();
+                    for (User defaultUser : users) {
+                        defaultUser.setDefaultUser(false);
+                        realm.copyToRealmOrUpdate(defaultUser);
+                    }
+                    currentUser.setDefaultUser(true);
+                    realm.copyToRealmOrUpdate(currentUser);
+                }
+            });
+        } else {
+            getRealm().executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    RealmResults<User> users = realm.where(User.class).equalTo("defaultUser", true).findAll();
+                    for (User defaultUser : users) {
+                        defaultUser.setDefaultUser(false);
+                        realm.copyToRealmOrUpdate(defaultUser);
+                    }
+                }
+            });
+        }
+    }
+
+    @Override
+    public void refreshCurrentUser() {
+        dataManager.getUserByProfileName(currentUser.getPlayerName(), new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.isSuccessful()){
+                    User user = response.body();
+                    if (user != null) {
+                        if (user.getError() != null && user.getMessage() != null) {
+                            homeView.createSnackbar(user.getMessage());
+                        } else if (user.getPlayerName() != null) {
+                            dataManager.getDataSaver().save(user);
+                        }
+                    }
+                } else {
+                    homeView.createSnackbar(response.message());
+                    Timber.e(response.message());
+                }
+                homeView.setRefreshing(false);
+            }
+
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Timber.e(t);
+                homeView.createSnackbar(t.getLocalizedMessage());
+                homeView.setRefreshing(false);
+            }
+        });
     }
 
     @Override

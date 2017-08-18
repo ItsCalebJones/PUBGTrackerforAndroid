@@ -27,6 +27,7 @@ import com.transitionseverywhere.TransitionManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.calebjones.pubgtrackerforandroid.R;
+import me.calebjones.pubgtrackerforandroid.data.models.User;
 
 
 public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextListener,
@@ -228,5 +229,18 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     @Override
     public void createSnackbar(String message) {
         Snackbar.make(coordinator, message, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void createSnackbarSetDefaultUser(String message, final User user) {
+        Snackbar snackbar = Snackbar.make(coordinator, message, Snackbar.LENGTH_LONG);
+
+        snackbar.setAction("Yes", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainPresenter.setUserAsDefault(user);
+            }
+        });
+        snackbar.show();
     }
 }

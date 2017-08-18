@@ -9,4 +9,7 @@
     <string name="hint">Enter Username</string>
     <string name="current_rank">Top Rank: </string>
     <string name="current_Kd">Avg. K/D:</string>
+    <string name="rank">#%1$s</string>
+    <string name="top_ranked_playlist_s">Top Ranked Playlist\'s</string>
+    <string name="overview">Overview</string>
 </resources>

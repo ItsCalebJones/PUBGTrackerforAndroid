@@ -1,14 +1,15 @@
 package me.calebjones.pubgtrackerforandroid.data.networking;
 
+import java.io.IOException;
+
+import me.calebjones.pubgtrackerforandroid.data.DataSaver;
 import me.calebjones.pubgtrackerforandroid.data.models.User;
 import me.calebjones.pubgtrackerforandroid.data.networking.interfaces.TrackerService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 
-/**
- * Created by Caleb on 8/12/2017.
- */
+
 
 public class DataClient {
 
