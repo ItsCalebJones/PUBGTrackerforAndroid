@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/match_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/material_baseline_grid_2x"
@@ -39,7 +38,7 @@
                     style="@style/MaterialTypography.Tall.Title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Last Match Overview"
+                    android:text="@string/last_match_overview"
                     android:textStyle="bold" />
 
                 <TextView
@@ -47,7 +46,7 @@
                     android:id="@+id/last_match_overview_subheading"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/top_ranked_playlist_s"
+                    android:text="@string/ranked_matches"
                     android:textStyle="bold" />
             </LinearLayout>
 

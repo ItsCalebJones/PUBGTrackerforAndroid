@@ -3,16 +3,18 @@ package me.calebjones.pubgtrackerforandroid.data.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 import io.realm.RealmObject;
 
-public class MatchHistory extends RealmObject {
+public class Match extends RealmObject {
 
     @SerializedName("Id")
     @Expose
     private int id;
     @SerializedName("Updated")
     @Expose
-    private String updated;
+    private Date updated;
     @SerializedName("UpdatedJS")
     @Expose
     private String updatedJS;
@@ -109,11 +111,11 @@ public class MatchHistory extends RealmObject {
         this.id = id;
     }
 
-    public String getUpdated() {
+    public Date getUpdated() {
         return updated;
     }
 
-    public void setUpdated(String updated) {
+    public void setUpdated(Date updated) {
         this.updated = updated;
     }
 

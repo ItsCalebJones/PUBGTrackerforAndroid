@@ -39,7 +39,7 @@
                     style="@style/MaterialTypography.Tall.Title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/overview"
+                    android:text="@string/playlist_overview"
                     android:textStyle="bold" />
 
                 <TextView

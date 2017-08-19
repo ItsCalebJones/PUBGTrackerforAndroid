@@ -63,7 +63,7 @@ public class RetrofitBuilder {
 
     private static Gson getGson(){
         return new GsonBuilder()
-                .setDateFormat("MMMM dd, yyyy HH:mm:ss zzz")
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
                 .setExclusionStrategies(new ExclusionStrategy() {
                     @Override
                     public boolean shouldSkipField(FieldAttributes f) {

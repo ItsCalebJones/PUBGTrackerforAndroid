@@ -3,6 +3,8 @@ package me.calebjones.pubgtrackerforandroid.data.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 import io.realm.RealmModel;
 import io.realm.RealmObject;
 
@@ -25,7 +27,7 @@ public class LiveTracking extends RealmObject {
     private String region;
     @SerializedName("Date")
     @Expose
-    private String date;
+    private Date date;
     @SerializedName("Delta")
     @Expose
     private float delta;
@@ -76,11 +78,11 @@ public class LiveTracking extends RealmObject {
         this.region = region;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

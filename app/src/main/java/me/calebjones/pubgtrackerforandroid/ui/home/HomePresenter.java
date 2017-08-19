@@ -9,11 +9,14 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.Objects;
 
 import io.realm.Realm;
+import io.realm.RealmList;
 import io.realm.RealmResults;
 import me.calebjones.pubgtrackerforandroid.common.BasePresenter;
 import me.calebjones.pubgtrackerforandroid.data.Config;
 import me.calebjones.pubgtrackerforandroid.data.DataManager;
+import me.calebjones.pubgtrackerforandroid.data.events.UserRefreshing;
 import me.calebjones.pubgtrackerforandroid.data.events.UserSelected;
+import me.calebjones.pubgtrackerforandroid.data.models.Match;
 import me.calebjones.pubgtrackerforandroid.data.models.PlayerStat;
 import me.calebjones.pubgtrackerforandroid.data.models.User;
 import retrofit2.Call;
@@ -38,8 +41,19 @@ public class HomePresenter extends BasePresenter implements HomeContract.Present
     @Override
     public void applyUser(User user) {
         currentUser = user;
+        configureOverviewCard(user);
+        configureMatchCard(user);
+    }
+
+    private void configureMatchCard(User user) {
+        homeView.setMatchCardVisible(true);
+        RealmList<Match> matches = user.getMatchHistory();
+        Match match = matches.get(0);
+    }
+
+    private void configureOverviewCard(User user) {
+        homeView.setOverviewCardVisible(true);
         PlayerStat highestElo = null;
-        PlayerStat secondElo = null;
         for (PlayerStat playerStat : user.getStats()) {
             if (Objects.equals(playerStat.getSeason(), user.getDefaultSeason()) &&
                     !Objects.equals(playerStat.getRegion(), "agg")) {
@@ -47,34 +61,23 @@ public class HomePresenter extends BasePresenter implements HomeContract.Present
                 if (highestElo == null) {
                     highestElo = playerStat;
                 } else if (highestElo.getStats().get(9).getValueDec() < elo) {
-                    secondElo = highestElo;
                     highestElo = playerStat;
-                } else if (secondElo == null) {
-                    if(playerStat.getStats().get(9).getRank() < 10000) {
-                        secondElo = playerStat;
-                    }
-                } else if (secondElo.getStats().get(9).getValueDec() < elo) {
-                    secondElo = playerStat;
                 }
             }
+            if (highestElo != null) {
+                homeView.setOverviewSeasonOne(highestElo);
+            } else {
+                homeView.setOverviewSeasonOneVisible(false);
+            }
         }
-        if (highestElo != null) {
-            homeView.setOverviewSeasonOne(highestElo);
-        } else {
-            homeView.setOverviewSeasonOneVisible(false);
-        }
-        if (secondElo != null) {
-            homeView.setOverviewSeasonTwo(secondElo);
-        } else {
-            homeView.setOverviewSeasonTwoVisible(false);
-        }
-        homeView.setProfileAvatar(user.getAvatar());
-        homeView.setProfileName(user.getPlayerName());
-        homeView.setCurrentRatingAndRank(
-                highestElo.getStats().get(9).getValue(),
-                String.valueOf(highestElo.getStats().get(9).getRank()),
-                findKD(user));
-        homeView.setDefaultUserIcon(user.isDefaultUser());
+
+            homeView.setProfileAvatar(user.getAvatar());
+            homeView.setProfileName(user.getPlayerName());
+            homeView.setCurrentRatingAndRank(
+                    highestElo.getStats().get(9).getValue(),
+                    String.valueOf(highestElo.getStats().get(9).getRank()),
+                    findKD(user));
+            homeView.setDefaultUserIcon(user.isDefaultUser());
     }
 
     private String findKD(User user) {
@@ -99,9 +102,15 @@ public class HomePresenter extends BasePresenter implements HomeContract.Present
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     @Override
-    public void onMessageReceived(UserSelected userSelected) {
+    public void onUserEventReceived(UserSelected userSelected) {
         homeView.setRefreshEnabled(true);
         applyUser(userSelected.response);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Override
+    public void onRefreshEventReceiver(UserRefreshing state) {
+        homeView.setRefreshing(state.refreshing);
     }
 
     @Override

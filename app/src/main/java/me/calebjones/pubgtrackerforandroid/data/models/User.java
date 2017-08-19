@@ -45,7 +45,7 @@ public class User extends RealmObject {
     private RealmList<PlayerStat> stats = null;
     @SerializedName("MatchHistory")
     @Expose
-    private RealmList<MatchHistory> matchHistory = null;
+    private RealmList<Match> matchHistory = null;
 
     @SerializedName("error")
     private String error;
@@ -167,11 +167,11 @@ public class User extends RealmObject {
         this.stats = stats;
     }
 
-    public RealmList<MatchHistory> getMatchHistory() {
+    public RealmList<Match> getMatchHistory() {
         return matchHistory;
     }
 
-    public void setMatchHistory(RealmList<MatchHistory> matchHistory) {
+    public void setMatchHistory(RealmList<Match> matchHistory) {
         this.matchHistory = matchHistory;
     }
 }

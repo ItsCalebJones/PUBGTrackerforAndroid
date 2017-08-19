@@ -35,8 +35,6 @@ public class HomeViewImpl implements HomeContract.View, SwipeRefreshLayout.OnRef
     ImageView avatar;
     @BindView(R.id.profile_name)
     TextView name;
-    @BindView(R.id.current_rating)
-    TextView rating;
     @BindView(R.id.current_rank)
     TextView rank;
     @BindView(R.id.information_card)
@@ -89,6 +87,10 @@ public class HomeViewImpl implements HomeContract.View, SwipeRefreshLayout.OnRef
     IconicsImageView defaultUserStatusIcon;
     @BindView(R.id.home_coordinator)
     CoordinatorLayout homeCoordinator;
+    @BindView(R.id.avatar_group)
+    LinearLayout avatarGroup;
+    @BindView(R.id.last_match_card)
+    CardView matchCard;
 
 
     private HomeContract.Presenter homePresenter;
@@ -127,19 +129,18 @@ public class HomeViewImpl implements HomeContract.View, SwipeRefreshLayout.OnRef
 
     @Override
     public void setProfileName(String name) {
+        TransitionManager.beginDelayedTransition(container);
+        avatarGroup.setVisibility(View.VISIBLE);
         this.name.setText(name);
     }
 
     @Override
     public void setCurrentRatingAndRank(String rating, String rank, String kd) {
         TransitionManager.beginDelayedTransition(container);
-        String stringRating = context.getString(R.string.current_rating) + " " + rating;
-        String stringRank = context.getString(R.string.current_rank) + " #" + rank;
+        String stringRank = "#" + rank;
         String stringKd = context.getString(R.string.current_Kd) + " " + kd;
-        this.rating.setText(stringRating);
         this.rank.setText(stringRank);
         this.currentKD.setText(stringKd);
-        this.rating.setVisibility(View.VISIBLE);
         this.currentKD.setVisibility(View.VISIBLE);
         this.rank.setVisibility(View.VISIBLE);
     }
@@ -154,6 +155,12 @@ public class HomeViewImpl implements HomeContract.View, SwipeRefreshLayout.OnRef
     public void setOverviewCardVisible(boolean state) {
         TransitionManager.beginDelayedTransition(container);
         overviewCard.setVisibility(state ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void setMatchCardVisible(boolean state) {
+        TransitionManager.beginDelayedTransition(container);
+        matchCard.setVisibility(state ? View.VISIBLE : View.GONE);
     }
 
     @Override

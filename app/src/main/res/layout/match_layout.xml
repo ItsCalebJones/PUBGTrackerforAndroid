@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/playlist_root"
+    android:id="@+id/match_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -25,7 +25,7 @@
         android:paddingTop="@dimen/material_baseline_grid_0.5x">
 
         <TextView
-            android:id="@+id/match_overview_match"
+            android:id="@+id/match_overview_match_title"
             style="@style/MaterialTypography.Tall.Subheading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/match_overview_season"
+            android:id="@+id/match_overview_season_playlist"
             style="@style/MaterialTypography.Tall.Caption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

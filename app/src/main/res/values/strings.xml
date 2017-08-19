@@ -8,8 +8,10 @@
     <string name="lorem_paragraph">Lorem ipsum dolor sit amet, ultricies arcu id neque, sit pretium id sed, a tristique dis felis ac. Tempus gravida natoque in, id quis dui porta sodales, vestibulum arcu vestibulum lectus ut, odio wisi itaque est. Condimentum amet ut volutpat vel, phasellus id rutrum porta, urna malesuada nibh arcu. Nulla ultrices provident turpis, sed fermentum dolore in, erat nulla enim felis cras.</string>
     <string name="hint">Enter Username</string>
     <string name="current_rank">Top Rank: </string>
-    <string name="current_Kd">Avg. K/D:</string>
+    <string name="current_Kd">K/D:</string>
     <string name="rank">#%1$s</string>
     <string name="top_ranked_playlist_s">Top Ranked Playlist\'s</string>
-    <string name="overview">Overview</string>
+    <string name="playlist_overview">Playlist - Overview</string>
+    <string name="last_match_overview">Last Match - Overview</string>
+    <string name="ranked_matches">Ranked Matches</string>
 </resources>

@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import me.calebjones.pubgtrackerforandroid.common.BaseNavigator;
 import me.calebjones.pubgtrackerforandroid.common.BasePresenterInterfacce;
 import me.calebjones.pubgtrackerforandroid.common.BaseView;
+import me.calebjones.pubgtrackerforandroid.data.events.UserRefreshing;
 import me.calebjones.pubgtrackerforandroid.data.events.UserSelected;
 import me.calebjones.pubgtrackerforandroid.data.models.PlayerStat;
 import me.calebjones.pubgtrackerforandroid.data.models.User;
@@ -41,6 +42,8 @@ public interface HomeContract {
 
         void setOverviewCardVisible(boolean state);
 
+        void setMatchCardVisible(boolean state);
+
         void setOverviewSeasonOne(PlayerStat playerStat);
 
         void setOverviewSeasonTwo(PlayerStat playerStat);
@@ -61,7 +64,9 @@ public interface HomeContract {
 
         void applyUser(User user);
 
-        void onMessageReceived(UserSelected userSelected);
+        void onUserEventReceived(UserSelected userSelected);
+
+        void onRefreshEventReceiver(UserRefreshing state);
 
         void registerEventBus();
 

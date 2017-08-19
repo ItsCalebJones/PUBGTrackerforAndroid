@@ -9,6 +9,7 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 import me.calebjones.pubgtrackerforandroid.common.BasePresenter;
 import me.calebjones.pubgtrackerforandroid.data.DataManager;
+import me.calebjones.pubgtrackerforandroid.data.events.UserRefreshing;
 import me.calebjones.pubgtrackerforandroid.data.events.UserSelected;
 import me.calebjones.pubgtrackerforandroid.data.models.User;
 import me.calebjones.pubgtrackerforandroid.data.networking.DataClient;
@@ -35,6 +36,7 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
 
     @Override
     public boolean searchQuerySubmitted(final String query) {
+        sendRefreshingState(true);
         dataManager.getUserByProfileName(query, new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
@@ -56,7 +58,7 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
                     mainView.createSnackbar(response.message());
                     Timber.e(response.message());
                 }
-                mainView.closeSearchView();
+                sendRefreshingState(false);
             }
 
 
@@ -64,10 +66,16 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
             public void onFailure(Call<User> call, Throwable t) {
                 Timber.e(t);
                 mainView.createSnackbar(t.getLocalizedMessage());
-                mainView.closeSearchView();
+
+                sendRefreshingState(false);
             }
         });
+        mainView.closeSearchView();
         return true;
+    }
+
+    private void sendRefreshingState(boolean state) {
+        EventBus.getDefault().post(new UserRefreshing(state));
     }
 
     private void sendUserToEventBus(User user) {
