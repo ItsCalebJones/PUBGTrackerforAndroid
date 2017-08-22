@@ -1,4 +1,4 @@
-package me.calebjones.pubgtrackerforandroid.ui;
+package me.calebjones.pubgtrackerforandroid.ui.main;
 
 
 import android.support.annotation.NonNull;
@@ -12,7 +12,6 @@ import me.calebjones.pubgtrackerforandroid.data.DataManager;
 import me.calebjones.pubgtrackerforandroid.data.events.UserRefreshing;
 import me.calebjones.pubgtrackerforandroid.data.events.UserSelected;
 import me.calebjones.pubgtrackerforandroid.data.models.User;
-import me.calebjones.pubgtrackerforandroid.data.networking.DataClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

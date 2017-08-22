@@ -1,4 +1,4 @@
-package me.calebjones.pubgtrackerforandroid.ui.adapters;
+package me.calebjones.pubgtrackerforandroid.ui.main.adapters;
 
 
 import android.support.v4.app.Fragment;
@@ -8,10 +8,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewPagerAdapter extends FragmentPagerAdapter {
+public class MainViewPagerAdapter extends FragmentPagerAdapter {
     private final List<Fragment> mFragmentList = new ArrayList<>();
 
-    public ViewPagerAdapter(FragmentManager manager) {
+    public MainViewPagerAdapter(FragmentManager manager) {
         super(manager);
     }
     @Override

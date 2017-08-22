@@ -21,12 +21,17 @@ import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.view.IconicsImageView;
 import com.transitionseverywhere.TransitionManager;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.calebjones.pubgtrackerforandroid.R;
 import me.calebjones.pubgtrackerforandroid.data.enums.PUBGSeason;
+import me.calebjones.pubgtrackerforandroid.data.models.Match;
 import me.calebjones.pubgtrackerforandroid.data.models.PlayerStat;
+import me.calebjones.pubgtrackerforandroid.ui.views.MatchView;
 
 
 public class HomeViewImpl implements HomeContract.View, SwipeRefreshLayout.OnRefreshListener {
@@ -91,7 +96,12 @@ public class HomeViewImpl implements HomeContract.View, SwipeRefreshLayout.OnRef
     LinearLayout avatarGroup;
     @BindView(R.id.last_match_card)
     CardView matchCard;
-
+    @BindView(R.id.last_match_overview_subheading)
+    TextView lastMatchOverviewSubheading;
+    @BindView(R.id.match_stat_one)
+    TextView matchStatOne;
+    @BindView(R.id.match_view)
+    MatchView matchView;
 
     private HomeContract.Presenter homePresenter;
     private View mRootView;
@@ -164,7 +174,13 @@ public class HomeViewImpl implements HomeContract.View, SwipeRefreshLayout.OnRef
     }
 
     @Override
-    public void setOverviewSeasonOne(PlayerStat playerStat) {
+    public void setMatchCardContent(Match match) {
+        TransitionManager.beginDelayedTransition(container);
+        matchView.setMatch(match);
+    }
+
+    @Override
+    public void setOverviewContent(PlayerStat playerStat) {
         TransitionManager.beginDelayedTransition(container);
         playlistOneRoot.setVisibility(View.VISIBLE);
         playlistOverviewSeason.setText(PUBGSeason.findByKey(playerStat.getSeason()));

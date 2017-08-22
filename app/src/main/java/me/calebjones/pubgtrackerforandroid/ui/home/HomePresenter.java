@@ -47,8 +47,7 @@ public class HomePresenter extends BasePresenter implements HomeContract.Present
 
     private void configureMatchCard(User user) {
         homeView.setMatchCardVisible(true);
-        RealmList<Match> matches = user.getMatchHistory();
-        Match match = matches.get(0);
+        homeView.setMatchCardContent(user.getMatchHistory().get(0));
     }
 
     private void configureOverviewCard(User user) {
@@ -65,7 +64,7 @@ public class HomePresenter extends BasePresenter implements HomeContract.Present
                 }
             }
             if (highestElo != null) {
-                homeView.setOverviewSeasonOne(highestElo);
+                homeView.setOverviewContent(highestElo);
             } else {
                 homeView.setOverviewSeasonOneVisible(false);
             }

@@ -103,8 +103,8 @@
         </LinearLayout>
 
         <!--Second Header-->
-        <include
-            layout="@layout/match_layout"
+        <me.calebjones.pubgtrackerforandroid.ui.views.MatchView
+            android:id="@+id/match_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

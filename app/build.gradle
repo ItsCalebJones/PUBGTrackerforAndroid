@@ -50,6 +50,8 @@ dependencies {
     compile 'com.andkulikov:transitionseverywhere:1.7.5'
     compile 'com.mikepenz:iconics-core:2.8.2@aar'
     compile 'com.mikepenz:google-material-typeface:2.2.0.3.original@aar'
+    compile 'cz.kinst.jakub:android-stateful-layout-base:2.0.5'
+    compile 'com.weiwangcn.betterspinner:library-material:1.1.0'
     compile('com.mikepenz:materialdrawer:5.8.1@aar') {
         transitive = true
     }

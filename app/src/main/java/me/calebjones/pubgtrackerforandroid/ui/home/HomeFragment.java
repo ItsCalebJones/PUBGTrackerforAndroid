@@ -9,13 +9,14 @@ import android.view.ViewGroup;
 
 import com.pixplicity.easyprefs.library.Prefs;
 
+import me.calebjones.pubgtrackerforandroid.common.BaseFragment;
 import me.calebjones.pubgtrackerforandroid.data.Config;
 import me.calebjones.pubgtrackerforandroid.ui.home.HomePresenter;
 import me.calebjones.pubgtrackerforandroid.ui.home.HomeViewImpl;
 import timber.log.Timber;
 
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends BaseFragment {
 
     private HomePresenter homePresenter;
     private HomeViewImpl homeView;

@@ -2,11 +2,13 @@ package me.calebjones.pubgtrackerforandroid.ui.home;
 
 import android.support.annotation.NonNull;
 
+import io.realm.RealmList;
 import me.calebjones.pubgtrackerforandroid.common.BaseNavigator;
 import me.calebjones.pubgtrackerforandroid.common.BasePresenterInterfacce;
 import me.calebjones.pubgtrackerforandroid.common.BaseView;
 import me.calebjones.pubgtrackerforandroid.data.events.UserRefreshing;
 import me.calebjones.pubgtrackerforandroid.data.events.UserSelected;
+import me.calebjones.pubgtrackerforandroid.data.models.Match;
 import me.calebjones.pubgtrackerforandroid.data.models.PlayerStat;
 import me.calebjones.pubgtrackerforandroid.data.models.User;
 
@@ -44,7 +46,9 @@ public interface HomeContract {
 
         void setMatchCardVisible(boolean state);
 
-        void setOverviewSeasonOne(PlayerStat playerStat);
+        void setMatchCardContent(Match match);
+
+        void setOverviewContent(PlayerStat playerStat);
 
         void setOverviewSeasonTwo(PlayerStat playerStat);
 

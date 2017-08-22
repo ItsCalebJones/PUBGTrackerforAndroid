@@ -1,7 +1,5 @@
-package me.calebjones.pubgtrackerforandroid.ui;
+package me.calebjones.pubgtrackerforandroid.ui.main;
 
-import android.animation.ArgbEvaluator;
-import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;

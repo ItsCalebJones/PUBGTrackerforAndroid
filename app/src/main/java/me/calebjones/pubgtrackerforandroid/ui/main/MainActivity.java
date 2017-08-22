@@ -1,17 +1,15 @@
-package me.calebjones.pubgtrackerforandroid.ui;
+package me.calebjones.pubgtrackerforandroid.ui.main;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-
-import com.transitionseverywhere.Recolor;
-import com.transitionseverywhere.TransitionManager;
 
 import me.calebjones.pubgtrackerforandroid.common.BaseActivity;
-import me.calebjones.pubgtrackerforandroid.ui.adapters.ViewPagerAdapter;
+import me.calebjones.pubgtrackerforandroid.ui.history.HistoryFragment;
+import me.calebjones.pubgtrackerforandroid.ui.main.adapters.MainViewPagerAdapter;
 import me.calebjones.pubgtrackerforandroid.ui.home.HomeFragment;
 import me.calebjones.pubgtrackerforandroid.ui.fragments.TestFragment;
+import me.calebjones.pubgtrackerforandroid.ui.statistics.StatsFragment;
 
 public class MainActivity extends BaseActivity implements MainContract.NavigatorProvider {
 
@@ -31,11 +29,11 @@ public class MainActivity extends BaseActivity implements MainContract.Navigator
         setupViewPager();
     }
 
-    private ViewPagerAdapter setupViewPager() {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+    private MainViewPagerAdapter setupViewPager() {
+        MainViewPagerAdapter adapter = new MainViewPagerAdapter(getSupportFragmentManager());
         HomeFragment homeFragment = new HomeFragment();
-        TestFragment historyFragment = TestFragment.newInstance("History");
-        TestFragment statFragment = TestFragment.newInstance("Stat");
+        HistoryFragment historyFragment = new HistoryFragment();
+        StatsFragment statFragment = new StatsFragment();
         adapter.addFragment(statFragment);
         adapter.addFragment(homeFragment);
         adapter.addFragment(historyFragment);

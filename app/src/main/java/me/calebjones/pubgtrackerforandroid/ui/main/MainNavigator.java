@@ -1,9 +1,8 @@
-package me.calebjones.pubgtrackerforandroid.ui;
+package me.calebjones.pubgtrackerforandroid.ui.main;
 
 
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 public class MainNavigator implements MainContract.Navigator {
 

@@ -12,6 +12,6 @@
     <string name="rank">#%1$s</string>
     <string name="top_ranked_playlist_s">Top Ranked Playlist\'s</string>
     <string name="playlist_overview">Playlist - Overview</string>
-    <string name="last_match_overview">Last Match - Overview</string>
-    <string name="ranked_matches">Ranked Matches</string>
+    <string name="last_match_overview">Match - Overview</string>
+    <string name="ranked_matches">Last Ranked Match</string>
 </resources>

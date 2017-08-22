@@ -1,4 +1,4 @@
-package me.calebjones.pubgtrackerforandroid.ui;
+package me.calebjones.pubgtrackerforandroid.ui.main;
 
 
 import android.support.annotation.NonNull;
