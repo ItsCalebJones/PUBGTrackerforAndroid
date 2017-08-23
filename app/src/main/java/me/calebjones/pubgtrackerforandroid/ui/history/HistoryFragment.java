@@ -22,8 +22,29 @@ public class HistoryFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         historyView = new HistoryViewImpl(getContext(), inflater, container);
         historyPresenter = new HistoryPresenter(historyView);
-
+        historyPresenter.retrieveCachedUser();
         return historyView.getRootView();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Timber.v("onStart");
+        historyPresenter.onStart();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        Timber.v("onResume");
+        historyPresenter.onResume();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Timber.v("onStop");
+        historyPresenter.onStop();
     }
 
 }

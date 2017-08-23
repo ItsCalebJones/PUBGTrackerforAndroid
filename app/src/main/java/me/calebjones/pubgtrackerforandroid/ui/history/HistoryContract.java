@@ -2,12 +2,17 @@ package me.calebjones.pubgtrackerforandroid.ui.history;
 
 import android.support.annotation.NonNull;
 
+import java.util.List;
+
 import cz.kinst.jakub.view.SimpleStatefulLayout;
+import io.realm.RealmList;
+import io.realm.RealmResults;
 import me.calebjones.pubgtrackerforandroid.common.BaseNavigator;
 import me.calebjones.pubgtrackerforandroid.common.BasePresenterInterfacce;
 import me.calebjones.pubgtrackerforandroid.common.BaseView;
 import me.calebjones.pubgtrackerforandroid.data.events.UserRefreshing;
 import me.calebjones.pubgtrackerforandroid.data.events.UserSelected;
+import me.calebjones.pubgtrackerforandroid.data.models.Match;
 import me.calebjones.pubgtrackerforandroid.data.models.User;
 
 
@@ -25,18 +30,38 @@ public interface HistoryContract {
 
     interface View extends BaseView<HistoryContract.Presenter> {
 
-        void setViewState(SimpleStatefulLayout.State state);
+        void setViewStateOffline();
+
+        void setViewStateEmpty();
+
+        void setViewStateProgress();
+
+        void setViewStateContent();
 
         void setRefreshEnabled(boolean state);
 
         void createSnackbar(String localizedMessage);
 
         void setRefreshing(boolean state);
+
+        void setAdapterMatches(RealmResults<Match> matches);
+
+        int getRegionFilter();
+
+        int getSeasonFilter();
+
+        int getModeFilter();
+
+        String getSeason(int position);
+
+        String getRegion(int position);
+
+        String getMode(int position);
+
+        void resetFilters();
     }
 
     interface Presenter extends BasePresenterInterfacce {
-
-        void applyUser(User user);
 
         void onUserEventReceived(UserSelected userSelected);
 
@@ -50,6 +75,10 @@ public interface HistoryContract {
 
         void refreshCurrentUser();
 
-        void retrieveMatchHistoryFiltered();
+        RealmResults<Match> retrieveMatchHistory(int pubgTrackerId);
+
+        void sortSubmitClicked();
+
+        void resetClicked();
     }
 }

@@ -53,6 +53,8 @@ dependencies {
     compile "com.mikepenz:iconics-views:2.9.2@aar"
     compile 'cz.kinst.jakub:android-stateful-layout-simple:2.0.5'
     compile 'com.weiwangcn.betterspinner:library-material:1.1.0'
+    compile 'com.yqritc:recyclerview-flexibledivider:1.4.0'
+    compile 'io.realm:android-adapters:2.1.0'
     compile('com.mikepenz:materialdrawer:5.8.1@aar') {
         transitive = true
     }

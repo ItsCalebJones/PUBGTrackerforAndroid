@@ -3,14 +3,9 @@
     android:id="@+id/match_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingTop="@dimen/material_card_title_block_padding_horizontal"
+    android:paddingBottom="@dimen/material_card_title_block_padding_horizontal"
     android:orientation="vertical">
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_marginEnd="@dimen/material_baseline_grid_2x"
-        android:layout_marginStart="@dimen/material_baseline_grid_2x"
-        android:background="@color/divider" />
 
     <LinearLayout
         style="@android:style/Widget.Material.Light.Button.Borderless"

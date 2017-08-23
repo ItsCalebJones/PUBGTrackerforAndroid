@@ -2,9 +2,9 @@ package me.calebjones.pubgtrackerforandroid.data.enums;
 
 public enum PUBGRegion {
     AAG("All"),
-    NA("North America"),
-    AS("Asia"),
-    EU("Europe");
+    NA("[NA] North America"),
+    AS("[AS] Asia"),
+    EU("[EU] Europe");
 
 
     PUBGRegion(String modeName) {

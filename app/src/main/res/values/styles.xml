@@ -10,4 +10,14 @@
         <item name="search_hint" format="string">Enter Username</item>
     </style>
 
+    <style name="HistoryButtonPrimary" parent="AppTheme">
+        <item name="colorButtonNormal">@color/colorPrimary</item>
+        <item name="android:textColor">@color/material_color_white</item>
+    </style>
+
+    <style name="HistoryButtonSecondary" parent="AppTheme">
+        <item name="android:colorButtonNormal">@color/colorAccentAlt</item>
+        <item name="android:textColor">@color/material_color_white</item>
+    </style>
+
 </resources>

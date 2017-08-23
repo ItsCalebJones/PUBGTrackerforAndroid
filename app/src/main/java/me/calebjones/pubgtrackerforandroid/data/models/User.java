@@ -12,7 +12,6 @@ public class User extends RealmObject {
     @SerializedName("platformId")
     @Expose
     private int platformId;
-    @PrimaryKey
     @SerializedName("AccountId")
     @Expose
     private String accountId;
@@ -37,6 +36,7 @@ public class User extends RealmObject {
     @SerializedName("PlayerName")
     @Expose
     private String playerName;
+    @PrimaryKey
     @SerializedName("PubgTrackerId")
     @Expose
     private int pubgTrackerId;

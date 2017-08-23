@@ -6,6 +6,8 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +19,7 @@ import android.widget.Spinner;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.transitionseverywhere.TransitionManager;
+import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,10 +28,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cz.kinst.jakub.view.SimpleStatefulLayout;
+import io.realm.RealmResults;
 import me.calebjones.pubgtrackerforandroid.R;
 import me.calebjones.pubgtrackerforandroid.data.enums.PUBGMode;
 import me.calebjones.pubgtrackerforandroid.data.enums.PUBGRegion;
 import me.calebjones.pubgtrackerforandroid.data.enums.PUBGSeason;
+import me.calebjones.pubgtrackerforandroid.data.models.Match;
 
 
 public class HistoryViewImpl implements HistoryContract.View {
@@ -51,6 +56,9 @@ public class HistoryViewImpl implements HistoryContract.View {
     CoordinatorLayout container;
     @BindView(R.id.history_sort_submit)
     AppCompatButton historySortSubmit;
+    @BindView(R.id.history_sort_reset)
+    AppCompatButton historySortReset;
+
     private HistoryContract.Presenter historyPresenter;
     private View mRootView;
     private Context context;
@@ -58,6 +66,7 @@ public class HistoryViewImpl implements HistoryContract.View {
     private ArrayAdapter<String> seasonAdapter;
     private ArrayAdapter<String> regionAdapter;
     private ArrayAdapter<String> modeAdapter;
+    private HistoryRecyclerAdapter historyAdapter;
 
     public HistoryViewImpl(Context context, LayoutInflater inflater, ViewGroup container) {
         this.context = context;
@@ -69,6 +78,18 @@ public class HistoryViewImpl implements HistoryContract.View {
                 .sizeDp(64));
 
         setUpSpinners();
+        setUpRecyclerView();
+    }
+
+    private void setUpRecyclerView() {
+        historyAdapter = new HistoryRecyclerAdapter();
+        historyRecyclerView.setAdapter(historyAdapter);
+        historyRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+        historyRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        historyRecyclerView.addItemDecoration(
+                new HorizontalDividerItemDecoration
+                        .Builder(context)
+                        .build());
     }
 
     private void setUpSpinners() {
@@ -112,6 +133,37 @@ public class HistoryViewImpl implements HistoryContract.View {
         regionPicker.setAdapter(regionAdapter);
     }
 
+    @Override
+    public String getSeason(int position) {
+        if (seasonAdapter.getCount() < position) {
+            return null;
+        }
+        return seasonAdapter.getItem(position);
+    }
+
+    @Override
+    public String getRegion(int position) {
+        if (regionAdapter.getCount() < position) {
+            return null;
+        }
+        return regionAdapter.getItem(position);
+    }
+
+    @Override
+    public String getMode(int position) {
+        if (modeAdapter.getCount() < position) {
+            return null;
+        }
+        return modeAdapter.getItem(position);
+    }
+
+    @Override
+    public void resetFilters() {
+        modePicker.setSelection(0);
+        seasonPicker.setSelection(0);
+        regionPicker.setSelection(0);
+    }
+
 
     @Override
     public View getRootView() {
@@ -128,23 +180,8 @@ public class HistoryViewImpl implements HistoryContract.View {
         historyPresenter = presenter;
     }
 
-    @OnClick(R.id.sort_fab)
-    public void onFabViewClicked() {
-        TransitionManager.beginDelayedTransition(container);
-        sortViewVisible = !sortViewVisible;
-        sortingView.setVisibility(sortViewVisible ? View.VISIBLE : View.GONE);
-        checkFabIcon();
-    }
-
-    @OnClick(R.id.history_sort_submit)
-    public void onSortSubmitClicked(){
-        sortViewVisible = !sortViewVisible;
-        sortingView.setVisibility(sortViewVisible ? View.VISIBLE : View.GONE);
-        checkFabIcon();
-    }
-
     private void checkFabIcon() {
-        if (sortViewVisible){
+        if (sortViewVisible) {
             sortFab.setImageDrawable(new IconicsDrawable(context)
                     .icon(GoogleMaterial.Icon.gmd_close)
                     .color(ContextCompat.getColor(context, R.color.material_color_white)));
@@ -156,22 +193,84 @@ public class HistoryViewImpl implements HistoryContract.View {
     }
 
     @Override
-    public void setViewState(SimpleStatefulLayout.State state) {
-        statefulView.setSt
+    public void setViewStateOffline() {
+        statefulView.setState(SimpleStatefulLayout.State.OFFLINE);
     }
 
+    @Override
+    public void setViewStateEmpty() {
+        statefulView.setState(SimpleStatefulLayout.State.EMPTY);
+    }
+
+    @Override
+    public void setViewStateProgress() {
+        statefulView.setState(SimpleStatefulLayout.State.PROGRESS);
+    }
+
+    @Override
+    public void setViewStateContent() {
+        statefulView.setState(SimpleStatefulLayout.State.CONTENT);
+    }
+
+    //TODO
     @Override
     public void setRefreshEnabled(boolean state) {
 
     }
 
+    //TODO
     @Override
     public void createSnackbar(String localizedMessage) {
 
     }
 
+    //TODO
     @Override
     public void setRefreshing(boolean state) {
 
+    }
+
+    @Override
+    public void setAdapterMatches(RealmResults<Match> matches) {
+        historyAdapter.setMatches(matches);
+    }
+
+    @Override
+    public int getRegionFilter() {
+        return regionPicker.getSelectedItemPosition();
+    }
+
+    @Override
+    public int getSeasonFilter() {
+        return seasonPicker.getSelectedItemPosition();
+    }
+
+    @Override
+    public int getModeFilter() {
+        return modePicker.getSelectedItemPosition();
+    }
+
+    @OnClick(R.id.sort_fab)
+    public void onFabViewClicked() {
+        checkSort();
+    }
+
+    @OnClick(R.id.history_sort_submit)
+    public void onSortSubmitClicked() {
+        checkSort();
+        historyPresenter.sortSubmitClicked();
+    }
+
+    @OnClick(R.id.history_sort_reset)
+    public void onResetClicked() {
+        checkSort();
+        historyPresenter.resetClicked();
+    }
+
+    private void checkSort(){
+        TransitionManager.beginDelayedTransition(container);
+        sortViewVisible = !sortViewVisible;
+        sortingView.setVisibility(sortViewVisible ? View.VISIBLE : View.GONE);
+        checkFabIcon();
     }
 }

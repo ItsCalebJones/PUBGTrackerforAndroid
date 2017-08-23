@@ -6,9 +6,13 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 
 import io.realm.RealmObject;
+import io.realm.RealmResults;
+import io.realm.annotations.LinkingObjects;
+import io.realm.annotations.PrimaryKey;
 
 public class Match extends RealmObject {
 
+    @PrimaryKey
     @SerializedName("Id")
     @Expose
     private int id;
@@ -102,6 +106,8 @@ public class Match extends RealmObject {
     @SerializedName("MoveDistance")
     @Expose
     private float moveDistance;
+    @LinkingObjects("matchHistory") // <-- !
+    private final RealmResults<User> users = null; // <-- !
 
     public int getId() {
         return id;
