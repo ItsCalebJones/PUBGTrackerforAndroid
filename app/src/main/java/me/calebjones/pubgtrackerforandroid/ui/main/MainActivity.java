@@ -1,8 +1,11 @@
 package me.calebjones.pubgtrackerforandroid.ui.main;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
+
+import com.mikepenz.iconics.context.IconicsContextWrapper;
 
 import me.calebjones.pubgtrackerforandroid.common.BaseActivity;
 import me.calebjones.pubgtrackerforandroid.ui.history.HistoryFragment;
@@ -28,6 +31,7 @@ public class MainActivity extends BaseActivity implements MainContract.Navigator
         mainView.navigation.selectTab(1);
         setupViewPager();
     }
+    
 
     private MainViewPagerAdapter setupViewPager() {
         MainViewPagerAdapter adapter = new MainViewPagerAdapter(getSupportFragmentManager());

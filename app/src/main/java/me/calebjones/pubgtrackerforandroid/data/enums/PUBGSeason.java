@@ -6,6 +6,7 @@ import java.util.Map;
 
 
 public enum PUBGSeason {
+    ALL("all", "All"),
     PRE1_2017("2017-pre1", "Early Access Season #1"),
     PRE2_2017("2017-pre2", "Early Access Season #2"),
     PRE3_2017("2017-pre3", "Early Access Season #3");

@@ -34,7 +34,7 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
 
     @BindView(R.id.coordinator)
     CoordinatorLayout coordinator;
-    @BindView(R.id.navigation)
+    @BindView(R.id.navigation_view)
     BottomNavigationView navigation;
     @BindView(R.id.searchView)
     SearchView searchView;

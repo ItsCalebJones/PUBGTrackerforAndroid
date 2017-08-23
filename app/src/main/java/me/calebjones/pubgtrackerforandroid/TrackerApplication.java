@@ -2,8 +2,10 @@ package me.calebjones.pubgtrackerforandroid;
 
 import android.app.Application;
 import android.content.ContextWrapper;
+import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v7.app.AppCompatDelegate;
 
+import com.mikepenz.iconics.context.IconicsLayoutInflater2;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import io.realm.Realm;

@@ -161,9 +161,6 @@
                     android:layout_margin="@dimen/material_card_edge_margin"
                     android:visibility="gone" />
 
-                <android.support.v4.widget.Space
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/material_baseline_grid_20x" />
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
