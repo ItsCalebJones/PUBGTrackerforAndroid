@@ -64,7 +64,7 @@ public class MatchView extends LinearLayout {
         if (match.getRatingChange() > 0) {
             matchRatingText = matchRatingText + " (+" + matchRatingChangeText + ")";
         } else {
-            matchRatingText = matchRatingText + " (-" + matchRatingChangeText + ")";
+            matchRatingText = matchRatingText + " (" + matchRatingChangeText + ")";
         }
         String matchKillsText = String.valueOf(match.getKills());
         String matchDamageText = String.valueOf(match.getDamage());

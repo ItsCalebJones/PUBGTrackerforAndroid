@@ -11,6 +11,7 @@ import java.util.Timer;
 import io.realm.RealmList;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
+import io.realm.Sort;
 import me.calebjones.pubgtrackerforandroid.common.BasePresenter;
 import me.calebjones.pubgtrackerforandroid.data.DataManager;
 import me.calebjones.pubgtrackerforandroid.data.events.UserRefreshing;
@@ -124,16 +125,7 @@ public class HistoryPresenter extends BasePresenter implements HistoryContract.P
             matchRealmQuery.contains("matchDisplay", mode);
         }
 
-        RealmResults<Match> matches = matchRealmQuery.findAll();
-
-        for (Match match: matches){
-            Timber.v("%s - %s - %s",
-                    match.getMatchDisplay(),
-                    match.getRegionDisplay(),
-                    match.getSeasonDisplay());
-        }
-
-        return matchRealmQuery.findAll();
+        return matchRealmQuery.findAllSorted("updated", Sort.DESCENDING);
 
     }
 
