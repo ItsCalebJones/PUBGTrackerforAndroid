@@ -7,6 +7,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,8 +51,6 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     private int[] image;
     public int[] color;
     public int[] topColor;
-    private int currentColor;
-    private int currentTopColor;
 
     public MainViewImpl(Context context, ViewGroup container) {
         this.context = context;
@@ -61,6 +60,8 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         setUpSearchView();
         setupNavigationView();
         navigation.setOnBottomNavigationItemClickListener(this);
+        ViewCompat.setElevation(appbar, 0);
+        appbar.setElevation(0);
     }
 
     private void setUpSearchView() {
@@ -87,9 +88,6 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
                 ContextCompat.getColor(context, R.color.colorPrimaryDark),
                 ContextCompat.getColor(context, R.color.material_color_blue_700)
         };
-
-        currentColor = color[1];
-        currentTopColor = topColor[1];
     }
 
     private void setupNavigationView() {

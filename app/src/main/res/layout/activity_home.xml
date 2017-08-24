@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/material_baseline_grid_1x"
+            app:elevation="0dp"
             android:background="?attr/colorPrimary">
 
             <com.lapism.searchview.SearchView
