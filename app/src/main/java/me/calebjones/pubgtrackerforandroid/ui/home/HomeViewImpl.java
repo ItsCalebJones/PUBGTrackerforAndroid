@@ -176,7 +176,8 @@ public class HomeViewImpl implements HomeContract.View, SwipeRefreshLayout.OnRef
     @Override
     public void setMatchCardContent(Match match) {
         TransitionManager.beginDelayedTransition(container);
-        matchView.setMatch(match);
+        matchView.setMatch(match, new SimpleDateFormat("HH:mm zzz - EEEE, MMMM dd, yyyy ",
+                Locale.US));
     }
 
     @Override

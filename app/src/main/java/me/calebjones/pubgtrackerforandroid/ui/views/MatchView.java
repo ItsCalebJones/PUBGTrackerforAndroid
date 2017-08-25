@@ -14,6 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.calebjones.pubgtrackerforandroid.R;
 import me.calebjones.pubgtrackerforandroid.data.models.Match;
+import timber.log.Timber;
 
 
 public class MatchView extends LinearLayout {
@@ -39,28 +40,35 @@ public class MatchView extends LinearLayout {
 
     public MatchView(Context context) {
         super(context);
-        init();
+        init(context);
     }
 
     public MatchView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(context);
     }
 
     public MatchView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+        init(context);
     }
 
-    private void init() {
-        inflate(getContext(), R.layout.match_layout, this);
+    private void init(Context context) {
+        Timber.v("init - Binding and Inflating views.");
+        inflate(context, R.layout.match_layout, this);
+        Timber.v("init - View Inflated");
         ButterKnife.bind(this);
+        Timber.v("init - Binding Completed.");
     }
 
-    public void setMatch(Match match){
+    public void setMatch(Match match, SimpleDateFormat simpleDateFormat){
+        Timber.v("setMatch - Received Match ID: %s", match.getId());
         setMatchResult(match);
+
+        Timber.v("setMatch - Getting data from Match.");
         String matchRatingText = String.valueOf((int) match.getRating());
         String matchRatingChangeText = String.valueOf((int) match.getRatingChange());
+
         if (match.getRatingChange() > 0) {
             matchRatingText = matchRatingText + " (+" + matchRatingChangeText + ")";
         } else {
@@ -71,10 +79,12 @@ public class MatchView extends LinearLayout {
         String matchDistanceText = String.valueOf((int) match.getMoveDistance()) + "km";
         String matchSurvivedText = String.valueOf((int) match.getTimeSurvived()) + " sec";
         String matchOverviewMatchTitleText = match.getRegionDisplay() + " - " + match.getMatchDisplay();
-        String matchOverviewDateText = new SimpleDateFormat(" HH:mm zzz | EEEE, MMMM dd, yyyy ",
-                Locale.US).format(match.getUpdated());
+        Timber.v("setMatch - Getting Date from Match.");
+        String matchOverviewDateText = simpleDateFormat.format(match.getUpdated());
+        Timber.v("setMatch - Getting Date from Match - Complete.");
 
 
+        Timber.v("setMatch - Setting Views with data.");
         matchRating.setText(matchRatingText);
         matchKills.setText(matchKillsText);
         matchDamage.setText(matchDamageText);
@@ -85,11 +95,15 @@ public class MatchView extends LinearLayout {
     }
 
     private void setMatchResult(Match match) {
+        Timber.v("setMatchResult - Checking result.");
         if (match.getWins() == 1) {
+            Timber.v("setMatchResult - Returning Win.");
             matchResult.setText("Win");
         } else if (match.getTop10() == 1) {
+            Timber.v("setMatchResult - Returning Top Ten.");
             matchResult.setText("Top Ten");
         } else {
+            Timber.v("setMatchResult - Returning Died.");
             matchResult.setText("Died");
         }
     }

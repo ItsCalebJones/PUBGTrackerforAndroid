@@ -14,7 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+
+import com.lapism.searchview.SearchAdapter;
 import com.lapism.searchview.SearchHistoryTable;
+import com.lapism.searchview.SearchItem;
 import com.lapism.searchview.SearchView;
 
 import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationItem;
@@ -23,10 +26,13 @@ import com.luseen.luseenbottomnavigation.BottomNavigation.OnBottomNavigationItem
 import com.transitionseverywhere.Recolor;
 import com.transitionseverywhere.TransitionManager;
 
+import java.util.Timer;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.calebjones.pubgtrackerforandroid.R;
 import me.calebjones.pubgtrackerforandroid.data.models.User;
+import timber.log.Timber;
 
 
 public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextListener,
@@ -66,9 +72,19 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
 
     private void setUpSearchView() {
         historyDatabase = new SearchHistoryTable(context);
+        historyDatabase.setHistorySize(5);
         searchView.setOnQueryTextListener(this);
         searchView.setOnMenuClickListener(this);
         searchView.setHint(context.getResources().getString(R.string.hint));
+        final SearchAdapter searchAdapter = new SearchAdapter(context, historyDatabase.getAllItems(1));
+        searchAdapter.addOnItemClickListener(new SearchAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                SearchItem item = searchAdapter.getSuggestionsList().get(position);
+                onQueryTextSubmit(String.valueOf(item.get_text()));
+            }
+        });
+        searchView.setAdapter(searchAdapter);
     }
 
     private void setUpColors() {
@@ -107,6 +123,7 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         navigation.addTab(statsItem);
         navigation.addTab(homeItem);
         navigation.addTab(historyItem);
+        navigation.disableViewPagerSlide();
     }
 
     @Override
@@ -148,6 +165,7 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
 
     @Override
     public boolean onQueryTextSubmit(String string) {
+        historyDatabase.addItem(new SearchItem(string), 1);
         mainPresenter.searchQuerySubmitted(string);
         searchView.close(true);
         return true;

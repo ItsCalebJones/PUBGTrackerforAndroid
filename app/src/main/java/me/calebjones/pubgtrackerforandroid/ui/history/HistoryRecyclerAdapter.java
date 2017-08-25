@@ -5,7 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
+import java.util.Timer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -13,11 +16,13 @@ import io.realm.RealmResults;
 import me.calebjones.pubgtrackerforandroid.R;
 import me.calebjones.pubgtrackerforandroid.data.models.Match;
 import me.calebjones.pubgtrackerforandroid.ui.views.MatchView;
+import timber.log.Timber;
 
 
 public class HistoryRecyclerAdapter extends RecyclerView.Adapter<HistoryRecyclerAdapter.HistoryViewHolder> {
 
     private RealmResults<Match> matches;
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm zzz - EEEE, MMMM dd, yyyy ", Locale.US);
 
     public void setMatches(RealmResults<Match> newMatches) {
         if (newMatches == null || newMatches.size() == 0) {
@@ -29,15 +34,18 @@ public class HistoryRecyclerAdapter extends RecyclerView.Adapter<HistoryRecycler
 
     @Override
     public HistoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Timber.v("onCreateViewHolder - Inflating view...");
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.match_view_adapter, parent, false);
-
+        Timber.v("onCreateViewHolder - View Inflated...");
         return new HistoryViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(HistoryViewHolder holder, int position) {
-        holder.matchView.setMatch(matches.get(position));
+        Match match = matches.get(position);
+        Timber.v("onBindViewHolder - Binding view %s with %s", position, match.getMatch());
+        holder.matchView.setMatch(match, simpleDateFormat);
     }
 
     @Override

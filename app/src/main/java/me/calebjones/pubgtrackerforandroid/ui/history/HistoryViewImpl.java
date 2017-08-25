@@ -86,6 +86,7 @@ public class HistoryViewImpl implements HistoryContract.View {
         historyRecyclerView.setAdapter(historyAdapter);
         historyRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         historyRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        historyRecyclerView.setNestedScrollingEnabled(false);
         historyRecyclerView.addItemDecoration(
                 new HorizontalDividerItemDecoration
                         .Builder(context)

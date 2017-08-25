@@ -22,6 +22,10 @@ public class DataSaver {
         realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
+                User cachedUser = realm.where(User.class).equalTo("pubgTrackerId", user.getPubgTrackerId()).findFirst();
+                if (cachedUser != null && cachedUser.isDefaultUser()){
+                    user.setDefaultUser(true);
+                }
                 realm.copyToRealmOrUpdate(user);
             }
         });
