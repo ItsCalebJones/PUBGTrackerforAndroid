@@ -76,7 +76,7 @@ public class MatchView extends LinearLayout {
         }
         String matchKillsText = String.valueOf(match.getKills());
         String matchDamageText = String.valueOf(match.getDamage());
-        String matchDistanceText = String.valueOf((int) match.getMoveDistance()) + "km";
+        String matchDistanceText = String.valueOf((int) match.getMoveDistance()) + "m";
         String matchSurvivedText = String.valueOf((int) match.getTimeSurvived()) + " sec";
         String matchOverviewMatchTitleText = match.getRegionDisplay() + " - " + match.getMatchDisplay();
         Timber.v("setMatch - Getting Date from Match.");

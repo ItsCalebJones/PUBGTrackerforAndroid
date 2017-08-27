@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,7 +37,7 @@ import me.calebjones.pubgtrackerforandroid.data.enums.PUBGSeason;
 import me.calebjones.pubgtrackerforandroid.data.models.Match;
 
 
-public class HistoryViewImpl implements HistoryContract.View {
+public class HistoryViewImpl implements HistoryContract.View, SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.history_recycler_view)
     RecyclerView historyRecyclerView;
@@ -58,6 +59,8 @@ public class HistoryViewImpl implements HistoryContract.View {
     AppCompatButton historySortSubmit;
     @BindView(R.id.history_sort_reset)
     AppCompatButton historySortReset;
+    @BindView(R.id.refresh)
+    SwipeRefreshLayout refreshView;
 
     private HistoryContract.Presenter historyPresenter;
     private View mRootView;
@@ -79,6 +82,7 @@ public class HistoryViewImpl implements HistoryContract.View {
 
         setUpSpinners();
         setUpRecyclerView();
+        refreshView.setOnRefreshListener(this);
     }
 
     private void setUpRecyclerView() {
@@ -216,19 +220,19 @@ public class HistoryViewImpl implements HistoryContract.View {
     //TODO
     @Override
     public void setRefreshEnabled(boolean state) {
-
+        refreshView.setEnabled(state);
     }
 
     //TODO
     @Override
-    public void createSnackbar(String localizedMessage) {
+    public void createSnackbar(String message) {
 
     }
 
     //TODO
     @Override
     public void setRefreshing(boolean state) {
-
+        refreshView.setRefreshing(state);
     }
 
     @Override
@@ -268,10 +272,15 @@ public class HistoryViewImpl implements HistoryContract.View {
         historyPresenter.resetClicked();
     }
 
-    private void checkSort(){
+    private void checkSort() {
         TransitionManager.beginDelayedTransition(container);
         sortViewVisible = !sortViewVisible;
         sortingView.setVisibility(sortViewVisible ? View.VISIBLE : View.GONE);
         checkFabIcon();
+    }
+
+    @Override
+    public void onRefresh() {
+        historyPresenter.refreshCurrentUser();
     }
 }

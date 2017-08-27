@@ -85,6 +85,12 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
             }
         });
         searchView.setAdapter(searchAdapter);
+        searchView.setOnMenuClickListener(new SearchView.OnMenuClickListener() {
+            @Override
+            public void onMenuClick() {
+                
+            }
+        });
     }
 
     private void setUpColors() {

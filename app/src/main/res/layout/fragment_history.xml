@@ -6,140 +6,135 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/refresh"
+
+    <LinearLayout
+        android:id="@+id/root"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-
-        <LinearLayout
-            android:id="@+id/root"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <FrameLayout
+            <cz.kinst.jakub.view.SimpleStatefulLayout
+                android:id="@+id/stateful_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                app:emptyLayout="@layout/empty_layout"
+                app:state="empty"
+                app:stateTextAppearance="@style/TextAppearance.AppCompat">
 
-                <cz.kinst.jakub.view.SimpleStatefulLayout
-                    android:id="@+id/stateful_view"
+                <android.support.v4.widget.SwipeRefreshLayout
+                    android:id="@+id/refresh"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:emptyLayout="@layout/empty_layout"
-                    app:state="empty"
-                    app:stateTextAppearance="@style/TextAppearance.AppCompat">
+                    android:layout_height="match_parent">
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/history_recycler_view"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
+
                     </android.support.v7.widget.RecyclerView>
+                </android.support.v4.widget.SwipeRefreshLayout>
+            </cz.kinst.jakub.view.SimpleStatefulLayout>
 
-                </cz.kinst.jakub.view.SimpleStatefulLayout>
 
+            <LinearLayout
+                android:id="@+id/sorting_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/material_color_blue_500"
+                android:orientation="vertical"
+                android:visibility="invisible">
 
-                <LinearLayout
-                    android:id="@+id/sorting_view"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/material_baseline_grid_2x"
+                    android:layout_marginStart="@dimen/material_baseline_grid_2x"
+                    android:layout_marginTop="@dimen/material_baseline_grid_1x"
+                    android:text="Season"
+                    android:textStyle="bold" />
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/season_picker"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/material_color_blue_500"
-                    android:orientation="vertical"
-                    android:visibility="invisible">
+                    android:layout_marginBottom="@dimen/material_baseline_grid_1x"
+                    android:layout_marginEnd="@dimen/material_baseline_grid_2x"
+                    android:layout_marginStart="@dimen/material_baseline_grid_2x"
+                    android:hint="Select a Season" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="@dimen/material_baseline_grid_2x"
-                        android:layout_marginStart="@dimen/material_baseline_grid_2x"
-                        android:layout_marginTop="@dimen/material_baseline_grid_1x"
-                        android:text="Season"
-                        android:textStyle="bold" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/material_baseline_grid_2x"
+                    android:layout_marginStart="@dimen/material_baseline_grid_2x"
+                    android:layout_marginTop="@dimen/material_baseline_grid_1x"
+                    android:text="Mode"
+                    android:textStyle="bold" />
 
-                    <android.support.v7.widget.AppCompatSpinner
-                        android:id="@+id/season_picker"
-                        android:layout_width="match_parent"
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/mode_picker"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/material_baseline_grid_1x"
+                    android:layout_marginEnd="@dimen/material_baseline_grid_2x"
+                    android:layout_marginStart="@dimen/material_baseline_grid_2x"
+                    android:hint="Select a Mode" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/material_baseline_grid_2x"
+                    android:layout_marginStart="@dimen/material_baseline_grid_2x"
+                    android:layout_marginTop="@dimen/material_baseline_grid_1x"
+                    android:text="Region"
+                    android:textStyle="bold" />
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/region_picker"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/material_baseline_grid_1x"
+                    android:layout_marginEnd="@dimen/material_baseline_grid_2x"
+                    android:layout_marginStart="@dimen/material_baseline_grid_2x"
+                    android:hint="Select a Region" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.AppCompatButton
+                        android:id="@+id/history_sort_reset"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/material_baseline_grid_1x"
                         android:layout_marginEnd="@dimen/material_baseline_grid_2x"
                         android:layout_marginStart="@dimen/material_baseline_grid_2x"
-                        android:hint="Select a Season" />
+                        android:layout_weight=".5"
+                        android:text="Reset"
+                        app:theme="@style/HistoryButtonPrimary" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="@dimen/material_baseline_grid_2x"
-                        android:layout_marginStart="@dimen/material_baseline_grid_2x"
-                        android:layout_marginTop="@dimen/material_baseline_grid_1x"
-                        android:text="Mode"
-                        android:textStyle="bold" />
-
-                    <android.support.v7.widget.AppCompatSpinner
-                        android:id="@+id/mode_picker"
-                        android:layout_width="match_parent"
+                    <android.support.v7.widget.AppCompatButton
+                        android:id="@+id/history_sort_submit"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/material_baseline_grid_1x"
                         android:layout_marginEnd="@dimen/material_baseline_grid_2x"
                         android:layout_marginStart="@dimen/material_baseline_grid_2x"
-                        android:hint="Select a Mode" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="@dimen/material_baseline_grid_2x"
-                        android:layout_marginStart="@dimen/material_baseline_grid_2x"
-                        android:layout_marginTop="@dimen/material_baseline_grid_1x"
-                        android:text="Region"
-                        android:textStyle="bold" />
-
-                    <android.support.v7.widget.AppCompatSpinner
-                        android:id="@+id/region_picker"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/material_baseline_grid_1x"
-                        android:layout_marginEnd="@dimen/material_baseline_grid_2x"
-                        android:layout_marginStart="@dimen/material_baseline_grid_2x"
-                        android:hint="Select a Region" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <android.support.v7.widget.AppCompatButton
-                            android:id="@+id/history_sort_reset"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/material_baseline_grid_1x"
-                            android:layout_marginEnd="@dimen/material_baseline_grid_2x"
-                            android:layout_marginStart="@dimen/material_baseline_grid_2x"
-                            android:layout_weight=".5"
-                            android:text="Reset"
-                            app:theme="@style/HistoryButtonPrimary" />
-
-                        <android.support.v7.widget.AppCompatButton
-                            android:id="@+id/history_sort_submit"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/material_baseline_grid_1x"
-                            android:layout_marginEnd="@dimen/material_baseline_grid_2x"
-                            android:layout_marginStart="@dimen/material_baseline_grid_2x"
-                            android:layout_weight=".5"
-                            android:text="Submit"
-                            app:theme="@style/HistoryButtonSecondary" />
-                    </LinearLayout>
-
+                        android:layout_weight=".5"
+                        android:text="Submit"
+                        app:theme="@style/HistoryButtonSecondary" />
                 </LinearLayout>
-
-            </FrameLayout>
-
-
-        </LinearLayout>
-    </android.support.v4.widget.SwipeRefreshLayout>
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/sort_fab"
