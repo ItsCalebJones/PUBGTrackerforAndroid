@@ -1,7 +1,5 @@
 package me.calebjones.pubgtrackerforandroid.data;
 
-import android.content.Context;
-
 import org.greenrobot.eventbus.EventBus;
 
 import io.realm.Realm;
@@ -23,8 +21,8 @@ public class DataSaver {
             @Override
             public void execute(Realm realm) {
                 User cachedUser = realm.where(User.class).equalTo("pubgTrackerId", user.getPubgTrackerId()).findFirst();
-                if (cachedUser != null && cachedUser.isDefaultUser()){
-                    user.setDefaultUser(true);
+                if (cachedUser != null && cachedUser.isCurrentUser()){
+                    user.setCurrentUser(true);
                 }
                 realm.copyToRealmOrUpdate(user);
             }

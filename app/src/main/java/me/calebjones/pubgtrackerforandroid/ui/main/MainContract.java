@@ -14,11 +14,15 @@ public interface MainContract {
 
     interface Navigator extends BaseNavigator{
 
-        void goHome();
+        void goOverview();
 
         void goMatchHistory();
 
         void goStatistics();
+
+        void goMapActivity();
+
+        void goCompareActivity();
     }
 
 
@@ -32,7 +36,7 @@ public interface MainContract {
 
         void setSupportToolbar(String title);
 
-        void onHomeClicked();
+        void onOverviewClicked();
 
         void onMatchHistoryClicked();
 
@@ -46,7 +50,7 @@ public interface MainContract {
 
         void createSnackbar(String message);
 
-        void createSnackbarSetDefaultUser(String message, User user);
+        void createSnackbarSetCurrentUser(String message, User user);
 
         void setUpDrawer(Activity activity, Bundle savedInstanceState);
 
@@ -57,12 +61,20 @@ public interface MainContract {
 
         boolean searchQuerySubmitted(String query);
 
-        void goHomeClicked();
+        void goOverviewClicked();
 
         void goMatchHistoryClicked();
 
         void goStatisticsClicked();
 
-        void setUserAsDefault(User user);
+        void setUserAsCurrent(User user);
+
+        void goMapClicked();
+
+        void goCompareClicked();
+
+        void setCurrentUser();
+
+        void getUsers();
     }
 }

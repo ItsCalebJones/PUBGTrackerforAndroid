@@ -1,32 +1,16 @@
 package me.calebjones.pubgtrackerforandroid.ui.main;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 
-import com.mikepenz.fontawesome_typeface_library.FontAwesome;
-import com.mikepenz.google_material_typeface_library.GoogleMaterial;
-import com.mikepenz.iconics.context.IconicsContextWrapper;
-import com.mikepenz.materialdrawer.AccountHeader;
-import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
-import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.holder.ImageHolder;
-import com.mikepenz.materialdrawer.model.DividerDrawerItem;
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
-import me.calebjones.pubgtrackerforandroid.R;
 import me.calebjones.pubgtrackerforandroid.common.BaseActivity;
 import me.calebjones.pubgtrackerforandroid.ui.history.HistoryFragment;
 import me.calebjones.pubgtrackerforandroid.ui.main.adapters.MainViewPagerAdapter;
-import me.calebjones.pubgtrackerforandroid.ui.home.HomeFragment;
-import me.calebjones.pubgtrackerforandroid.ui.fragments.TestFragment;
+import me.calebjones.pubgtrackerforandroid.ui.overview.OverviewFragment;
 import me.calebjones.pubgtrackerforandroid.ui.statistics.StatsFragment;
-import timber.log.Timber;
 
 public class MainActivity extends BaseActivity implements MainContract.NavigatorProvider {
 
@@ -51,7 +35,7 @@ public class MainActivity extends BaseActivity implements MainContract.Navigator
 
     private MainViewPagerAdapter setupViewPager() {
         MainViewPagerAdapter adapter = new MainViewPagerAdapter(getSupportFragmentManager());
-        HomeFragment homeFragment = new HomeFragment();
+        OverviewFragment homeFragment = new OverviewFragment();
         HistoryFragment historyFragment = new HistoryFragment();
         StatsFragment statFragment = new StatsFragment();
         adapter.addFragment(statFragment);

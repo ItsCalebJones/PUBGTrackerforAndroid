@@ -1,8 +1,7 @@
-package me.calebjones.pubgtrackerforandroid.ui.home;
+package me.calebjones.pubgtrackerforandroid.ui.overview;
 
 import android.support.annotation.NonNull;
 
-import io.realm.RealmList;
 import me.calebjones.pubgtrackerforandroid.common.BaseNavigator;
 import me.calebjones.pubgtrackerforandroid.common.BasePresenterInterfacce;
 import me.calebjones.pubgtrackerforandroid.common.BaseView;
@@ -13,7 +12,7 @@ import me.calebjones.pubgtrackerforandroid.data.models.PlayerStat;
 import me.calebjones.pubgtrackerforandroid.data.models.User;
 
 
-public interface HomeContract {
+public interface OverviewContract {
 
     interface Navigator extends BaseNavigator {
 
@@ -23,7 +22,7 @@ public interface HomeContract {
     interface NavigatorProvider {
 
         @NonNull
-        HomeContract.Navigator getNavigator(Presenter presenter);
+        OverviewContract.Navigator getNavigator(Presenter presenter);
     }
 
     interface View extends BaseView<Presenter> {
@@ -56,7 +55,7 @@ public interface HomeContract {
 
         void setOverviewSeasonTwoVisible(boolean state);
 
-        void setDefaultUserIcon(boolean state);
+        void setCurrentUserIcon(boolean state);
 
         void createSnackbar(String localizedMessage);
 
@@ -80,7 +79,7 @@ public interface HomeContract {
 
         void retrieveCachedUser();
 
-        void setDefaultUserState(boolean defaultUserState);
+        void setCurrentUserState(boolean currentUserState);
 
         void refreshCurrentUser();
     }

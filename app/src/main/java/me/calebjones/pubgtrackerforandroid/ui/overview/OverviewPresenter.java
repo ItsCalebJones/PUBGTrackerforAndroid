@@ -1,4 +1,4 @@
-package me.calebjones.pubgtrackerforandroid.ui.home;
+package me.calebjones.pubgtrackerforandroid.ui.overview;
 
 import com.pixplicity.easyprefs.library.Prefs;
 
@@ -9,14 +9,12 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.Objects;
 
 import io.realm.Realm;
-import io.realm.RealmList;
 import io.realm.RealmResults;
 import me.calebjones.pubgtrackerforandroid.common.BasePresenter;
 import me.calebjones.pubgtrackerforandroid.data.Config;
 import me.calebjones.pubgtrackerforandroid.data.DataManager;
 import me.calebjones.pubgtrackerforandroid.data.events.UserRefreshing;
 import me.calebjones.pubgtrackerforandroid.data.events.UserSelected;
-import me.calebjones.pubgtrackerforandroid.data.models.Match;
 import me.calebjones.pubgtrackerforandroid.data.models.PlayerStat;
 import me.calebjones.pubgtrackerforandroid.data.models.User;
 import retrofit2.Call;
@@ -25,15 +23,15 @@ import retrofit2.Response;
 import timber.log.Timber;
 
 
-public class HomePresenter extends BasePresenter implements HomeContract.Presenter {
+public class OverviewPresenter extends BasePresenter implements OverviewContract.Presenter {
 
-    private final HomeContract.View homeView;
+    private final OverviewContract.View overviewView;
     private User currentUser;
     private DataManager dataManager;
 
-    public HomePresenter(HomeContract.View view) {
-        homeView = view;
-        homeView.setPresenter(this);
+    public OverviewPresenter(OverviewContract.View view) {
+        overviewView = view;
+        overviewView.setPresenter(this);
         dataManager = new DataManager();
 
     }
@@ -46,12 +44,12 @@ public class HomePresenter extends BasePresenter implements HomeContract.Present
     }
 
     private void configureMatchCard(User user) {
-        homeView.setMatchCardVisible(true);
-        homeView.setMatchCardContent(user.getMatchHistory().get(0));
+        overviewView.setMatchCardVisible(true);
+        overviewView.setMatchCardContent(user.getMatchHistory().get(0));
     }
 
     private void configureOverviewCard(User user) {
-        homeView.setOverviewCardVisible(true);
+        overviewView.setOverviewCardVisible(true);
         PlayerStat highestElo = null;
         for (PlayerStat playerStat : user.getStats()) {
             if (Objects.equals(playerStat.getSeason(), user.getDefaultSeason()) &&
@@ -64,19 +62,19 @@ public class HomePresenter extends BasePresenter implements HomeContract.Present
                 }
             }
             if (highestElo != null) {
-                homeView.setOverviewContent(highestElo);
+                overviewView.setOverviewContent(highestElo);
             } else {
-                homeView.setOverviewSeasonOneVisible(false);
+                overviewView.setOverviewSeasonOneVisible(false);
             }
         }
 
-            homeView.setProfileAvatar(user.getAvatar());
-            homeView.setProfileName(user.getPlayerName());
-            homeView.setCurrentRatingAndRank(
+            overviewView.setProfileAvatar(user.getAvatar());
+            overviewView.setProfileName(user.getPlayerName());
+            overviewView.setCurrentRatingAndRank(
                     highestElo.getStats().get(9).getValue(),
                     String.valueOf(highestElo.getStats().get(9).getRank()),
                     findKD(user));
-            homeView.setDefaultUserIcon(user.isDefaultUser());
+            overviewView.setCurrentUserIcon(user.isCurrentUser());
     }
 
     private String findKD(User user) {
@@ -102,14 +100,14 @@ public class HomePresenter extends BasePresenter implements HomeContract.Present
     @Subscribe(threadMode = ThreadMode.MAIN)
     @Override
     public void onUserEventReceived(UserSelected userSelected) {
-        homeView.setRefreshEnabled(true);
+        overviewView.setRefreshEnabled(true);
         applyUser(userSelected.response);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     @Override
     public void onRefreshEventReceiver(UserRefreshing state) {
-        homeView.setRefreshing(state.refreshing);
+        overviewView.setRefreshing(state.refreshing);
     }
 
     @Override
@@ -137,24 +135,24 @@ public class HomePresenter extends BasePresenter implements HomeContract.Present
         User user = getRealm().where(User.class).equalTo("defaultUser", true).findFirst();
         if (user != null) {
             applyUser(user);
-            homeView.setRefreshEnabled(true);
+            overviewView.setRefreshEnabled(true);
         } else {
-            homeView.setRefreshEnabled(false);
+            overviewView.setRefreshEnabled(false);
         }
     }
 
     @Override
-    public void setDefaultUserState(boolean state) {
-        if (state) {
+    public void setCurrentUserState(boolean currentUserState) {
+        if (currentUserState) {
             getRealm().executeTransaction(new Realm.Transaction() {
                 @Override
                 public void execute(Realm realm) {
-                    RealmResults<User> users = realm.where(User.class).equalTo("defaultUser", true).findAll();
-                    for (User defaultUser : users) {
-                        defaultUser.setDefaultUser(false);
-                        realm.copyToRealmOrUpdate(defaultUser);
+                    RealmResults<User> users = realm.where(User.class).equalTo("currentUser", true).findAll();
+                    for (User currentUser : users) {
+                        currentUser.setCurrentUser(false);
+                        realm.copyToRealmOrUpdate(currentUser);
                     }
-                    currentUser.setDefaultUser(true);
+                    currentUser.setCurrentUser(true);
                     realm.copyToRealmOrUpdate(currentUser);
                 }
             });
@@ -162,10 +160,10 @@ public class HomePresenter extends BasePresenter implements HomeContract.Present
             getRealm().executeTransaction(new Realm.Transaction() {
                 @Override
                 public void execute(Realm realm) {
-                    RealmResults<User> users = realm.where(User.class).equalTo("defaultUser", true).findAll();
-                    for (User defaultUser : users) {
-                        defaultUser.setDefaultUser(false);
-                        realm.copyToRealmOrUpdate(defaultUser);
+                    RealmResults<User> users = realm.where(User.class).equalTo("currentUser", true).findAll();
+                    for (User currentUser : users) {
+                        currentUser.setCurrentUser(false);
+                        realm.copyToRealmOrUpdate(currentUser);
                     }
                 }
             });
@@ -181,24 +179,24 @@ public class HomePresenter extends BasePresenter implements HomeContract.Present
                     User user = response.body();
                     if (user != null) {
                         if (user.getError() != null && user.getMessage() != null) {
-                            homeView.createSnackbar(user.getMessage());
+                            overviewView.createSnackbar(user.getMessage());
                         } else if (user.getPlayerName() != null) {
                             dataManager.getDataSaver().save(user);
                         }
                     }
                 } else {
-                    homeView.createSnackbar(response.message());
+                    overviewView.createSnackbar(response.message());
                     Timber.e(response.message());
                 }
-                homeView.setRefreshing(false);
+                overviewView.setRefreshing(false);
             }
 
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Timber.e(t);
-                homeView.createSnackbar(t.getLocalizedMessage());
-                homeView.setRefreshing(false);
+                overviewView.createSnackbar(t.getLocalizedMessage());
+                overviewView.setRefreshing(false);
             }
         });
     }

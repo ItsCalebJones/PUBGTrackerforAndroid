@@ -107,7 +107,7 @@ public class HistoryPresenter extends BasePresenter implements HistoryContract.P
     @Override
     public void retrieveCachedUser() {
         Timber.v("retrieveCachedUser - Retrieving cached user...");
-        currentUser = getRealm().where(User.class).equalTo("defaultUser", true).findFirst();
+        currentUser = getRealm().where(User.class).equalTo("currentUser", true).findFirst();
         if (currentUser != null) {
             Timber.v("retrieveCachedUser - Default user found, updating view.");
             updateAdapter(currentUser);

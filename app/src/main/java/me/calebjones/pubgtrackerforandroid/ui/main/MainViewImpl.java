@@ -1,6 +1,5 @@
 package me.calebjones.pubgtrackerforandroid.ui.main;
 
-import android.accounts.Account;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -13,8 +12,6 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.lapism.searchview.SearchAdapter;
 import com.lapism.searchview.SearchHistoryTable;
@@ -26,7 +23,6 @@ import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationView;
 import com.luseen.luseenbottomnavigation.BottomNavigation.OnBottomNavigationItemClickListener;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
-import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -38,17 +34,13 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.transitionseverywhere.Recolor;
 import com.transitionseverywhere.TransitionManager;
-
-import java.util.Timer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.calebjones.pubgtrackerforandroid.R;
 import me.calebjones.pubgtrackerforandroid.data.models.User;
-import timber.log.Timber;
 
 
 public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextListener,
@@ -138,8 +130,7 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         BottomNavigationItem historyItem = new BottomNavigationItem
                 (context.getResources().getString(R.string.title_history),
                         color[2],
-                        new IconicsDrawable(context)
-                                .icon(GoogleMaterial.Icon.gmd_account_circle));
+                        R.drawable.ic_account_circle_black_24);
         navigation.addTab(statsItem);
         navigation.addTab(homeItem);
         navigation.addTab(historyItem);
@@ -150,7 +141,7 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     public void onNavigationItemClick(int item) {
         switch (item) {
             case 1:
-                onHomeClicked();
+                onOverviewClicked();
                 updateTopColor(color[1], topColor[1]);
                 break;
             case 2:
@@ -212,8 +203,8 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     }
 
     @Override
-    public void onHomeClicked() {
-        mainPresenter.goHomeClicked();
+    public void onOverviewClicked() {
+        mainPresenter.goOverviewClicked();
     }
 
     @Override
@@ -260,13 +251,13 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     }
 
     @Override
-    public void createSnackbarSetDefaultUser(String message, final User user) {
+    public void createSnackbarSetCurrentUser(String message, final User user) {
         Snackbar snackbar = Snackbar.make(coordinator, message, Snackbar.LENGTH_LONG);
 
         snackbar.setAction("Yes", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainPresenter.setUserAsDefault(user);
+                mainPresenter.setUserAsCurrent(user);
             }
         });
         snackbar.show();
@@ -290,33 +281,33 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
                         new ExpandableDrawerItem()
                                 .withName("Home")
                                 .withIcon(GoogleMaterial.Icon.gmd_home)
-                                .withIdentifier(R.id.menu_home)
+                                .withIdentifier(R.id.menu_home_master)
                                 .withSelectable(false)
                                 .withSubItems(
                                         new SecondaryDrawerItem()
                                                 .withName("Overview")
                                                 .withLevel(2)
                                                 .withIcon(GoogleMaterial.Icon.gmd_account_circle)
-                                                .withIdentifier(2001),
+                                                .withIdentifier(R.id.menu_overview),
                                         new SecondaryDrawerItem()
                                                 .withName("History")
                                                 .withLevel(2)
                                                 .withIcon(GoogleMaterial.Icon.gmd_dashboard)
-                                                .withIdentifier(2002),
+                                                .withIdentifier(R.id.menu_history),
                                         new SecondaryDrawerItem()
                                                 .withName("Statistics")
                                                 .withLevel(2)
                                                 .withIcon(GoogleMaterial.Icon.gmd_history)
-                                                .withIdentifier(2003)
+                                                .withIdentifier(R.id.menu_statistics)
                                 ),
                         new PrimaryDrawerItem().withName("Map")
                                 .withIcon(GoogleMaterial.Icon.gmd_map)
                                 .withIdentifier(R.id.menu_map)
-                                .withSelectable(true),
+                                .withSelectable(false),
                         new PrimaryDrawerItem().withName("Compare")
                                 .withIcon(GoogleMaterial.Icon.gmd_compare)
                                 .withIdentifier(R.id.menu_compare)
-                                .withSelectable(true),
+                                .withSelectable(false),
                         new DividerDrawerItem(),
                         new SecondaryDrawerItem()
                                 .withIcon(GoogleMaterial.Icon.gmd_info_outline)
@@ -340,6 +331,34 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         if (drawerItem != null) {
+                            switch((int) drawerItem.getIdentifier()){
+                                case R.id.menu_home_master:
+                                    break;
+                                case R.id.menu_overview:
+                                    mainPresenter.goOverviewClicked();
+                                    break;
+                                case R.id.menu_history:
+                                    mainPresenter.goMatchHistoryClicked();
+                                    break;
+                                case R.id.menu_statistics:
+                                    mainPresenter.goStatisticsClicked();
+                                    break;
+                                case R.id.menu_map:
+                                    mainPresenter.goMapClicked();
+                                    break;
+                                case R.id.menu_compare:
+                                    mainPresenter.goCompareClicked();
+                                    break;
+                                case R.id.menu_new:
+                                    createSnackbar("Changelog!");
+                                    break;
+                                case R.id.menu_feedback:
+                                    createSnackbar("Feedback!");
+                                    break;
+                                case R.id.menu_twitter:
+                                    createSnackbar("Twitter!");
+                                    break;
+                            }
                         }
                         return false;
                     }

@@ -47,7 +47,7 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
                         } else if (user.getPlayerName() != null) {
                             dataManager.getDataSaver().save(user);
                             mainView.setDrawerUser(user);
-                            mainView.createSnackbarSetDefaultUser(
+                            mainView.createSnackbarSetCurrentUser(
                                     String.format("Set %s as default user?",
                                     user.getPlayerName()),
                                     user);
@@ -83,8 +83,8 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
     }
 
     @Override
-    public void goHomeClicked() {
-        homeNavigator.goHome();
+    public void goOverviewClicked() {
+        homeNavigator.goOverview();
     }
 
     @Override
@@ -98,20 +98,30 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
     }
 
     @Override
-    public void setUserAsDefault(final User newDefaultUser) {
+    public void setUserAsCurrent(final User newCurrentUser) {
         getRealm().executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                RealmResults<User> users = realm.where(User.class).equalTo("defaultUser", true).findAll();
-                for (User defaultUser: users){
-                    defaultUser.setDefaultUser(false);
-                    realm.copyToRealmOrUpdate(defaultUser);
+                RealmResults<User> users = realm.where(User.class).equalTo("currentUser", true).findAll();
+                for (User newCurrentUser: users){
+                    newCurrentUser.setCurrentUser(false);
+                    realm.copyToRealmOrUpdate(newCurrentUser);
                 }
-                newDefaultUser.setDefaultUser(true);
-                realm.copyToRealmOrUpdate(newDefaultUser);
-                sendUserToEventBus(newDefaultUser);
+                newCurrentUser.setCurrentUser(true);
+                realm.copyToRealmOrUpdate(newCurrentUser);
+                sendUserToEventBus(newCurrentUser);
             }
         });
+    }
+
+    @Override
+    public void goMapClicked() {
+        homeNavigator.goMapActivity();
+    }
+
+    @Override
+    public void goCompareClicked() {
+        homeNavigator.goCompareActivity();
     }
 
     @Override

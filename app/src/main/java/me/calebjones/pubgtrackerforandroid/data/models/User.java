@@ -53,14 +53,14 @@ public class User extends RealmObject {
     @SerializedName("message")
     private String message;
 
-    private boolean defaultUser = false;
+    private boolean currentUser = false;
 
-    public boolean isDefaultUser() {
-        return defaultUser;
+    public boolean isCurrentUser() {
+        return currentUser;
     }
 
-    public void setDefaultUser(boolean defaultUser) {
-        this.defaultUser = defaultUser;
+    public void setCurrentUser(boolean currentUser) {
+        this.currentUser = currentUser;
     }
 
     public String getMessage() {

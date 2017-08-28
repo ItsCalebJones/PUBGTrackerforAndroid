@@ -15,13 +15,22 @@ public class MainNavigator implements MainContract.Navigator {
     }
 
     @Override
-    public void goStatistics() {
-        mViewPager.setCurrentItem(0);
+    public void goMapActivity() {
 
     }
 
     @Override
-    public void goHome() {
+    public void goCompareActivity() {
+
+    }
+
+    @Override
+    public void goStatistics() {
+        mViewPager.setCurrentItem(0);
+    }
+
+    @Override
+    public void goOverview() {
         mViewPager.setCurrentItem(1);
     }
 

@@ -1,4 +1,4 @@
-package me.calebjones.pubgtrackerforandroid.ui.home;
+package me.calebjones.pubgtrackerforandroid.ui.overview;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.view.IconicsImageView;
@@ -32,9 +31,10 @@ import me.calebjones.pubgtrackerforandroid.data.enums.PUBGSeason;
 import me.calebjones.pubgtrackerforandroid.data.models.Match;
 import me.calebjones.pubgtrackerforandroid.data.models.PlayerStat;
 import me.calebjones.pubgtrackerforandroid.ui.views.MatchView;
+import me.calebjones.pubgtrackerforandroid.utils.GlideApp;
 
 
-public class HomeViewImpl implements HomeContract.View, SwipeRefreshLayout.OnRefreshListener {
+public class OverviewViewImpl implements OverviewContract.View, SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.avatar)
     ImageView avatar;
@@ -89,7 +89,7 @@ public class HomeViewImpl implements HomeContract.View, SwipeRefreshLayout.OnRef
     @BindView(R.id.overview_stat_two_root)
     LinearLayout overviewStatTwoRoot;
     @BindView(R.id.default_user_status_icon)
-    IconicsImageView defaultUserStatusIcon;
+    IconicsImageView userStatusIcon;
     @BindView(R.id.home_coordinator)
     CoordinatorLayout homeCoordinator;
     @BindView(R.id.avatar_group)
@@ -103,14 +103,14 @@ public class HomeViewImpl implements HomeContract.View, SwipeRefreshLayout.OnRef
     @BindView(R.id.match_view)
     MatchView matchView;
 
-    private HomeContract.Presenter homePresenter;
+    private OverviewContract.Presenter overviewPresenter;
     private View mRootView;
     private Context context;
-    private boolean defaultUserState;
+    private boolean currentUser;
 
-    public HomeViewImpl(Context context, LayoutInflater inflater, ViewGroup container) {
+    public OverviewViewImpl(Context context, LayoutInflater inflater, ViewGroup container) {
         this.context = context;
-        mRootView = inflater.inflate(R.layout.fragment_home, container, false);
+        mRootView = inflater.inflate(R.layout.fragment_overview, container, false);
         ButterKnife.bind(this, mRootView);
         refresh.setOnRefreshListener(this);
     }
@@ -126,14 +126,15 @@ public class HomeViewImpl implements HomeContract.View, SwipeRefreshLayout.OnRef
     }
 
     @Override
-    public void setPresenter(HomeContract.Presenter presenter) {
-        homePresenter = presenter;
+    public void setPresenter(OverviewContract.Presenter presenter) {
+        overviewPresenter = presenter;
     }
 
     @Override
     public void setProfileAvatar(String name) {
-        Glide.with(context)
+        GlideApp.with(context)
                 .load(name)
+                .centerCrop()
                 .into(avatar);
     }
 
@@ -251,17 +252,17 @@ public class HomeViewImpl implements HomeContract.View, SwipeRefreshLayout.OnRef
     }
 
     @Override
-    public void setDefaultUserIcon(boolean state) {
+    public void setCurrentUserIcon(boolean state) {
         TransitionManager.beginDelayedTransition(container);
-        defaultUserState = state;
-        if (defaultUserState) {
-            defaultUserStatusIcon.setIcon(new IconicsDrawable(context)
-                    .icon(GoogleMaterial.Icon.gmd_favorite)
+        currentUser = state;
+        if (currentUser) {
+            userStatusIcon.setIcon(new IconicsDrawable(context)
+                    .icon(GoogleMaterial.Icon.gmd_star)
                     .color(ContextCompat.getColor(context, R.color.colorAccentAlt))
                     .sizeDp(16));
         } else {
-            defaultUserStatusIcon.setIcon(new IconicsDrawable(context)
-                    .icon(GoogleMaterial.Icon.gmd_favorite_border)
+            userStatusIcon.setIcon(new IconicsDrawable(context)
+                    .icon(GoogleMaterial.Icon.gmd_star_border)
                     .color(ContextCompat.getColor(context, R.color.material_color_white))
                     .sizeDp(16));
         }
@@ -287,7 +288,7 @@ public class HomeViewImpl implements HomeContract.View, SwipeRefreshLayout.OnRef
     @Override
     public void onInformationCardDismissClicked() {
         setInformationCardVisible(false);
-        homePresenter.setInformationCardDismissed(true);
+        overviewPresenter.setInformationCardDismissed(true);
     }
 
     @Override
@@ -300,14 +301,14 @@ public class HomeViewImpl implements HomeContract.View, SwipeRefreshLayout.OnRef
     }
 
     @OnClick(R.id.default_user_status_icon)
-    public void onDefaultUserIconClicked() {
-        defaultUserState = !defaultUserState;
-        setDefaultUserIcon(defaultUserState);
-        homePresenter.setDefaultUserState(defaultUserState);
+    public void onCurrentUserIconClicked() {
+        currentUser = !currentUser;
+        setCurrentUserIcon(currentUser);
+        overviewPresenter.setCurrentUserState(currentUser);
     }
 
     @Override
     public void onRefresh() {
-        homePresenter.refreshCurrentUser();
+        overviewPresenter.refreshCurrentUser();
     }
 }

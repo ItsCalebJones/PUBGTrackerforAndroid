@@ -1,8 +1,7 @@
-package me.calebjones.pubgtrackerforandroid.ui.home;
+package me.calebjones.pubgtrackerforandroid.ui.overview;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,19 +10,17 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import me.calebjones.pubgtrackerforandroid.common.BaseFragment;
 import me.calebjones.pubgtrackerforandroid.data.Config;
-import me.calebjones.pubgtrackerforandroid.ui.home.HomePresenter;
-import me.calebjones.pubgtrackerforandroid.ui.home.HomeViewImpl;
 import timber.log.Timber;
 
 
-public class HomeFragment extends BaseFragment {
+public class OverviewFragment extends BaseFragment {
 
-    private HomePresenter homePresenter;
-    private HomeViewImpl homeView;
+    private OverviewPresenter overviewPresenter;
+    private OverviewViewImpl overviewView;
     private boolean firstLaunch = Prefs.getBoolean(Config.PREF_FIRST_BOOT, true);
     private boolean informationDismissed = Prefs.getBoolean(Config.PREF_INFORMATION_CARD_DISMISSED, false);
 
-    public HomeFragment() {
+    public OverviewFragment() {
         // Required empty public constructor
     }
 
@@ -32,18 +29,18 @@ public class HomeFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Timber.v("onCreateView");
-        homeView = new HomeViewImpl(getContext(), inflater, container);
-        homePresenter = new HomePresenter(homeView);
-        homePresenter.registerEventBus();
-        homePresenter.retrieveCachedUser();
+        overviewView = new OverviewViewImpl(getContext(), inflater, container);
+        overviewPresenter = new OverviewPresenter(overviewView);
+        overviewPresenter.registerEventBus();
+        overviewPresenter.retrieveCachedUser();
         checkFirstBoot();
         checkInformationCard();
-        return homeView.getRootView();
+        return overviewView.getRootView();
     }
 
     private void checkInformationCard() {
         if (!informationDismissed){
-            homeView.setInformationCardVisible(true);
+            overviewView.setInformationCardVisible(true);
         }
     }
 
@@ -56,20 +53,20 @@ public class HomeFragment extends BaseFragment {
     public void onStart() {
         super.onStart();
         Timber.v("onStart");
-        homePresenter.onStart();
+        overviewPresenter.onStart();
     }
 
     @Override
     public void onResume(){
         super.onResume();
         Timber.v("onResume");
-        homePresenter.onResume();
+        overviewPresenter.onResume();
     }
 
     @Override
     public void onStop() {
         super.onStop();
         Timber.v("onStop");
-        homePresenter.onStop();
+        overviewPresenter.onStop();
     }
 }

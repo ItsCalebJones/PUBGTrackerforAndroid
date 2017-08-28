@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="menu_home" type="id">menu_home</item>
+    <item name="menu_overview" type="id">menu_home</item>
     <item name="menu_map" type="id">menu_map</item>
     <item name="menu_compare" type="id">menu_compare</item>
     <item name="menu_new" type="id">menu_new</item>
     <item name="menu_feedback" type="id">menu_feedback</item>
     <item name="menu_twitter" type="id">menu_twitter</item>
     <item name="menu_support" type="id">menu_support</item>
+    <item name="menu_history" type="id">menu_history</item>
+    <item name="menu_statistics" type="id">menu_statistics</item>
+    <item name="menu_home_master" type="id">menu_home_master</item>
 </resources>
