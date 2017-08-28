@@ -4,8 +4,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import io.realm.OrderedCollectionChangeSet;
-import io.realm.OrderedRealmCollectionChangeListener;
 import io.realm.RealmChangeListener;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
@@ -121,7 +119,7 @@ public class HistoryPresenter extends BasePresenter implements HistoryContract.P
     @Override
     public void refreshCurrentUser() {
         Timber.i("refreshCurrentUser - refreshing %s matches.", currentUser.getPlayerName());
-        dataManager.getUserByProfileName(currentUser.getPlayerName(), new Callback<User>() {
+        dataManager.updateUserByProfileName(currentUser.getPlayerName(), new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 Timber.d("refreshCurrentUser - onResponse - Successful: %s", response.isSuccessful());

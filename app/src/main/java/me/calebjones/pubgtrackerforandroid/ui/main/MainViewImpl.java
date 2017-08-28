@@ -17,7 +17,6 @@ import com.lapism.searchview.SearchAdapter;
 import com.lapism.searchview.SearchHistoryTable;
 import com.lapism.searchview.SearchItem;
 import com.lapism.searchview.SearchView;
-
 import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationItem;
 import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationView;
 import com.luseen.luseenbottomnavigation.BottomNavigation.OnBottomNavigationItemClickListener;
@@ -34,8 +33,12 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.transitionseverywhere.Recolor;
 import com.transitionseverywhere.TransitionManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,6 +50,8 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         SearchView.OnMenuClickListener,
         OnBottomNavigationItemClickListener {
 
+    public int[] color;
+    public int[] topColor;
     @BindView(R.id.coordinator)
     CoordinatorLayout coordinator;
     @BindView(R.id.navigation_view)
@@ -57,13 +62,10 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     ViewPager viewPager;
     @BindView(R.id.appbar)
     AppBarLayout appbar;
-
     private View mRootView;
     private MainContract.Presenter mainPresenter;
     private SearchHistoryTable historyDatabase;
     private Context context;
-    public int[] color;
-    public int[] topColor;
     private Drawer result;
     private AccountHeader accountHeader;
     private ProfileDrawerItem profileDrawerItem;
@@ -331,7 +333,7 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         if (drawerItem != null) {
-                            switch((int) drawerItem.getIdentifier()){
+                            switch ((int) drawerItem.getIdentifier()) {
                                 case R.id.menu_home_master:
                                     break;
                                 case R.id.menu_overview:
@@ -377,7 +379,7 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
 
     @Override
     public void setDrawerUser(User user) {
-        if (profileDrawerItem != null){
+        if (profileDrawerItem != null) {
             profileDrawerItem.withName(user.getPlayerName()).withIcon(user.getAvatar());
             accountHeader.updateProfile(profileDrawerItem);
         } else {
@@ -387,5 +389,28 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
             accountHeader.addProfiles(profileDrawerItem);
         }
         accountHeader.setActiveProfile(profileDrawerItem);
+    }
+
+    @Override
+    public void setActiveUser(User user) {
+        accountHeader.setActiveProfile(convertUserToProfile(user));
+    }
+
+    @Override
+    public void setUsers(List<User> users) {
+        List<IProfile> profiles = new ArrayList<>();
+        for (User user : users) {
+            profiles.add(convertUserToProfile(user));
+        }
+        accountHeader.setProfiles(profiles);
+    }
+
+    private IProfile convertUserToProfile(User user) {
+        IProfile profile = new ProfileDrawerItem()
+                .withIdentifier(user.getPubgTrackerId())
+                .withName(user.getPlayerName())
+                .withIcon(user.getAvatar())
+                .withEmail(user.getDefaultSeason());
+        return profile;
     }
 }

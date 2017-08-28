@@ -172,7 +172,7 @@ public class OverviewPresenter extends BasePresenter implements OverviewContract
 
     @Override
     public void refreshCurrentUser() {
-        dataManager.getUserByProfileName(currentUser.getPlayerName(), new Callback<User>() {
+        dataManager.updateUserByProfileName(currentUser.getPlayerName(), new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful()){

@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
+import java.util.List;
+
 import me.calebjones.pubgtrackerforandroid.common.BaseNavigator;
 import me.calebjones.pubgtrackerforandroid.common.BasePresenterInterfacce;
 import me.calebjones.pubgtrackerforandroid.common.BaseView;
@@ -55,6 +57,10 @@ public interface MainContract {
         void setUpDrawer(Activity activity, Bundle savedInstanceState);
 
         void setDrawerUser(User user);
+
+        void setActiveUser(User user);
+
+        void setUsers(List<User> users);
     }
 
     interface Presenter extends BasePresenterInterfacce {

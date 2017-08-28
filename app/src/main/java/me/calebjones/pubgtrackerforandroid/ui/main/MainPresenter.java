@@ -36,7 +36,7 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
     @Override
     public boolean searchQuerySubmitted(final String query) {
         sendRefreshingState(true);
-        dataManager.getUserByProfileName(query, new Callback<User>() {
+        dataManager.updateUserByProfileName(query, new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful()){
@@ -122,6 +122,16 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
     @Override
     public void goCompareClicked() {
         homeNavigator.goCompareActivity();
+    }
+
+    @Override
+    public void setCurrentUser() {
+
+    }
+
+    @Override
+    public void getUsers() {
+        mainView.setUsers(dataManager.getSavedUsers());
     }
 
     @Override
