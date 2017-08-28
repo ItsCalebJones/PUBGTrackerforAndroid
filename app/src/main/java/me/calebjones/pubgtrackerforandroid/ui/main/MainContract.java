@@ -1,6 +1,8 @@
 package me.calebjones.pubgtrackerforandroid.ui.main;
 
 
+import android.app.Activity;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import me.calebjones.pubgtrackerforandroid.common.BaseNavigator;
@@ -45,6 +47,10 @@ public interface MainContract {
         void createSnackbar(String message);
 
         void createSnackbarSetDefaultUser(String message, User user);
+
+        void setUpDrawer(Activity activity, Bundle savedInstanceState);
+
+        void setDrawerUser(User user);
     }
 
     interface Presenter extends BasePresenterInterfacce {

@@ -44,73 +44,9 @@ public class MainActivity extends BaseActivity implements MainContract.Navigator
         mainPresenter.setNavigator(getNavigator(mainPresenter));
         mainView.navigation.selectTab(1);
         setupViewPager();
-        setupRecyclerView(savedInstanceState);
+        mainView.setUpDrawer(this, savedInstanceState);
     }
 
-    private void setupRecyclerView(Bundle savedInstanceState) {
-        AccountHeader headerResult = new AccountHeaderBuilder()
-                .withActivity(this)
-                .withCompactStyle(false)
-                .withHeaderBackground(new ImageHolder("http://res.cloudinary.com/dnkkbfy3m/image/upload/v1462465326/navbar_one_sqfhes.png"))
-                .withSavedInstance(savedInstanceState)
-                .build();
-
-        result = new DrawerBuilder()
-                .withActivity(this)
-                .withTranslucentStatusBar(true)
-                .withHasStableIds(true)
-                .withAccountHeader(headerResult)
-                .addDrawerItems(
-                        new PrimaryDrawerItem().withName("Home")
-                                .withIcon(GoogleMaterial.Icon.gmd_home)
-                                .withIdentifier(R.id.menu_home)
-                                .withSelectable(true),
-                        new PrimaryDrawerItem().withName("Map")
-                                .withIcon(GoogleMaterial.Icon.gmd_home)
-                                .withIdentifier(R.id.menu_map)
-                                .withSelectable(true),
-                        new PrimaryDrawerItem().withName("Compare")
-                                .withIcon(GoogleMaterial.Icon.gmd_home)
-                                .withIdentifier(R.id.menu_compare)
-                                .withSelectable(true),
-                        new DividerDrawerItem(),
-                        new SecondaryDrawerItem()
-                                .withIcon(GoogleMaterial.Icon.gmd_info_outline)
-                                .withName("What's New?")
-                                .withDescription("See the changelog.")
-                                .withIdentifier(R.id.menu_new)
-                                .withSelectable(false),
-                        new SecondaryDrawerItem()
-                                .withIcon(GoogleMaterial.Icon.gmd_feedback)
-                                .withName("Feedback")
-                                .withDescription("Found a bug?")
-                                .withIdentifier(R.id.menu_feedback)
-                                .withSelectable(false),
-                        new SecondaryDrawerItem()
-                                .withIcon(FontAwesome.Icon.faw_twitter)
-                                .withName("Twitter")
-                                .withDescription("Stay Connected!")
-                                .withIdentifier(R.id.menu_twitter)
-                                .withSelectable(false)
-                ).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        if (drawerItem != null) {
-                        }
-                        return false;
-                    }
-                }).build();
-
-//        if (!SupporterHelper.isSupporter()){
-        if (true){
-            result.addStickyFooterItem(
-                    new PrimaryDrawerItem().withName("Become a Supporter")
-                            .withDescription("Get Pro Features")
-                            .withIcon(GoogleMaterial.Icon.gmd_mood)
-                            .withIdentifier(R.id.menu_support)
-                            .withSelectable(false));
-        }
-    }
 
 
     private MainViewPagerAdapter setupViewPager() {

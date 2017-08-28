@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatDelegate;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
 import com.mikepenz.iconics.context.IconicsLayoutInflater2;
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
@@ -17,9 +19,11 @@ import com.pixplicity.easyprefs.library.Prefs;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import me.calebjones.pubgtrackerforandroid.data.networking.DataClient;
+import me.calebjones.pubgtrackerforandroid.utils.GlideApp;
 import timber.log.Timber;
 
 public class TrackerApplication extends Application {
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -43,12 +47,12 @@ public class TrackerApplication extends Application {
         DrawerImageLoader.init(new AbstractDrawerImageLoader() {
             @Override
             public void set(ImageView imageView, Uri uri, Drawable placeholder) {
-                Glide.with(imageView.getContext()).load(uri).into(imageView);
+                GlideApp.with(imageView.getContext()).load(uri).centerCrop().into(imageView);
             }
 
             @Override
             public void cancel(ImageView imageView) {
-                Glide.with(imageView.getContext()).clear(imageView);
+                GlideApp.with(imageView.getContext()).clear(imageView);
             }
         });
     }

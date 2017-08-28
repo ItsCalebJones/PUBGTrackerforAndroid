@@ -46,6 +46,7 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
                             mainView.createSnackbar(user.getMessage());
                         } else if (user.getPlayerName() != null) {
                             dataManager.getDataSaver().save(user);
+                            mainView.setDrawerUser(user);
                             mainView.createSnackbarSetDefaultUser(
                                     String.format("Set %s as default user?",
                                     user.getPlayerName()),

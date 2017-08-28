@@ -1,5 +1,6 @@
 package me.calebjones.pubgtrackerforandroid.ui.main;
 
+import android.accounts.Account;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -23,6 +24,21 @@ import com.lapism.searchview.SearchView;
 import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationItem;
 import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationView;
 import com.luseen.luseenbottomnavigation.BottomNavigation.OnBottomNavigationItemClickListener;
+import com.mikepenz.fontawesome_typeface_library.FontAwesome;
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
+import com.mikepenz.materialdrawer.AccountHeader;
+import com.mikepenz.materialdrawer.AccountHeaderBuilder;
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.holder.ImageHolder;
+import com.mikepenz.materialdrawer.model.DividerDrawerItem;
+import com.mikepenz.materialdrawer.model.ExpandableDrawerItem;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
+import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.transitionseverywhere.Recolor;
 import com.transitionseverywhere.TransitionManager;
 
@@ -54,9 +70,11 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     private MainContract.Presenter mainPresenter;
     private SearchHistoryTable historyDatabase;
     private Context context;
-    private int[] image;
     public int[] color;
     public int[] topColor;
+    private Drawer result;
+    private AccountHeader accountHeader;
+    private ProfileDrawerItem profileDrawerItem;
 
     public MainViewImpl(Context context, ViewGroup container) {
         this.context = context;
@@ -88,24 +106,19 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         searchView.setOnMenuClickListener(new SearchView.OnMenuClickListener() {
             @Override
             public void onMenuClick() {
-                
+                result.openDrawer();
             }
         });
     }
 
     private void setUpColors() {
-        image = new int[] {
-                R.drawable.ic_dashboard_black_24dp,
-                R.drawable.ic_home_black_24dp,
-                R.drawable.ic_history_black_24dp
-        };
-        color = new int[] {
+        color = new int[]{
                 ContextCompat.getColor(context, R.color.material_color_red_500),
                 ContextCompat.getColor(context, R.color.colorPrimary),
                 ContextCompat.getColor(context, R.color.material_color_blue_500)
         };
 
-        topColor = new int[] {
+        topColor = new int[]{
                 ContextCompat.getColor(context, R.color.material_color_red_700),
                 ContextCompat.getColor(context, R.color.colorPrimaryDark),
                 ContextCompat.getColor(context, R.color.material_color_blue_700)
@@ -117,15 +130,16 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         BottomNavigationItem statsItem = new BottomNavigationItem
                 (context.getResources().getString(R.string.title_statistics),
                         color[0],
-                        image[0]);
+                        R.drawable.ic_dashboard_black_24dp);
         BottomNavigationItem homeItem = new BottomNavigationItem
                 (context.getResources().getString(R.string.title_home),
                         color[1],
-                        image[1]);
+                        R.drawable.ic_home_black_24dp);
         BottomNavigationItem historyItem = new BottomNavigationItem
                 (context.getResources().getString(R.string.title_history),
                         color[2],
-                        image[2]);
+                        new IconicsDrawable(context)
+                                .icon(GoogleMaterial.Icon.gmd_account_circle));
         navigation.addTab(statsItem);
         navigation.addTab(homeItem);
         navigation.addTab(historyItem);
@@ -151,17 +165,12 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     }
 
     private void updateTopColor(int color, int topColor) {
-        final Window window = ((Activity) context).getWindow();
-        // clear FLAG_TRANSLUCENT_STATUS flag:
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
-        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-
         ViewGroup viewGroup = coordinator;
         TransitionManager.beginDelayedTransition(viewGroup, new Recolor());
         appbar.setBackgroundColor(color);
-        window.setStatusBarColor(topColor);
+        if (result != null) {
+            result.getDrawerLayout().setStatusBarBackgroundColor(topColor);
+        }
     }
 
     @Override
@@ -196,7 +205,6 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     public void setPresenter(MainContract.Presenter presenter) {
         mainPresenter = presenter;
     }
-
 
 
     @Override
@@ -262,5 +270,103 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
             }
         });
         snackbar.show();
+    }
+
+    @Override
+    public void setUpDrawer(Activity activity, Bundle savedInstanceState) {
+        accountHeader = new AccountHeaderBuilder()
+                .withActivity(activity)
+                .withCompactStyle(false)
+                .withHeaderBackground(new ImageHolder("http://i.imgur.com/orR8Jtd.jpg"))
+                .withSavedInstance(savedInstanceState)
+                .build();
+
+        result = new DrawerBuilder()
+                .withActivity(activity)
+                .withTranslucentStatusBar(true)
+                .withHasStableIds(true)
+                .withAccountHeader(accountHeader)
+                .addDrawerItems(
+                        new ExpandableDrawerItem()
+                                .withName("Home")
+                                .withIcon(GoogleMaterial.Icon.gmd_home)
+                                .withIdentifier(R.id.menu_home)
+                                .withSelectable(false)
+                                .withSubItems(
+                                        new SecondaryDrawerItem()
+                                                .withName("Overview")
+                                                .withLevel(2)
+                                                .withIcon(GoogleMaterial.Icon.gmd_account_circle)
+                                                .withIdentifier(2001),
+                                        new SecondaryDrawerItem()
+                                                .withName("History")
+                                                .withLevel(2)
+                                                .withIcon(GoogleMaterial.Icon.gmd_dashboard)
+                                                .withIdentifier(2002),
+                                        new SecondaryDrawerItem()
+                                                .withName("Statistics")
+                                                .withLevel(2)
+                                                .withIcon(GoogleMaterial.Icon.gmd_history)
+                                                .withIdentifier(2003)
+                                ),
+                        new PrimaryDrawerItem().withName("Map")
+                                .withIcon(GoogleMaterial.Icon.gmd_map)
+                                .withIdentifier(R.id.menu_map)
+                                .withSelectable(true),
+                        new PrimaryDrawerItem().withName("Compare")
+                                .withIcon(GoogleMaterial.Icon.gmd_compare)
+                                .withIdentifier(R.id.menu_compare)
+                                .withSelectable(true),
+                        new DividerDrawerItem(),
+                        new SecondaryDrawerItem()
+                                .withIcon(GoogleMaterial.Icon.gmd_info_outline)
+                                .withName("What's New?")
+                                .withDescription("See the changelog.")
+                                .withIdentifier(R.id.menu_new)
+                                .withSelectable(false),
+                        new SecondaryDrawerItem()
+                                .withIcon(GoogleMaterial.Icon.gmd_feedback)
+                                .withName("Feedback")
+                                .withDescription("Found a bug?")
+                                .withIdentifier(R.id.menu_feedback)
+                                .withSelectable(false),
+                        new SecondaryDrawerItem()
+                                .withIcon(FontAwesome.Icon.faw_twitter)
+                                .withName("Twitter")
+                                .withDescription("Stay Connected!")
+                                .withIdentifier(R.id.menu_twitter)
+                                .withSelectable(false)
+                ).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        if (drawerItem != null) {
+                        }
+                        return false;
+                    }
+                }).build();
+
+//        if (!SupporterHelper.isSupporter()){
+        if (true) {
+            result.addStickyFooterItem(
+                    new PrimaryDrawerItem().withName("Become a Supporter")
+                            .withDescription("Get Pro Features")
+                            .withIcon(GoogleMaterial.Icon.gmd_mood)
+                            .withIdentifier(R.id.menu_support)
+                            .withSelectable(false));
+        }
+    }
+
+    @Override
+    public void setDrawerUser(User user) {
+        if (profileDrawerItem != null){
+            profileDrawerItem.withName(user.getPlayerName()).withIcon(user.getAvatar());
+            accountHeader.updateProfile(profileDrawerItem);
+        } else {
+            profileDrawerItem = new ProfileDrawerItem()
+                    .withName(user.getPlayerName())
+                    .withIcon(user.getAvatar());
+            accountHeader.addProfiles(profileDrawerItem);
+        }
+        accountHeader.setActiveProfile(profileDrawerItem);
     }
 }
