@@ -21,13 +21,18 @@
 
     </style>
 
-    <style name="HistoryButtonPrimary" parent="AppTheme">
+    <style name="Button.Color.Primary" parent="AppTheme">
         <item name="colorButtonNormal">@color/colorPrimary</item>
         <item name="android:textColor">@color/material_color_white</item>
     </style>
 
-    <style name="HistoryButtonSecondary" parent="AppTheme">
+    <style name="Button.Color.AccentAlt" parent="AppTheme">
         <item name="android:colorButtonNormal">@color/colorAccentAlt</item>
+        <item name="android:textColor">@color/material_color_white</item>
+    </style>
+
+    <style name="Button.Color.Accent" parent="Base.Widget.AppCompat.Button.Colored">
+        <item name="android:colorButtonNormal">@color/colorAccent</item>
         <item name="android:textColor">@color/material_color_white</item>
     </style>
 

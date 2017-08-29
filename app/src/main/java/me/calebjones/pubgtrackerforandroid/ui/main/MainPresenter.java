@@ -4,11 +4,14 @@ package me.calebjones.pubgtrackerforandroid.ui.main;
 import android.support.annotation.NonNull;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
 import me.calebjones.pubgtrackerforandroid.common.BasePresenter;
 import me.calebjones.pubgtrackerforandroid.data.DataManager;
+import me.calebjones.pubgtrackerforandroid.data.events.UserFavoriteEvent;
 import me.calebjones.pubgtrackerforandroid.data.events.UserRefreshing;
 import me.calebjones.pubgtrackerforandroid.data.events.UserSelected;
 import me.calebjones.pubgtrackerforandroid.data.models.User;
@@ -36,6 +39,13 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
     @Override
     public boolean searchQuerySubmitted(final String query) {
         sendRefreshingState(true);
+        getUserByName(query);
+        mainView.closeSearchView();
+        return true;
+    }
+
+    private void getUserByName(String query) {
+        EventBus.getDefault().post(new UserRefreshing(true));
         dataManager.updateUserByProfileName(query, new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
@@ -46,11 +56,7 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
                             mainView.createSnackbar(user.getMessage());
                         } else if (user.getPlayerName() != null) {
                             dataManager.getDataSaver().save(user);
-                            mainView.setDrawerUser(user);
-                            mainView.createSnackbarSetCurrentUser(
-                                    String.format("Set %s as default user?",
-                                    user.getPlayerName()),
-                                    user);
+                            mainView.setActiveUser(user);
                             sendUserToEventBus(user);
                         }
                     }
@@ -70,8 +76,6 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
                 sendRefreshingState(false);
             }
         });
-        mainView.closeSearchView();
-        return true;
     }
 
     private void sendRefreshingState(boolean state) {
@@ -125,27 +129,62 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
     }
 
     @Override
-    public void setCurrentUser() {
-
-    }
-
-    @Override
     public void getUsers() {
         mainView.setUsers(dataManager.getSavedUsers());
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Override
+    public void onUserFavoriteEvent(UserFavoriteEvent userFavoriteEvent) {
+        User user = userFavoriteEvent.user;
+        if (user.isFavoriteUser()){
+            mainView.addDrawerUser(user);
+        } else {
+            mainView.deleteUser(user);
+        }
+    }
+
+    @Override
+    public void setCurrentUser() {
+        mainView.setActiveUser(dataManager.getCurrentUser());
+    }
+
+    @Override
+    public void setCurrentUser(long identifier) {
+        User user = dataManager.getUserByID((int) identifier);
+        getUserByName(user.getPlayerName());
+
+    }
+
+
+    public void registerEventBus() {
+        Timber.v("Checking EventBus...");
+        if (!EventBus.getDefault().isRegistered(this)) {
+            Timber.v("Registering EventBus");
+            EventBus.getDefault().register(this);
+        }
+    }
+
+    public void unRegisterEventBus() {
+        Timber.v("Unregistering EventBus");
+        EventBus.getDefault().unregister(this);
+    }
+
     @Override
     public void onStart() {
-
+        Timber.v("onStart");
+        registerEventBus();
     }
 
     @Override
     public void onStop() {
-
+        Timber.v("onStop");
+        unRegisterEventBus();
     }
 
     @Override
     public void onResume() {
-
+        Timber.v("onResume");
+        registerEventBus();
     }
 }

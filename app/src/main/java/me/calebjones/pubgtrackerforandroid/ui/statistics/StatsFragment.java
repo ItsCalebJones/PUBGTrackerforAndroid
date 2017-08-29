@@ -24,7 +24,29 @@ public class StatsFragment extends BaseFragment {
         Timber.v("onCreateView");
         statsView = new StatsViewImpl(getContext(), inflater, container);
         statsPresenter = new StatsPresenter(statsView);
+        statsPresenter.retrieveCachedUser();
         return statsView.getRootView();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Timber.v("onStart");
+        statsPresenter.onStart();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        Timber.v("onResume");
+        statsPresenter.onResume();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Timber.v("onStop");
+        statsPresenter.onStop();
     }
 
 }

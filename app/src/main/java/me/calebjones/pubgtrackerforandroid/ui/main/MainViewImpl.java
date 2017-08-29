@@ -22,6 +22,7 @@ import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationView;
 import com.luseen.luseenbottomnavigation.BottomNavigation.OnBottomNavigationItemClickListener;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -31,6 +32,7 @@ import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.ExpandableDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileSettingDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
@@ -39,11 +41,15 @@ import com.transitionseverywhere.TransitionManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Timer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.calebjones.pubgtrackerforandroid.R;
+import me.calebjones.pubgtrackerforandroid.data.models.PlayerStat;
 import me.calebjones.pubgtrackerforandroid.data.models.User;
+import timber.log.Timber;
 
 
 public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextListener,
@@ -68,7 +74,6 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     private Context context;
     private Drawer result;
     private AccountHeader accountHeader;
-    private ProfileDrawerItem profileDrawerItem;
 
     public MainViewImpl(Context context, ViewGroup container) {
         this.context = context;
@@ -128,15 +133,14 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         BottomNavigationItem homeItem = new BottomNavigationItem
                 (context.getResources().getString(R.string.title_home),
                         color[1],
-                        R.drawable.ic_home_black_24dp);
+                        R.drawable.ic_account_circle_black_24);
         BottomNavigationItem historyItem = new BottomNavigationItem
                 (context.getResources().getString(R.string.title_history),
                         color[2],
-                        R.drawable.ic_account_circle_black_24);
+                        R.drawable.ic_history_black_24dp);
         navigation.addTab(statsItem);
         navigation.addTab(homeItem);
         navigation.addTab(historyItem);
-        navigation.disableViewPagerSlide();
     }
 
     @Override
@@ -270,8 +274,24 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         accountHeader = new AccountHeaderBuilder()
                 .withActivity(activity)
                 .withCompactStyle(false)
-                .withHeaderBackground(new ImageHolder("http://i.imgur.com/orR8Jtd.jpg"))
+                .withHeaderBackground(new ImageHolder("http://i.imgur.com/Oe5nnI9.jpg"))
+                .withAccountHeader(R.layout.material_drawer_header_custom)
                 .withSavedInstance(savedInstanceState)
+                .addProfiles(//don't ask but google uses 14dp for the add account icon in gmail but 20dp for the normal icons (like manage account)
+                        new ProfileSettingDrawerItem()
+                                .withName("Manage Favorites")
+                                .withIcon(GoogleMaterial.Icon.gmd_settings)
+                        .withIdentifier(R.id.menu_profile_settings)
+                )
+                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
+                    @Override
+                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
+                        if (!currentProfile && profile.getIdentifier() != R.id.menu_profile_settings){
+                            mainPresenter.setCurrentUser(profile.getIdentifier());
+                        }
+                        return false;
+                    }
+                })
                 .build();
 
         result = new DrawerBuilder()
@@ -287,29 +307,30 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
                                 .withSelectable(false)
                                 .withSubItems(
                                         new SecondaryDrawerItem()
+                                                .withName("Statistics")
+                                                .withLevel(2)
+                                                .withIcon(GoogleMaterial.Icon.gmd_dashboard)
+                                                .withIdentifier(R.id.menu_statistics),
+                                        new SecondaryDrawerItem()
                                                 .withName("Overview")
                                                 .withLevel(2)
                                                 .withIcon(GoogleMaterial.Icon.gmd_account_circle)
                                                 .withIdentifier(R.id.menu_overview),
                                         new SecondaryDrawerItem()
-                                                .withName("History")
-                                                .withLevel(2)
-                                                .withIcon(GoogleMaterial.Icon.gmd_dashboard)
-                                                .withIdentifier(R.id.menu_history),
-                                        new SecondaryDrawerItem()
-                                                .withName("Statistics")
+                                                .withName("Sessions")
                                                 .withLevel(2)
                                                 .withIcon(GoogleMaterial.Icon.gmd_history)
-                                                .withIdentifier(R.id.menu_statistics)
+                                                .withIdentifier(R.id.menu_history)
+
                                 ),
-                        new PrimaryDrawerItem().withName("Map")
-                                .withIcon(GoogleMaterial.Icon.gmd_map)
-                                .withIdentifier(R.id.menu_map)
-                                .withSelectable(false),
-                        new PrimaryDrawerItem().withName("Compare")
-                                .withIcon(GoogleMaterial.Icon.gmd_compare)
-                                .withIdentifier(R.id.menu_compare)
-                                .withSelectable(false),
+//                        new PrimaryDrawerItem().withName("Map")
+//                                .withIcon(GoogleMaterial.Icon.gmd_map)
+//                                .withIdentifier(R.id.menu_map)
+//                                .withSelectable(false),
+//                        new PrimaryDrawerItem().withName("Compare")
+//                                .withIcon(GoogleMaterial.Icon.gmd_compare)
+//                                .withIdentifier(R.id.menu_compare)
+//                                .withSelectable(false),
                         new DividerDrawerItem(),
                         new SecondaryDrawerItem()
                                 .withIcon(GoogleMaterial.Icon.gmd_info_outline)
@@ -375,42 +396,55 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
                             .withIdentifier(R.id.menu_support)
                             .withSelectable(false));
         }
+        mainPresenter.getUsers();
+        mainPresenter.setCurrentUser();
     }
 
     @Override
-    public void setDrawerUser(User user) {
-        if (profileDrawerItem != null) {
-            profileDrawerItem.withName(user.getPlayerName()).withIcon(user.getAvatar());
-            accountHeader.updateProfile(profileDrawerItem);
-        } else {
-            profileDrawerItem = new ProfileDrawerItem()
-                    .withName(user.getPlayerName())
-                    .withIcon(user.getAvatar());
-            accountHeader.addProfiles(profileDrawerItem);
-        }
-        accountHeader.setActiveProfile(profileDrawerItem);
+    public void addDrawerUser(User user) {
+        accountHeader.addProfiles(convertUserToProfile(user));
     }
 
     @Override
     public void setActiveUser(User user) {
+        if (user == null){
+            Timber.e("User cannot be null, no active users found.");
+            return;
+        }
+//        accountHeader.setHeaderBackground(new ImageHolder("http://res.cloudinary.com/dnkkbfy3m/image/upload/e_blur:1500/v1503931147/orR8Jtd_ntupcz.jpg"));
         accountHeader.setActiveProfile(convertUserToProfile(user));
     }
 
     @Override
     public void setUsers(List<User> users) {
-        List<IProfile> profiles = new ArrayList<>();
+//        if (users.size() > 0){
+//            accountHeader.setHeaderBackground(new ImageHolder("http://res.cloudinary.com/dnkkbfy3m/image/upload/e_blur:1500/v1503931147/orR8Jtd_ntupcz.jpg"));
+//        }
         for (User user : users) {
-            profiles.add(convertUserToProfile(user));
+            IProfile profile = convertUserToProfile(user);
+            accountHeader.addProfiles(profile);
         }
-        accountHeader.setProfiles(profiles);
+    }
+
+    @Override
+    public void deleteUser(User user) {
+        for (IProfile profile: accountHeader.getProfiles()){
+            profile.getName();
+            user.getPubgTrackerId();
+            if (profile.getIdentifier() == user.getPubgTrackerId()){
+                accountHeader.removeProfile(profile);
+                if (user.isCurrentUser()){
+                    accountHeader.setActiveProfile(convertUserToProfile(user));
+                }
+            }
+        }
     }
 
     private IProfile convertUserToProfile(User user) {
         IProfile profile = new ProfileDrawerItem()
                 .withIdentifier(user.getPubgTrackerId())
                 .withName(user.getPlayerName())
-                .withIcon(user.getAvatar())
-                .withEmail(user.getDefaultSeason());
+                .withIcon(user.getAvatar());
         return profile;
     }
 }

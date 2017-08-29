@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <FrameLayout
         android:id="@+id/root"
         android:layout_width="match_parent"
@@ -21,27 +20,39 @@
             app:state="empty"
             app:stateTextAppearance="@style/TextAppearance.AppCompat">
 
-            <android.support.v4.widget.SwipeRefreshLayout
-                android:id="@+id/refresh"
+            <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/history_recycler_view"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
+                    <me.calebjones.pubgtrackerforandroid.ui.views.PlaylistView
+                        android:id="@+id/solo_playlist"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
-                </android.support.v7.widget.RecyclerView>
-            </android.support.v4.widget.SwipeRefreshLayout>
+                    <me.calebjones.pubgtrackerforandroid.ui.views.PlaylistView
+                        android:id="@+id/duo_playlist"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <me.calebjones.pubgtrackerforandroid.ui.views.PlaylistView
+                        android:id="@+id/squad_playlist"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
+
         </me.calebjones.pubgtrackerforandroid.ui.views.ExtendedStatefulLayout>
-
 
         <LinearLayout
             android:id="@+id/sorting_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/material_color_blue_500"
+            android:background="@color/colorAccentAlt"
             android:orientation="vertical"
             android:visibility="invisible">
 
@@ -63,23 +74,6 @@
                 android:layout_marginStart="@dimen/material_baseline_grid_2x"
                 android:hint="Select a Season" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="@dimen/material_baseline_grid_2x"
-                android:layout_marginStart="@dimen/material_baseline_grid_2x"
-                android:layout_marginTop="@dimen/material_baseline_grid_1x"
-                android:text="Mode"
-                android:textStyle="bold" />
-
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/mode_picker"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/material_baseline_grid_1x"
-                android:layout_marginEnd="@dimen/material_baseline_grid_2x"
-                android:layout_marginStart="@dimen/material_baseline_grid_2x"
-                android:hint="Select a Mode" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -102,7 +96,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                >
 
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/history_sort_reset"
@@ -124,7 +119,7 @@
                     android:layout_marginStart="@dimen/material_baseline_grid_2x"
                     android:layout_weight=".5"
                     android:text="Submit"
-                    app:theme="@style/Button.Color.AccentAlt" />
+                    app:theme="@style/Button.Color.Accent" />
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>
@@ -136,7 +131,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/material_baseline_grid_3x"
         android:clickable="true"
-        app:backgroundTint="@color/colorAccentAlt"
+        app:backgroundTint="@color/colorAccent"
         app:borderWidth="0dp"
         app:elevation="12dp"
         app:ico_color="@android:color/white"

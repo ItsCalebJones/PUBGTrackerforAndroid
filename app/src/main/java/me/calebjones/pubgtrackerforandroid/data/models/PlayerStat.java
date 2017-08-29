@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.RealmResults;
+import io.realm.annotations.LinkingObjects;
 
 public class PlayerStat extends RealmObject {
 
@@ -20,6 +22,8 @@ public class PlayerStat extends RealmObject {
     @SerializedName("Stats")
     @Expose
     private RealmList<Stats> stats = null;
+    @LinkingObjects("playerStats") // <-- !
+    private final RealmResults<User> users = null; // <-- !
 
     public String getRegion() {
         return region;

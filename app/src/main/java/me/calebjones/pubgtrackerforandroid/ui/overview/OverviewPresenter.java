@@ -9,10 +9,10 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.Objects;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
 import me.calebjones.pubgtrackerforandroid.common.BasePresenter;
 import me.calebjones.pubgtrackerforandroid.data.Config;
 import me.calebjones.pubgtrackerforandroid.data.DataManager;
+import me.calebjones.pubgtrackerforandroid.data.events.UserFavoriteEvent;
 import me.calebjones.pubgtrackerforandroid.data.events.UserRefreshing;
 import me.calebjones.pubgtrackerforandroid.data.events.UserSelected;
 import me.calebjones.pubgtrackerforandroid.data.models.PlayerStat;
@@ -51,7 +51,7 @@ public class OverviewPresenter extends BasePresenter implements OverviewContract
     private void configureOverviewCard(User user) {
         overviewView.setOverviewCardVisible(true);
         PlayerStat highestElo = null;
-        for (PlayerStat playerStat : user.getStats()) {
+        for (PlayerStat playerStat : user.getPlayerStats()) {
             if (Objects.equals(playerStat.getSeason(), user.getDefaultSeason()) &&
                     !Objects.equals(playerStat.getRegion(), "agg")) {
                 float elo = playerStat.getStats().get(9).getValueDec();
@@ -68,18 +68,18 @@ public class OverviewPresenter extends BasePresenter implements OverviewContract
             }
         }
 
-            overviewView.setProfileAvatar(user.getAvatar());
-            overviewView.setProfileName(user.getPlayerName());
-            overviewView.setCurrentRatingAndRank(
-                    highestElo.getStats().get(9).getValue(),
-                    String.valueOf(highestElo.getStats().get(9).getRank()),
-                    findKD(user));
-            overviewView.setCurrentUserIcon(user.isCurrentUser());
+        overviewView.setProfileAvatar(user.getAvatar());
+        overviewView.setProfileName(user.getPlayerName());
+        overviewView.setCurrentRatingAndRank(
+                highestElo.getStats().get(9).getValue(),
+                String.valueOf(highestElo.getStats().get(9).getRank()),
+                findKD(user));
+        overviewView.setFavoriteUserIcon(user.isFavoriteUser());
     }
 
     private String findKD(User user) {
         Float highestKD = null;
-        for (PlayerStat playerStat : user.getStats()) {
+        for (PlayerStat playerStat : user.getPlayerStats()) {
             if (Objects.equals(playerStat.getSeason(), user.getDefaultSeason()) &&
                     Objects.equals(playerStat.getRegion(), "agg")) {
                 float currentKd = playerStat.getStats().get(0).getValueDec();
@@ -101,7 +101,8 @@ public class OverviewPresenter extends BasePresenter implements OverviewContract
     @Override
     public void onUserEventReceived(UserSelected userSelected) {
         overviewView.setRefreshEnabled(true);
-        applyUser(userSelected.response);
+        overviewView.showContent();
+        applyUser(userSelected.user);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -132,42 +133,26 @@ public class OverviewPresenter extends BasePresenter implements OverviewContract
 
     @Override
     public void retrieveCachedUser() {
-        User user = getRealm().where(User.class).equalTo("defaultUser", true).findFirst();
+        User user = dataManager.getCurrentUser();
         if (user != null) {
             applyUser(user);
             overviewView.setRefreshEnabled(true);
         } else {
+            overviewView.showNoUser();
             overviewView.setRefreshEnabled(false);
         }
     }
 
     @Override
-    public void setCurrentUserState(boolean currentUserState) {
-        if (currentUserState) {
-            getRealm().executeTransaction(new Realm.Transaction() {
-                @Override
-                public void execute(Realm realm) {
-                    RealmResults<User> users = realm.where(User.class).equalTo("currentUser", true).findAll();
-                    for (User currentUser : users) {
-                        currentUser.setCurrentUser(false);
-                        realm.copyToRealmOrUpdate(currentUser);
-                    }
-                    currentUser.setCurrentUser(true);
-                    realm.copyToRealmOrUpdate(currentUser);
-                }
-            });
-        } else {
-            getRealm().executeTransaction(new Realm.Transaction() {
-                @Override
-                public void execute(Realm realm) {
-                    RealmResults<User> users = realm.where(User.class).equalTo("currentUser", true).findAll();
-                    for (User currentUser : users) {
-                        currentUser.setCurrentUser(false);
-                        realm.copyToRealmOrUpdate(currentUser);
-                    }
-                }
-            });
-        }
+    public void setFavoriteUserState(final boolean currentUserState) {
+        getRealm().executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                currentUser.setFavoriteUser(currentUserState);
+                realm.copyToRealmOrUpdate(currentUser);
+                EventBus.getDefault().post(new UserFavoriteEvent(currentUser));
+            }
+        });
     }
 
     @Override
@@ -175,7 +160,7 @@ public class OverviewPresenter extends BasePresenter implements OverviewContract
         dataManager.updateUserByProfileName(currentUser.getPlayerName(), new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     User user = response.body();
                     if (user != null) {
                         if (user.getError() != null && user.getMessage() != null) {

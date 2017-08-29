@@ -8,7 +8,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,6 +36,14 @@ public class MatchView extends LinearLayout {
     TextView matchSurvived;
     @BindView(R.id.match_root)
     LinearLayout matchRoot;
+    @BindView(R.id.match_count)
+    TextView matchCount;
+    @BindView(R.id.match_win)
+    TextView matchWin;
+    @BindView(R.id.session_container)
+    LinearLayout sessionContainer;
+    @BindView(R.id.match_result_title)
+    TextView matchResultTitle;
 
     public MatchView(Context context) {
         super(context);
@@ -61,11 +68,11 @@ public class MatchView extends LinearLayout {
         Timber.v("init - Binding Completed.");
     }
 
-    public void setMatch(Match match, SimpleDateFormat simpleDateFormat){
-        Timber.v("setMatch - Received Match ID: %s", match.getId());
+    public void setMatch(Match match, SimpleDateFormat simpleDateFormat) {
+        Timber.v("setPlayerStats - Received Match ID: %s", match.getId());
         setMatchResult(match);
 
-        Timber.v("setMatch - Getting data from Match.");
+        Timber.v("setPlayerStats - Getting data from Match.");
         String matchRatingText = String.valueOf((int) match.getRating());
         String matchRatingChangeText = String.valueOf((int) match.getRatingChange());
 
@@ -79,12 +86,12 @@ public class MatchView extends LinearLayout {
         String matchDistanceText = String.valueOf((int) match.getMoveDistance()) + "m";
         String matchSurvivedText = String.valueOf((int) match.getTimeSurvived()) + " sec";
         String matchOverviewMatchTitleText = match.getRegionDisplay() + " - " + match.getMatchDisplay();
-        Timber.v("setMatch - Getting Date from Match.");
+        Timber.v("setPlayerStats - Getting Date from Match.");
         String matchOverviewDateText = simpleDateFormat.format(match.getUpdated());
-        Timber.v("setMatch - Getting Date from Match - Complete.");
+        Timber.v("setPlayerStats - Getting Date from Match - Complete.");
 
 
-        Timber.v("setMatch - Setting Views with data.");
+        Timber.v("setPlayerStats - Setting Views with data.");
         matchRating.setText(matchRatingText);
         matchKills.setText(matchKillsText);
         matchDamage.setText(matchDamageText);
@@ -96,16 +103,28 @@ public class MatchView extends LinearLayout {
 
     private void setMatchResult(Match match) {
         Timber.v("setMatchResult - Checking result.");
-        if (match.getWins() == 1) {
-            Timber.v("setMatchResult - Returning Win.");
-            matchResult.setText("Win");
-        } else if (match.getTop10() == 1) {
-            Timber.v("setMatchResult - Returning Top Ten.");
-            matchResult.setText("Top Ten");
+
+        if (match.getRounds() > 1){
+            sessionContainer.setVisibility(View.VISIBLE);
+            matchCount.setText(String.valueOf(match.getRounds()));
+            matchResultTitle.setText("TOP TENS");
+            matchResult.setText(String.valueOf(match.getTop10()));
+            matchWin.setText(String.valueOf(match.getWins()));
         } else {
-            Timber.v("setMatchResult - Returning Died.");
-            matchResult.setText("Died");
+            sessionContainer.setVisibility(View.GONE);
+            matchResultTitle.setText("RESULT");
+            if (match.getWins() == 1) {
+                Timber.v("setMatchResult - Returning Win.");
+                matchResult.setText("Win");
+            } else if (match.getTop10() == 1) {
+                Timber.v("setMatchResult - Returning Top Ten.");
+                matchResult.setText("Top Ten");
+            } else {
+                Timber.v("setMatchResult - Returning Died.");
+                matchResult.setText("Died");
+            }
         }
+
     }
 
 

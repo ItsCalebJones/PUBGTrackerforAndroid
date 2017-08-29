@@ -42,7 +42,7 @@ public class User extends RealmObject {
     private int pubgTrackerId;
     @SerializedName("Stats")
     @Expose
-    private RealmList<PlayerStat> stats = null;
+    private RealmList<PlayerStat> playerStats = null;
     @SerializedName("MatchHistory")
     @Expose
     private RealmList<Match> matchHistory = null;
@@ -53,7 +53,7 @@ public class User extends RealmObject {
     @SerializedName("message")
     private String message;
 
-    private boolean savedUser = false;
+    private boolean favoriteUser = false;
 
     private boolean currentUser = false;
 
@@ -65,12 +65,12 @@ public class User extends RealmObject {
         this.currentUser = currentUser;
     }
 
-    public boolean isSavedUser() {
-        return savedUser;
+    public boolean isFavoriteUser() {
+        return favoriteUser;
     }
 
-    public void setSavedUser(boolean savedUser) {
-        this.savedUser = savedUser;
+    public void setFavoriteUser(boolean favoriteUser) {
+        this.favoriteUser = favoriteUser;
     }
 
     public String getMessage() {
@@ -169,12 +169,12 @@ public class User extends RealmObject {
         this.pubgTrackerId = pubgTrackerId;
     }
 
-    public RealmList<PlayerStat> getStats() {
-        return stats;
+    public RealmList<PlayerStat> getPlayerStats() {
+        return playerStats;
     }
 
-    public void setStats(RealmList<PlayerStat> stats) {
-        this.stats = stats;
+    public void setPlayerStats(RealmList<PlayerStat> playerStats) {
+        this.playerStats = playerStats;
     }
 
     public RealmList<Match> getMatchHistory() {

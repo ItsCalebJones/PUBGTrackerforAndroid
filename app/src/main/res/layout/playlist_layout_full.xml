@@ -1,0 +1,1035 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/playlist_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="@dimen/material_baseline_grid_1x"
+            android:layout_marginStart="@dimen/material_baseline_grid_1x"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/material_baseline_grid_1x"
+            android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
+            android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
+            android:paddingTop="@dimen/material_baseline_grid_0.5x">
+
+            <TextView
+                android:id="@+id/playlist_overview_type"
+                style="@style/MaterialTypography.Tall.Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Unknown Playlist"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/playlist_overview_season"
+                style="@style/MaterialTypography.Tall.Subheading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Unknown Season"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <com.mikepenz.iconics.view.IconicsImageView
+            android:id="@+id/expand_button"
+            style="@android:style/Widget.Material.Light.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            app:iiv_color="@color/material_color_white"
+            app:iiv_icon="@string/gmd_info_outline"
+            app:iiv_size="24dp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginEnd="@dimen/material_baseline_grid_2x"
+        android:layout_marginStart="@dimen/material_baseline_grid_2x"
+        android:background="@color/divider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/material_baseline_grid_1x">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".33"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/MaterialTypography.Dense.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/material_baseline_grid_1x"
+                android:paddingStart="@dimen/material_baseline_grid_1x"
+                android:text="RATING"
+                android:textAlignment="center"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/playlist_rating"
+                style="@style/MaterialTypography.Dense.Subheading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/material_baseline_grid_1x"
+                android:paddingStart="@dimen/material_baseline_grid_1x"
+                android:text="- -"
+                android:textAlignment="center"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".33"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MaterialTypography.Dense.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/material_baseline_grid_1x"
+                    android:paddingStart="@dimen/material_baseline_grid_1x"
+                    android:text="RANK"
+                    android:textAlignment="center"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/playlist_rank"
+                    style="@style/MaterialTypography.Dense.Subheading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/material_baseline_grid_1x"
+                    android:paddingStart="@dimen/material_baseline_grid_1x"
+                    android:text="- -"
+                    android:textAlignment="center"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".33"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MaterialTypography.Dense.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/material_baseline_grid_1x"
+                    android:paddingStart="@dimen/material_baseline_grid_1x"
+                    android:text="MATCHES"
+                    android:textAlignment="center"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/playlist_matches_played"
+                    style="@style/MaterialTypography.Dense.Subheading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/material_baseline_grid_1x"
+                    android:paddingStart="@dimen/material_baseline_grid_1x"
+                    android:text="- -"
+                    android:textAlignment="center"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/material_baseline_grid_1x">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".33"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/MaterialTypography.Dense.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/material_baseline_grid_1x"
+                android:paddingStart="@dimen/material_baseline_grid_1x"
+                android:text="WINS"
+                android:textAlignment="center"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/playlist_wins"
+                style="@style/MaterialTypography.Dense.Subheading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/material_baseline_grid_1x"
+                android:paddingStart="@dimen/material_baseline_grid_1x"
+                android:text="- -"
+                android:textAlignment="center"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".33"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MaterialTypography.Dense.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/material_baseline_grid_1x"
+                    android:paddingStart="@dimen/material_baseline_grid_1x"
+                    android:text="TOP TENS"
+                    android:textAlignment="center"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/playlist_top_ten"
+                    style="@style/MaterialTypography.Dense.Subheading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/material_baseline_grid_1x"
+                    android:paddingStart="@dimen/material_baseline_grid_1x"
+                    android:text="- -"
+                    android:textAlignment="center"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".33"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MaterialTypography.Dense.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/material_baseline_grid_1x"
+                    android:paddingStart="@dimen/material_baseline_grid_1x"
+                    android:text="TOP RANK"
+                    android:textAlignment="center"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/playlist_top_rank"
+                    style="@style/MaterialTypography.Dense.Subheading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/material_baseline_grid_1x"
+                    android:paddingStart="@dimen/material_baseline_grid_1x"
+                    android:text="- -"
+                    android:textAlignment="center"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/material_baseline_grid_1x">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".5"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/MaterialTypography.Dense.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/material_baseline_grid_1x"
+                android:paddingStart="@dimen/material_baseline_grid_1x"
+                android:text="WIN RATE"
+                android:textAlignment="center"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/playlist_win_rate"
+                style="@style/MaterialTypography.Dense.Subheading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/material_baseline_grid_1x"
+                android:paddingStart="@dimen/material_baseline_grid_1x"
+                android:text="- -"
+                android:textAlignment="center"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".5"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MaterialTypography.Dense.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/material_baseline_grid_1x"
+                    android:paddingStart="@dimen/material_baseline_grid_1x"
+                    android:text="TOP TEN RATE"
+                    android:textAlignment="center"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/playlist_top_ten_rate"
+                    style="@style/MaterialTypography.Dense.Subheading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/material_baseline_grid_1x"
+                    android:paddingStart="@dimen/material_baseline_grid_1x"
+                    android:text="- -"
+                    android:textAlignment="center"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginEnd="@dimen/material_baseline_grid_2x"
+        android:layout_marginStart="@dimen/material_baseline_grid_2x"
+        android:background="@color/divider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/material_baseline_grid_1x">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".33"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/MaterialTypography.Dense.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/material_baseline_grid_1x"
+                android:paddingStart="@dimen/material_baseline_grid_1x"
+                android:text="KILLS AVG"
+                android:textAlignment="center"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/playlist_kills_avg"
+                style="@style/MaterialTypography.Dense.Subheading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/material_baseline_grid_1x"
+                android:paddingStart="@dimen/material_baseline_grid_1x"
+                android:text="- -"
+                android:textAlignment="center"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".33"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MaterialTypography.Dense.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/material_baseline_grid_1x"
+                    android:paddingStart="@dimen/material_baseline_grid_1x"
+                    android:text="DAMAGE AVG"
+                    android:textAlignment="center"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/playlist_damage"
+                    style="@style/MaterialTypography.Dense.Subheading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/material_baseline_grid_1x"
+                    android:paddingStart="@dimen/material_baseline_grid_1x"
+                    android:text="- -"
+                    android:textAlignment="center"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".33"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/MaterialTypography.Dense.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/material_baseline_grid_1x"
+                    android:paddingStart="@dimen/material_baseline_grid_1x"
+                    android:text="K/D RATIO"
+                    android:textAlignment="center"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/playlist_kd_ratio"
+                    style="@style/MaterialTypography.Dense.Subheading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/material_baseline_grid_1x"
+                    android:paddingStart="@dimen/material_baseline_grid_1x"
+                    android:text="- -"
+                    android:textAlignment="center"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <net.cachapa.expandablelayout.ExpandableLayout
+        android:id="@+id/expandable_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:el_duration="1000"
+        app:el_expanded="false"
+        app:el_parallax="0.5">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginEnd="@dimen/material_baseline_grid_2x"
+                android:layout_marginStart="@dimen/material_baseline_grid_2x"
+                android:background="@color/divider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/material_baseline_grid_1x">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".33"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/MaterialTypography.Dense.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="KILLS"
+                        android:textAlignment="center"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/playlist_kills"
+                        style="@style/MaterialTypography.Dense.Subheading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="- -"
+                        android:textAlignment="center"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".33"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/MaterialTypography.Dense.Caption"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/material_baseline_grid_1x"
+                            android:paddingStart="@dimen/material_baseline_grid_1x"
+                            android:text="ASSISTS"
+                            android:textAlignment="center"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/playlist_assists"
+                            style="@style/MaterialTypography.Dense.Subheading"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/material_baseline_grid_1x"
+                            android:paddingStart="@dimen/material_baseline_grid_1x"
+                            android:text="- -"
+                            android:textAlignment="center"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".33"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/MaterialTypography.Dense.Caption"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/material_baseline_grid_1x"
+                            android:paddingStart="@dimen/material_baseline_grid_1x"
+                            android:text="KNOCK OUTS"
+                            android:textAlignment="center"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/playlist_knock_outs"
+                            style="@style/MaterialTypography.Dense.Subheading"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/material_baseline_grid_1x"
+                            android:paddingStart="@dimen/material_baseline_grid_1x"
+                            android:text="- -"
+                            android:textAlignment="center"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/material_baseline_grid_1x">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".33"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/MaterialTypography.Dense.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="MOST KILLS"
+                        android:textAlignment="center"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/playlist_most_kills"
+                        style="@style/MaterialTypography.Dense.Subheading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="- -"
+                        android:textAlignment="center"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".33"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/MaterialTypography.Dense.Caption"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/material_baseline_grid_1x"
+                            android:paddingStart="@dimen/material_baseline_grid_1x"
+                            android:text="AVG SURVIVED"
+                            android:textAlignment="center"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/playlist_average_survived"
+                            style="@style/MaterialTypography.Dense.Subheading"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/material_baseline_grid_1x"
+                            android:paddingStart="@dimen/material_baseline_grid_1x"
+                            android:text="- -"
+                            android:textAlignment="center"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".33"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/MaterialTypography.Dense.Caption"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/material_baseline_grid_1x"
+                            android:paddingStart="@dimen/material_baseline_grid_1x"
+                            android:text="FURTHEST KILL"
+                            android:textAlignment="center"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/playlist_longest_kill"
+                            style="@style/MaterialTypography.Dense.Subheading"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/material_baseline_grid_1x"
+                            android:paddingStart="@dimen/material_baseline_grid_1x"
+                            android:text="- -"
+                            android:textAlignment="center"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/material_baseline_grid_1x">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".33"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/MaterialTypography.Dense.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="HEADSHOT KILLS"
+                        android:textAlignment="center"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/playlist_headshot_kills"
+                        style="@style/MaterialTypography.Dense.Subheading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="- -"
+                        android:textAlignment="center"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".33"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/MaterialTypography.Dense.Caption"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/material_baseline_grid_1x"
+                            android:paddingStart="@dimen/material_baseline_grid_1x"
+                            android:text="VEHICLES DESTROYED"
+                            android:textAlignment="center"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/playlist_vehicles_destroyed"
+                            style="@style/MaterialTypography.Dense.Subheading"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/material_baseline_grid_1x"
+                            android:paddingStart="@dimen/material_baseline_grid_1x"
+                            android:text="- -"
+                            android:textAlignment="center"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".33"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/MaterialTypography.Dense.Caption"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/material_baseline_grid_1x"
+                            android:paddingStart="@dimen/material_baseline_grid_1x"
+                            android:text="VEHICLE KILLS"
+                            android:textAlignment="center"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/playlist_vehicle_kills"
+                            style="@style/MaterialTypography.Dense.Subheading"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/material_baseline_grid_1x"
+                            android:paddingStart="@dimen/material_baseline_grid_1x"
+                            android:text="- -"
+                            android:textAlignment="center"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/material_baseline_grid_1x">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".33"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/MaterialTypography.Dense.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="HEALS"
+                        android:textAlignment="center"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/playlist_heals"
+                        style="@style/MaterialTypography.Dense.Subheading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="- -"
+                        android:textAlignment="center"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".33"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/MaterialTypography.Dense.Caption"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/material_baseline_grid_1x"
+                            android:paddingStart="@dimen/material_baseline_grid_1x"
+                            android:text="REVIVES"
+                            android:textAlignment="center"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/playlist_revives"
+                            style="@style/MaterialTypography.Dense.Subheading"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/material_baseline_grid_1x"
+                            android:paddingStart="@dimen/material_baseline_grid_1x"
+                            android:text="- -"
+                            android:textAlignment="center"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".33"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/MaterialTypography.Dense.Caption"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/material_baseline_grid_1x"
+                            android:paddingStart="@dimen/material_baseline_grid_1x"
+                            android:text="BOOSTS"
+                            android:textAlignment="center"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/playlist_boosts"
+                            style="@style/MaterialTypography.Dense.Subheading"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/material_baseline_grid_1x"
+                            android:paddingStart="@dimen/material_baseline_grid_1x"
+                            android:text="- -"
+                            android:textAlignment="center"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/material_baseline_grid_1x">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".5"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/MaterialTypography.Dense.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="SUICIDES"
+                        android:textAlignment="center"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/playlist_suicides"
+                        style="@style/MaterialTypography.Dense.Subheading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/material_baseline_grid_1x"
+                        android:paddingStart="@dimen/material_baseline_grid_1x"
+                        android:text="- -"
+                        android:textAlignment="center"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".5"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/MaterialTypography.Dense.Caption"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/material_baseline_grid_1x"
+                            android:paddingStart="@dimen/material_baseline_grid_1x"
+                            android:text="TEAM KILLS"
+                            android:textAlignment="center"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/playlist_team_kills"
+                            style="@style/MaterialTypography.Dense.Subheading"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/material_baseline_grid_1x"
+                            android:paddingStart="@dimen/material_baseline_grid_1x"
+                            android:text="- -"
+                            android:textAlignment="center"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </net.cachapa.expandablelayout.ExpandableLayout>
+
+</LinearLayout>

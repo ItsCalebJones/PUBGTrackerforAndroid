@@ -42,6 +42,74 @@
         android:background="@color/divider" />
 
     <LinearLayout
+        android:id="@+id/session_container"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/material_baseline_grid_1x">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".5"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/MaterialTypography.Dense.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/material_baseline_grid_1x"
+                android:paddingStart="@dimen/material_baseline_grid_1x"
+                android:text="ROUNDS"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/match_count"
+                style="@style/MaterialTypography.Dense.Subheading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/material_baseline_grid_1x"
+                android:paddingStart="@dimen/material_baseline_grid_1x"
+                android:text="- -"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".5"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/MaterialTypography.Dense.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/material_baseline_grid_1x"
+                android:paddingStart="@dimen/material_baseline_grid_1x"
+                android:text="WINS"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/match_win"
+                style="@style/MaterialTypography.Dense.Subheading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/material_baseline_grid_1x"
+                android:paddingStart="@dimen/material_baseline_grid_1x"
+                android:text="- -"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -56,6 +124,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/match_result_title"
                 style="@style/MaterialTypography.Dense.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -84,24 +153,24 @@
             android:gravity="center"
             android:orientation="vertical">
 
-                <TextView
-                    style="@style/MaterialTypography.Dense.Caption"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingEnd="@dimen/material_baseline_grid_1x"
-                    android:paddingStart="@dimen/material_baseline_grid_1x"
-                    android:text="RATING"
-                    android:textStyle="bold" />
+            <TextView
+                style="@style/MaterialTypography.Dense.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/material_baseline_grid_1x"
+                android:paddingStart="@dimen/material_baseline_grid_1x"
+                android:text="RATING"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/match_rating"
-                    style="@style/MaterialTypography.Dense.Subheading"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingEnd="@dimen/material_baseline_grid_1x"
-                    android:paddingStart="@dimen/material_baseline_grid_1x"
-                    android:text="- -"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/match_rating"
+                style="@style/MaterialTypography.Dense.Subheading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/material_baseline_grid_1x"
+                android:paddingStart="@dimen/material_baseline_grid_1x"
+                android:text="- -"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -112,24 +181,24 @@
             android:gravity="center"
             android:orientation="vertical">
 
-                <TextView
-                    style="@style/MaterialTypography.Dense.Caption"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingEnd="@dimen/material_baseline_grid_1x"
-                    android:paddingStart="@dimen/material_baseline_grid_1x"
-                    android:text="KILLS"
-                    android:textStyle="bold" />
+            <TextView
+                style="@style/MaterialTypography.Dense.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/material_baseline_grid_1x"
+                android:paddingStart="@dimen/material_baseline_grid_1x"
+                android:text="KILLS"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/match_kills"
-                    style="@style/MaterialTypography.Dense.Subheading"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingEnd="@dimen/material_baseline_grid_1x"
-                    android:paddingStart="@dimen/material_baseline_grid_1x"
-                    android:text="- -"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/match_kills"
+                style="@style/MaterialTypography.Dense.Subheading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/material_baseline_grid_1x"
+                android:paddingStart="@dimen/material_baseline_grid_1x"
+                android:text="- -"
+                android:textStyle="bold" />
         </LinearLayout>
 
     </LinearLayout>
@@ -148,33 +217,33 @@
             android:gravity="center"
             android:orientation="vertical">
 
-                <TextView
-                    style="@style/MaterialTypography.Dense.Caption"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingEnd="@dimen/material_baseline_grid_1x"
-                    android:paddingStart="@dimen/material_baseline_grid_1x"
-                    android:text="DAMAGE"
-                    android:textStyle="bold" />
+            <TextView
+                style="@style/MaterialTypography.Dense.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/material_baseline_grid_1x"
+                android:paddingStart="@dimen/material_baseline_grid_1x"
+                android:text="DAMAGE"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/match_damage"
-                    style="@style/MaterialTypography.Dense.Subheading"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingEnd="@dimen/material_baseline_grid_1x"
-                    android:paddingStart="@dimen/material_baseline_grid_1x"
-                    android:text="- -"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/match_damage"
+                style="@style/MaterialTypography.Dense.Subheading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/material_baseline_grid_1x"
+                android:paddingStart="@dimen/material_baseline_grid_1x"
+                android:text="- -"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
         <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight=".5"
-        android:gravity="center"
-        android:orientation="vertical">
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".5"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
                 style="@style/MaterialTypography.Dense.Caption"
@@ -196,7 +265,7 @@
                 android:textStyle="bold" />
 
 
-    </LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -205,24 +274,24 @@
             android:gravity="center"
             android:orientation="vertical">
 
-                <TextView
-                    style="@style/MaterialTypography.Dense.Caption"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingEnd="@dimen/material_baseline_grid_1x"
-                    android:paddingStart="@dimen/material_baseline_grid_1x"
-                    android:text="SURVIVED"
-                    android:textStyle="bold" />
+            <TextView
+                style="@style/MaterialTypography.Dense.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/material_baseline_grid_1x"
+                android:paddingStart="@dimen/material_baseline_grid_1x"
+                android:text="SURVIVED"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/match_survived"
-                    style="@style/MaterialTypography.Dense.Subheading"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingEnd="@dimen/material_baseline_grid_1x"
-                    android:paddingStart="@dimen/material_baseline_grid_1x"
-                    android:text="- -"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/match_survived"
+                style="@style/MaterialTypography.Dense.Subheading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/material_baseline_grid_1x"
+                android:paddingStart="@dimen/material_baseline_grid_1x"
+                android:text="- -"
+                android:textStyle="bold" />
 
 
         </LinearLayout>

@@ -55,11 +55,17 @@ public interface OverviewContract {
 
         void setOverviewSeasonTwoVisible(boolean state);
 
-        void setCurrentUserIcon(boolean state);
+        void setFavoriteUserIcon(boolean state);
 
         void createSnackbar(String localizedMessage);
 
         void setRefreshing(boolean state);
+
+        void showEmpty();
+
+        void showContent();
+
+        void showNoUser();
 
     }
 
@@ -79,7 +85,7 @@ public interface OverviewContract {
 
         void retrieveCachedUser();
 
-        void setCurrentUserState(boolean currentUserState);
+        void setFavoriteUserState(boolean currentUserState);
 
         void refreshCurrentUser();
     }

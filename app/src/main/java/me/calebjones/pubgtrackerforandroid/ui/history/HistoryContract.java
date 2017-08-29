@@ -30,13 +30,11 @@ public interface HistoryContract {
 
     interface View extends BaseView<HistoryContract.Presenter> {
 
-        void setViewStateOffline();
+        void showEmpty();
 
-        void setViewStateEmpty();
+        void showContent();
 
-        void setViewStateProgress();
-
-        void setViewStateContent();
+        void showNoUser();
 
         void setRefreshEnabled(boolean state);
 

@@ -10,6 +10,9 @@ import io.realm.RealmResults;
 import io.realm.Sort;
 import me.calebjones.pubgtrackerforandroid.common.BasePresenter;
 import me.calebjones.pubgtrackerforandroid.data.DataManager;
+import me.calebjones.pubgtrackerforandroid.data.enums.PUBGMode;
+import me.calebjones.pubgtrackerforandroid.data.enums.PUBGRegion;
+import me.calebjones.pubgtrackerforandroid.data.enums.PUBGSeason;
 import me.calebjones.pubgtrackerforandroid.data.events.UserRefreshing;
 import me.calebjones.pubgtrackerforandroid.data.events.UserSelected;
 import me.calebjones.pubgtrackerforandroid.data.models.Match;
@@ -56,9 +59,10 @@ public class HistoryPresenter extends BasePresenter implements HistoryContract.P
     @Subscribe(threadMode = ThreadMode.MAIN)
     @Override
     public void onUserEventReceived(UserSelected userSelected) {
-        currentUser = userSelected.response;
+        currentUser = userSelected.user;
         Timber.i("onUserEventReceived - EventBus - Message received - User: %s", currentUser.getPlayerName());
         historyView.setRefreshEnabled(true);
+        historyView.showContent();
         updateAdapter(currentUser);
     }
 
@@ -71,10 +75,10 @@ public class HistoryPresenter extends BasePresenter implements HistoryContract.P
                 if (matches.size() > 0) {
                     Timber.v("updateAdapter RealmChangeListener - Found %s matches - Adding to adapter.", matches.size());
                     historyView.setAdapterMatches(matches);
-                    historyView.setViewStateContent();
+                    historyView.showContent();
                 } else {
                     Timber.v("updateAdapter RealmChangeListener - Found no matches - Showing empty view.");
-                    historyView.setViewStateEmpty();
+                    historyView.showEmpty();
                 }
             }
         });
@@ -105,13 +109,13 @@ public class HistoryPresenter extends BasePresenter implements HistoryContract.P
     @Override
     public void retrieveCachedUser() {
         Timber.v("retrieveCachedUser - Retrieving cached user...");
-        currentUser = getRealm().where(User.class).equalTo("currentUser", true).findFirst();
+        currentUser = dataManager.getCurrentUser();
         if (currentUser != null) {
             Timber.v("retrieveCachedUser - Default user found, updating view.");
             updateAdapter(currentUser);
         } else {
             Timber.v("retrieveCachedUser - No Default user found, updating view state to empty.");
-            historyView.setViewStateEmpty();
+            historyView.showNoUser();
         }
     }
 
@@ -164,15 +168,15 @@ public class HistoryPresenter extends BasePresenter implements HistoryContract.P
         RealmQuery<Match> matchRealmQuery = getRealm().where(Match.class)
                 .equalTo("users.pubgTrackerId", pubgTrackerId);
 
-        if (!region.equals("All")){
+        if (!region.equals(PUBGRegion.AAG.getRegionName())){
             matchRealmQuery.contains("regionDisplay", region);
         }
 
-        if (!season.equals("All")){
+        if (!season.equals(PUBGSeason.ALL.getSeasonName())){
             matchRealmQuery.equalTo("seasonDisplay", season);
         }
 
-        if (!mode.equals("All")){
+        if (!mode.equals(PUBGMode.ALL.getModeName())){
             matchRealmQuery.contains("matchDisplay", mode);
         }
 

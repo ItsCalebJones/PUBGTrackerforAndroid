@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.github.library.bubbleview.BubbleLinearLayout
+        android:id="@+id/find_user_help"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/material_baseline_grid_1x"
+        android:elevation="@dimen/material_card_elevation_resting"
+        android:orientation="vertical"
+        android:textColor="@android:color/white"
+        app:angle="8dp"
+        app:arrowCenter="false"
+        app:arrowHeight="@dimen/material_baseline_grid_2x"
+        app:arrowLocation="top"
+        app:arrowPosition="@dimen/material_baseline_grid_2x"
+        app:arrowWidth="@dimen/material_baseline_grid_2x"
+        app:bubbleColor="@color/colorAccent">
+
+        <TextView
+            style="@style/MaterialTypography.Dense.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/material_baseline_grid_2x"
+            android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
+            android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
+            android:paddingTop="@dimen/material_baseline_grid_1x"
+            android:text="Find Your Stats" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/material_baseline_grid_2x"
+            android:layout_marginEnd="@dimen/material_baseline_grid_1x"
+            android:layout_marginStart="@dimen/material_baseline_grid_1x"
+            android:paddingEnd="@dimen/material_card_supporting_text_padding_horizontal"
+            android:paddingStart="@dimen/material_card_supporting_text_padding_horizontal"
+            android:text="@string/lorem_sentence" />
+
+    </com.github.library.bubbleview.BubbleLinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/material_baseline_grid_2x"
+        android:padding="@dimen/sfl_global_keyline_s">
+
+        <com.mikepenz.iconics.view.IconicsImageView
+            android:id="@+id/state_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/material_baseline_grid_2x"
+            android:padding="@dimen/material_baseline_grid_2x"
+            app:iiv_color="@color/material_color_white_70_percent"
+            app:iiv_icon="gmd-account-box"
+            app:iiv_size="64dp" />
+
+        <TextView
+            android:id="@+id/state_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="No User Selected" />
+
+    </LinearLayout>
+</FrameLayout>

@@ -1,8 +1,8 @@
 package me.calebjones.pubgtrackerforandroid.data.enums;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
 
 
 public enum PUBGSeason {
@@ -11,7 +11,7 @@ public enum PUBGSeason {
     PRE2_2017("2017-pre2", "Early Access Season #2"),
     PRE3_2017("2017-pre3", "Early Access Season #3");
 
-    PUBGSeason(String seasonName, String seasonKey) {
+    PUBGSeason(String seasonKey, String seasonName) {
         this.seasonName = seasonName;
         this.seasonKey = seasonKey;
     }
@@ -19,8 +19,6 @@ public enum PUBGSeason {
     private String seasonName;
 
     private String seasonKey;
-
-    private static final Map<String, String> map;
 
     public String getSeasonName() {
         return seasonName;
@@ -30,14 +28,20 @@ public enum PUBGSeason {
         return seasonKey;
     }
 
-    static {
-        map = new HashMap<>();
-        for (PUBGSeason season : PUBGSeason.values()) {
-            map.put(season.getSeasonName(), season.getSeasonKey());
+    private static final Map<String, String> mMap = Collections.unmodifiableMap(initializeMapping());
+
+    private static Map<String, String> initializeMapping() {
+        Map<String, String> mMap = new HashMap<String, String>();
+        for (PUBGSeason s : PUBGSeason.values()) {
+            mMap.put(s.seasonKey, s.seasonName);
         }
+        return mMap;
     }
 
-    public static String findByKey(String toFind) {
-        return map.get(toFind);
+    public static String findByKey(String key) {
+        if (mMap.containsKey(key)) {
+            return mMap.get(key);
+        }
+        return null;
     }
 }

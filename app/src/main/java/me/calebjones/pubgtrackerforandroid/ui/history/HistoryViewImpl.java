@@ -35,6 +35,7 @@ import me.calebjones.pubgtrackerforandroid.data.enums.PUBGMode;
 import me.calebjones.pubgtrackerforandroid.data.enums.PUBGRegion;
 import me.calebjones.pubgtrackerforandroid.data.enums.PUBGSeason;
 import me.calebjones.pubgtrackerforandroid.data.models.Match;
+import me.calebjones.pubgtrackerforandroid.ui.views.ExtendedStatefulLayout;
 
 
 public class HistoryViewImpl implements HistoryContract.View, SwipeRefreshLayout.OnRefreshListener {
@@ -42,7 +43,7 @@ public class HistoryViewImpl implements HistoryContract.View, SwipeRefreshLayout
     @BindView(R.id.history_recycler_view)
     RecyclerView historyRecyclerView;
     @BindView(R.id.stateful_view)
-    SimpleStatefulLayout statefulView;
+    ExtendedStatefulLayout statefulView;
     @BindView(R.id.season_picker)
     Spinner seasonPicker;
     @BindView(R.id.mode_picker)
@@ -119,7 +120,7 @@ public class HistoryViewImpl implements HistoryContract.View, SwipeRefreshLayout
         String[] seasonArray = new String[seasonList.size()];
         index = 0;
         for (PUBGSeason value : seasonList) {
-            seasonArray[index] = value.getSeasonKey();
+            seasonArray[index] = value.getSeasonName();
             index++;
         }
         modeAdapter = new ArrayAdapter<>(this.context,
@@ -198,23 +199,19 @@ public class HistoryViewImpl implements HistoryContract.View, SwipeRefreshLayout
     }
 
     @Override
-    public void setViewStateOffline() {
-        statefulView.setState(SimpleStatefulLayout.State.OFFLINE);
+    public void showEmpty() {
+        statefulView.showEmpty();
     }
 
-    @Override
-    public void setViewStateEmpty() {
-        statefulView.setState(SimpleStatefulLayout.State.EMPTY);
-    }
 
     @Override
-    public void setViewStateProgress() {
-        statefulView.setState(SimpleStatefulLayout.State.PROGRESS);
-    }
-
-    @Override
-    public void setViewStateContent() {
+    public void showContent() {
         statefulView.setState(SimpleStatefulLayout.State.CONTENT);
+    }
+
+    @Override
+    public void showNoUser() {
+        statefulView.showNoUser();
     }
 
     //TODO

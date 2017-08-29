@@ -2,6 +2,7 @@ package me.calebjones.pubgtrackerforandroid;
 
 import android.app.Application;
 import android.content.ContextWrapper;
+import android.graphics.BlurMaskFilter;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v4.view.LayoutInflaterCompat;
@@ -18,6 +19,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import jp.wasabeef.glide.transformations.BlurTransformation;
 import me.calebjones.pubgtrackerforandroid.data.networking.DataClient;
 import me.calebjones.pubgtrackerforandroid.utils.GlideApp;
 import timber.log.Timber;
@@ -46,8 +48,11 @@ public class TrackerApplication extends Application {
         //initialize and create the image loader logic
         DrawerImageLoader.init(new AbstractDrawerImageLoader() {
             @Override
-            public void set(ImageView imageView, Uri uri, Drawable placeholder) {
-                GlideApp.with(imageView.getContext()).load(uri).centerCrop().into(imageView);
+            public void set(ImageView imageView, Uri uri, Drawable placeholder, String tag) {
+                GlideApp.with(imageView.getContext())
+                        .load(uri)
+                        .centerCrop()
+                        .into(imageView);
             }
 
             @Override

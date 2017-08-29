@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">PlayerUnknown Tracker</string>
-    <string name="title_home">Home</string>
+    <string name="app_name">PlayerUnknown Stat</string>
+    <string name="title_home">Overview</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_history">History</string>
+    <string name="title_history">Sessions</string>
     <string name="title_statistics">Statistics</string>
     <string name="current_rating">Top Rating: </string>
     <string name="lorem_paragraph">Lorem ipsum dolor sit amet, ultricies arcu id neque, sit pretium id sed, a tristique dis felis ac. Tempus gravida natoque in, id quis dui porta sodales, vestibulum arcu vestibulum lectus ut, odio wisi itaque est. Condimentum amet ut volutpat vel, phasellus id rutrum porta, urna malesuada nibh arcu. Nulla ultrices provident turpis, sed fermentum dolore in, erat nulla enim felis cras.</string>
@@ -14,4 +14,5 @@
     <string name="playlist_overview">Playlist - Overview</string>
     <string name="last_match_overview">Match - Overview</string>
     <string name="ranked_matches">Last Ranked Match</string>
+    <string name="lorem_sentence">Lorem ipsum dolor sit amet, ultricies arcu id neque, sit pretium id sed, a tristique dis felis ac.</string>
 </resources>

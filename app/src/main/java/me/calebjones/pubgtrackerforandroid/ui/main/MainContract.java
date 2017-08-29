@@ -10,6 +10,7 @@ import java.util.List;
 import me.calebjones.pubgtrackerforandroid.common.BaseNavigator;
 import me.calebjones.pubgtrackerforandroid.common.BasePresenterInterfacce;
 import me.calebjones.pubgtrackerforandroid.common.BaseView;
+import me.calebjones.pubgtrackerforandroid.data.events.UserFavoriteEvent;
 import me.calebjones.pubgtrackerforandroid.data.models.User;
 
 public interface MainContract {
@@ -56,11 +57,13 @@ public interface MainContract {
 
         void setUpDrawer(Activity activity, Bundle savedInstanceState);
 
-        void setDrawerUser(User user);
+        void addDrawerUser(User user);
 
         void setActiveUser(User user);
 
         void setUsers(List<User> users);
+
+        void deleteUser(User user);
     }
 
     interface Presenter extends BasePresenterInterfacce {
@@ -82,5 +85,9 @@ public interface MainContract {
         void setCurrentUser();
 
         void getUsers();
+
+        void onUserFavoriteEvent(UserFavoriteEvent userFavoriteEvent);
+
+        void setCurrentUser(long identifier);
     }
 }

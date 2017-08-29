@@ -11,6 +11,7 @@ import me.calebjones.pubgtrackerforandroid.ui.history.HistoryFragment;
 import me.calebjones.pubgtrackerforandroid.ui.main.adapters.MainViewPagerAdapter;
 import me.calebjones.pubgtrackerforandroid.ui.overview.OverviewFragment;
 import me.calebjones.pubgtrackerforandroid.ui.statistics.StatsFragment;
+import timber.log.Timber;
 
 public class MainActivity extends BaseActivity implements MainContract.NavigatorProvider {
 
@@ -29,6 +30,7 @@ public class MainActivity extends BaseActivity implements MainContract.Navigator
         mainView.navigation.selectTab(1);
         setupViewPager();
         mainView.setUpDrawer(this, savedInstanceState);
+
     }
 
 
@@ -68,5 +70,25 @@ public class MainActivity extends BaseActivity implements MainContract.Navigator
         return new MainNavigator(this, mainView.viewPager);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        Timber.v("onStart");
+        mainPresenter.onStart();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        Timber.v("onResume");
+        mainPresenter.onResume();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Timber.v("onStop");
+        mainPresenter.onStop();
+    }
 
 }

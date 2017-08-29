@@ -11,10 +11,10 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.library.bubbleview.BubbleLinearLayout;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.view.IconicsImageView;
@@ -26,18 +26,19 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cz.kinst.jakub.view.StatefulLayout;
 import me.calebjones.pubgtrackerforandroid.R;
 import me.calebjones.pubgtrackerforandroid.data.enums.PUBGSeason;
 import me.calebjones.pubgtrackerforandroid.data.models.Match;
 import me.calebjones.pubgtrackerforandroid.data.models.PlayerStat;
+import me.calebjones.pubgtrackerforandroid.ui.views.ExtendedStatefulLayout;
 import me.calebjones.pubgtrackerforandroid.ui.views.MatchView;
-import me.calebjones.pubgtrackerforandroid.utils.GlideApp;
 
 
 public class OverviewViewImpl implements OverviewContract.View, SwipeRefreshLayout.OnRefreshListener {
 
-    @BindView(R.id.avatar)
-    ImageView avatar;
+    private static final String STATE_EMPTY = "STATE_EMPTY";
+    private static final String STATE_NO_USER = "NO_USER";
     @BindView(R.id.profile_name)
     TextView name;
     @BindView(R.id.current_rank)
@@ -50,7 +51,7 @@ public class OverviewViewImpl implements OverviewContract.View, SwipeRefreshLayo
     SwipeRefreshLayout refresh;
     @BindView(R.id.root)
     ViewGroup container;
-    @BindView(R.id.exploreButton)
+    @BindView(R.id.close_information_button)
     AppCompatButton exploreButton;
     @BindView(R.id.overview_stat_one)
     TextView overviewStatOne;
@@ -88,12 +89,10 @@ public class OverviewViewImpl implements OverviewContract.View, SwipeRefreshLayo
     LinearLayout overviewStatOneRoot;
     @BindView(R.id.overview_stat_two_root)
     LinearLayout overviewStatTwoRoot;
-    @BindView(R.id.default_user_status_icon)
+    @BindView(R.id.favorite_icon)
     IconicsImageView userStatusIcon;
     @BindView(R.id.home_coordinator)
     CoordinatorLayout homeCoordinator;
-    @BindView(R.id.avatar_group)
-    LinearLayout avatarGroup;
     @BindView(R.id.last_match_card)
     CardView matchCard;
     @BindView(R.id.last_match_overview_subheading)
@@ -102,17 +101,23 @@ public class OverviewViewImpl implements OverviewContract.View, SwipeRefreshLayo
     TextView matchStatOne;
     @BindView(R.id.match_view)
     MatchView matchView;
+    @BindView(R.id.show_intro_button)
+    AppCompatButton showIntroButton;
+    @BindView(R.id.overview_state_view)
+    ExtendedStatefulLayout overviewStateView;
 
     private OverviewContract.Presenter overviewPresenter;
     private View mRootView;
     private Context context;
-    private boolean currentUser;
+    private boolean favoriteUser;
 
     public OverviewViewImpl(Context context, LayoutInflater inflater, ViewGroup container) {
         this.context = context;
         mRootView = inflater.inflate(R.layout.fragment_overview, container, false);
         ButterKnife.bind(this, mRootView);
         refresh.setOnRefreshListener(this);
+        overviewStateView.setStateView(STATE_EMPTY, LayoutInflater.from(context).inflate(R.layout.empty_layout, null));
+        overviewStateView.setStateView(STATE_NO_USER, LayoutInflater.from(context).inflate(R.layout.no_user_layout, null));
     }
 
     @Override
@@ -132,16 +137,10 @@ public class OverviewViewImpl implements OverviewContract.View, SwipeRefreshLayo
 
     @Override
     public void setProfileAvatar(String name) {
-        GlideApp.with(context)
-                .load(name)
-                .centerCrop()
-                .into(avatar);
     }
 
     @Override
     public void setProfileName(String name) {
-        TransitionManager.beginDelayedTransition(container);
-        avatarGroup.setVisibility(View.VISIBLE);
         this.name.setText(name);
     }
 
@@ -252,10 +251,10 @@ public class OverviewViewImpl implements OverviewContract.View, SwipeRefreshLayo
     }
 
     @Override
-    public void setCurrentUserIcon(boolean state) {
+    public void setFavoriteUserIcon(boolean state) {
         TransitionManager.beginDelayedTransition(container);
-        currentUser = state;
-        if (currentUser) {
+        favoriteUser = state;
+        if (favoriteUser) {
             userStatusIcon.setIcon(new IconicsDrawable(context)
                     .icon(GoogleMaterial.Icon.gmd_star)
                     .color(ContextCompat.getColor(context, R.color.colorAccentAlt))
@@ -275,7 +274,25 @@ public class OverviewViewImpl implements OverviewContract.View, SwipeRefreshLayo
 
     @Override
     public void setRefreshing(boolean state) {
+        if (overviewStateView.getState() == ExtendedStatefulLayout.State.NO_USER_BUBBLE){
+            overviewStateView.showProgress();
+        }
         refresh.setRefreshing(state);
+    }
+
+    @Override
+    public void showEmpty() {
+        overviewStateView.showEmpty();
+    }
+
+    @Override
+    public void showContent() {
+        overviewStateView.showContent();
+    }
+
+    @Override
+    public void showNoUser() {
+        overviewStateView.showNoUser(true);
     }
 
 
@@ -284,7 +301,7 @@ public class OverviewViewImpl implements OverviewContract.View, SwipeRefreshLayo
 
     }
 
-    @OnClick(R.id.exploreButton)
+    @OnClick(R.id.close_information_button)
     @Override
     public void onInformationCardDismissClicked() {
         setInformationCardVisible(false);
@@ -296,15 +313,15 @@ public class OverviewViewImpl implements OverviewContract.View, SwipeRefreshLayo
         refresh.setEnabled(state);
     }
 
-    @OnClick(R.id.exploreButton)
+    @OnClick(R.id.close_information_button)
     public void onExploreViewClicked() {
     }
 
-    @OnClick(R.id.default_user_status_icon)
+    @OnClick(R.id.favorite_icon)
     public void onCurrentUserIconClicked() {
-        currentUser = !currentUser;
-        setCurrentUserIcon(currentUser);
-        overviewPresenter.setCurrentUserState(currentUser);
+        favoriteUser = !favoriteUser;
+        setFavoriteUserIcon(favoriteUser);
+        overviewPresenter.setFavoriteUserState(favoriteUser);
     }
 
     @Override

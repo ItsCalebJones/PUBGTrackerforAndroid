@@ -3,15 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/information_card"
-    android:visibility="gone"
+    android:visibility="visible"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/material_card_edge_margin"
     android:animateLayoutChanges="true"
-    android:padding="@dimen/material_card_edge_margin"
-    android:paddingBottom="@dimen/material_card_title_block_large_padding_bottom_last_block"
+    android:layout_margin="@dimen/material_card_edge_margin"
     app:cardCornerRadius="4dp"
-    app:contentPadding="@dimen/material_baseline_grid_1x"
     app:cardElevation="@dimen/material_card_elevation_resting"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true"
@@ -20,9 +17,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/material_card_edge_margin"
-        android:paddingTop="@dimen/material_card_edge_margin">
+        android:orientation="vertical">
 
 
         <TextView
@@ -34,7 +29,7 @@
             android:paddingEnd="@dimen/material_card_title_block_padding_horizontal"
             android:paddingStart="@dimen/material_card_title_block_padding_horizontal"
             android:paddingTop="@dimen/material_baseline_grid_1x"
-            android:text="Information" />
+            android:text="Welcome!" />
 
         <TextView
             style="@style/TextAppearance.AppCompat.Body1"
@@ -47,18 +42,29 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/material_baseline_grid_6x">
+            android:layout_height="@dimen/material_baseline_grid_6x"
+            android:layout_margin="@dimen/material_baseline_grid_1x">
 
             <android.support.v7.widget.AppCompatButton
-                android:id="@+id/exploreButton"
-                style="@style/Base.Widget.AppCompat.Button.Borderless"
-                android:layout_marginEnd="@dimen/material_baseline_grid_2x"
+                android:id="@+id/show_intro_button"
+                android:theme="@style/Button.Color.AccentAlt"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/close_information_button"
                 android:layout_alignParentTop="true"
-                android:text="Got It" />
+                android:text="Intro"/>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/close_information_button"
+                android:theme="@style/Button.Color.Primary"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:text="Got It"/>
         </RelativeLayout>
 
     </LinearLayout>

@@ -2,15 +2,15 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="@dimen/material_baseline_grid_2x"
-    android:padding="@dimen/sfl_global_keyline_s">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_margin="@dimen/material_baseline_grid_2x"
+        android:padding="@dimen/sfl_global_keyline_s">
 
         <com.mikepenz.iconics.view.IconicsImageView
             android:id="@+id/state_image"
@@ -20,7 +20,7 @@
             android:layout_margin="@dimen/material_baseline_grid_2x"
             android:padding="@dimen/material_baseline_grid_2x"
             app:iiv_color="@color/material_color_white_70_percent"
-            app:iiv_icon="gmd-info-outline"
+            app:iiv_icon="gmd-account-box"
             app:iiv_size="64dp" />
 
         <TextView
@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="No Data Available" />
+            android:text="No User Selected" />
 
     </LinearLayout>
 </FrameLayout>
