@@ -19,6 +19,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import jonathanfinerty.once.Once;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import me.calebjones.pubgtrackerforandroid.data.networking.DataClient;
 import me.calebjones.pubgtrackerforandroid.utils.GlideApp;
@@ -38,6 +39,7 @@ public class TrackerApplication extends Application {
         Timber.plant(new Timber.DebugTree());
         AppCompatDelegate.setDefaultNightMode(
                 AppCompatDelegate.MODE_NIGHT_YES);
+
         new Prefs.Builder()
                 .setContext(this)
                 .setMode(ContextWrapper.MODE_PRIVATE)
@@ -60,5 +62,7 @@ public class TrackerApplication extends Application {
                 GlideApp.with(imageView.getContext()).clear(imageView);
             }
         });
+
+        Once.initialise(this);
     }
 }

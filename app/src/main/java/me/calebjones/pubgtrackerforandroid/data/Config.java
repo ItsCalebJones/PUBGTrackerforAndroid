@@ -8,4 +8,5 @@ public final class Config {
     public static String API_BASE_URL = "https://pubgtracker.com/api/";
     public static String PREF_FIRST_BOOT = "FIRST_BOOT";
     public static String PREF_INFORMATION_CARD_DISMISSED = "INFORMATION_CARD_DISMISSED";
+    public static String SHOW_APP_TOUR = "SHOW_APP_TOUR";
 }

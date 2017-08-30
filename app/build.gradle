@@ -63,6 +63,7 @@ dependencies {
     // If you want to use the GPU Filters
     compile 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
     compile 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
+    compile 'com.codemybrainsout.onboarding:onboarder:1.0.4'
     compile('com.mikepenz:materialdrawer:5.8.1@aar') {
         transitive = true
     }
