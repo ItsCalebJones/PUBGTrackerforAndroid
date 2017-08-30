@@ -1,9 +1,10 @@
 package me.calebjones.pubgtrackerforandroid.ui.statistics;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatSpinner;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 
+import com.github.clans.fab.FloatingActionButton;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.transitionseverywhere.TransitionManager;
@@ -20,17 +22,21 @@ import com.transitionseverywhere.TransitionManager;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cz.kinst.jakub.view.SimpleStatefulLayout;
+import jonathanfinerty.once.Once;
 import me.calebjones.pubgtrackerforandroid.R;
-import me.calebjones.pubgtrackerforandroid.data.enums.PUBGMode;
+import me.calebjones.pubgtrackerforandroid.data.Config;
 import me.calebjones.pubgtrackerforandroid.data.enums.PUBGRegion;
 import me.calebjones.pubgtrackerforandroid.data.enums.PUBGSeason;
 import me.calebjones.pubgtrackerforandroid.data.models.PlayerStat;
 import me.calebjones.pubgtrackerforandroid.ui.views.ExtendedStatefulLayout;
 import me.calebjones.pubgtrackerforandroid.ui.views.PlaylistView;
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 
 public class StatsViewImpl implements StatsContract.View {
@@ -62,10 +68,12 @@ public class StatsViewImpl implements StatsContract.View {
     private Context context;
     private ArrayAdapter<String> seasonAdapter;
     private ArrayAdapter<String> regionAdapter;
+    private Fragment fragment;
     private boolean sortViewVisible = false;
 
-    public StatsViewImpl(Context context, LayoutInflater inflater, ViewGroup container) {
+    public StatsViewImpl(Context context, LayoutInflater inflater, ViewGroup container, Fragment fragment) {
         this.context = context;
+        this.fragment = fragment;
         mRootView = inflater.inflate(R.layout.fragment_statistics, container, false);
         ButterKnife.bind(this, mRootView);
         setUpSpinners();
@@ -114,16 +122,19 @@ public class StatsViewImpl implements StatsContract.View {
     @Override
     public void showEmpty() {
         statefulView.showEmpty();
+        sortFab.show(true);
     }
 
     @Override
     public void showContent() {
         statefulView.showContent();
+        sortFab.show(true);
     }
 
     @Override
     public void showNoUser() {
         statefulView.showNoUser();
+        sortFab.hide(true);
     }
 
     @Override
@@ -156,6 +167,67 @@ public class StatsViewImpl implements StatsContract.View {
     public void resetFilters() {
         seasonPicker.setSelection(0);
         regionPicker.setSelection(0);
+    }
+
+    @Override
+    public void showInfoHint(PlaylistView playlistView) {
+        new MaterialTapTargetPrompt.Builder(fragment.getActivity())
+                .setTarget(playlistView.getExpandButtonTarget())
+                .setFocalColour(Color.WHITE)
+                .setFocalColourAlpha(10)
+                .setPrimaryText("Expand It")
+                .setSecondaryText("Tap the button to see more information.")
+                .setPromptStateChangeListener(new MaterialTapTargetPrompt.PromptStateChangeListener()
+                {
+                    @Override
+                    public void onPromptStateChanged(MaterialTapTargetPrompt prompt, int state)
+                    {
+                        if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED || state == MaterialTapTargetPrompt.STATE_DISMISSING)
+                        {
+                            Once.markDone(Config.SHOW_INFO_HINT);
+                            showFilterHint();
+                        }
+                    }
+                })
+                .show();
+    }
+
+    @Override
+    public void showFilterHint() {
+        new MaterialTapTargetPrompt.Builder(fragment.getActivity())
+                .setTarget(sortFab)
+                .setPrimaryText("Filter Results")
+                .setSecondaryText("Tap the button to filter.")
+                .setPromptStateChangeListener(new MaterialTapTargetPrompt.PromptStateChangeListener()
+                {
+                    @Override
+                    public void onPromptStateChanged(MaterialTapTargetPrompt prompt, int state)
+                    {
+                        if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED || state == MaterialTapTargetPrompt.STATE_DISMISSING)
+                        {
+                            Once.markDone(Config.SHOW_FILTER_HINT);
+                        }
+                    }
+                })
+                .show();
+    }
+
+    @Override
+    public void squadVisibility(int visibilityState) {
+        TransitionManager.beginDelayedTransition(container);
+        squadPlaylist.setVisibility(visibilityState);
+    }
+
+    @Override
+    public void duoVisibility(int visibilityState) {
+        TransitionManager.beginDelayedTransition(container);
+        duoPlaylist.setVisibility(visibilityState);
+    }
+
+    @Override
+    public void soloVisibility(int visibilityState) {
+        TransitionManager.beginDelayedTransition(container);
+        soloPlaylist.setVisibility(visibilityState);
     }
 
     private void setUpSpinners() {
@@ -227,5 +299,25 @@ public class StatsViewImpl implements StatsContract.View {
     public void onSortSubmitClicked() {
         checkSort();
         statsPresenter.sortSubmitClicked();
+    }
+
+
+    @Override
+    public void checkHint() {
+        if (Objects.equals(statefulView.getState(), SimpleStatefulLayout.State.CONTENT)) {
+            if (soloPlaylist.getVisible() == View.VISIBLE) {
+                if (!Once.beenDone(Once.THIS_APP_INSTALL, Config.SHOW_INFO_HINT)) {
+                    showInfoHint(soloPlaylist);
+                }
+            } else if (duoPlaylist.getVisible() == View.VISIBLE) {
+                if (!Once.beenDone(Once.THIS_APP_INSTALL, Config.SHOW_INFO_HINT)) {
+                    showInfoHint(duoPlaylist);
+                }
+            } else if (squadPlaylist.getVisible() == View.VISIBLE) {
+                if (!Once.beenDone(Once.THIS_APP_INSTALL, Config.SHOW_INFO_HINT)) {
+                    showInfoHint(squadPlaylist);
+                }
+            }
+        }
     }
 }

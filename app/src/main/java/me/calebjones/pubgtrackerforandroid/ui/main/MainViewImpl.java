@@ -2,6 +2,8 @@ package me.calebjones.pubgtrackerforandroid.ui.main;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -46,10 +48,16 @@ import java.util.Timer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jonathanfinerty.once.Once;
 import me.calebjones.pubgtrackerforandroid.R;
+import me.calebjones.pubgtrackerforandroid.data.Config;
 import me.calebjones.pubgtrackerforandroid.data.models.PlayerStat;
 import me.calebjones.pubgtrackerforandroid.data.models.User;
+import me.calebjones.pubgtrackerforandroid.ui.intro.IntroActivity;
 import timber.log.Timber;
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
+
+import static com.github.library.bubbleview.BubbleDrawable.BubbleType.COLOR;
 
 
 public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextListener,
@@ -108,6 +116,7 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
                 result.openDrawer();
             }
         });
+        searchView.setVoice(false);
     }
 
     private void setUpColors() {
@@ -438,6 +447,28 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
                 }
             }
         }
+    }
+
+    @Override
+    public void showUserHint(Activity activity) {
+        new MaterialTapTargetPrompt.Builder(activity)
+                .setTarget(searchView)
+                .setFocalColour(Color.TRANSPARENT)
+                .setFocalColourAlpha(0)
+                .setPrimaryText("Search Your Username")
+                .setSecondaryText("Tap the bar to find your username.")
+                .setPromptStateChangeListener(new MaterialTapTargetPrompt.PromptStateChangeListener()
+                {
+                    @Override
+                    public void onPromptStateChanged(MaterialTapTargetPrompt prompt, int state)
+                    {
+                        if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED || state == MaterialTapTargetPrompt.STATE_DISMISSING)
+                        {
+                            Once.markDone(Config.SHOW_USERNAME_HINT);
+                        }
+                    }
+                })
+                .show();
     }
 
     private IProfile convertUserToProfile(User user) {
