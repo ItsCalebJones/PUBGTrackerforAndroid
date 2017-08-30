@@ -156,6 +156,11 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
 
     }
 
+    @Override
+    public void goToSettings() {
+        homeNavigator.goToSettings();
+    }
+
 
     public void registerEventBus() {
         Timber.v("Checking EventBus...");

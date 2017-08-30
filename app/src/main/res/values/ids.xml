@@ -11,4 +11,5 @@
     <item name="menu_statistics" type="id">menu_statistics</item>
     <item name="menu_home_master" type="id">menu_home_master</item>
     <item name="menu_profile_settings" type="id">menu_profile_settings</item>
+    <item name="menu_settings" type="id">menu_settings</item>
 </resources>

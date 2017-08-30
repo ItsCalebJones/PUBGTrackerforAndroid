@@ -15,4 +15,8 @@
     <string name="last_match_overview">Match - Overview</string>
     <string name="ranked_matches">Last Ranked Match</string>
     <string name="lorem_sentence">Lorem ipsum dolor sit amet, ultricies arcu id neque, sit pretium id sed, a tristique dis felis ac.</string>
+    <string name="title_activity_preference">PreferenceActivity</string>
+    <string name="general_settings">General settings for stat tracking and application behavior</string>
+    <string name="title_activity_settings_new">SettingsActivityNew</string>
+    <string name="action_settings">Settings</string>
 </resources>

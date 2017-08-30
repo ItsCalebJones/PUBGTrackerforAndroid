@@ -29,9 +29,14 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    // If you want to use the GPU Filters
+    compile('com.mikepenz:materialdrawer:5.8.1@aar') {
+        transitive = true
+    }
+    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
-    compile 'com.android.support:support-v4:25.3.1'
     compile 'com.jakewharton:butterknife:8.8.1'
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.google.code.gson:gson:2.7'
@@ -40,7 +45,6 @@ dependencies {
     compile 'com.lapism:searchview:4.0'
     compile 'blue.aodev:material-values:1.1.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:support-v4:25.3.1'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.github.bumptech.glide:glide:4.0.0'
@@ -50,7 +54,7 @@ dependencies {
     compile 'com.andkulikov:transitionseverywhere:1.7.5'
     compile 'com.mikepenz:iconics-core:2.9.1@aar'
     compile 'com.mikepenz:google-material-typeface:3.0.1.1.original@aar'
-    compile "com.mikepenz:iconics-views:2.9.2@aar"
+    compile 'com.mikepenz:iconics-views:2.9.2@aar'
     compile 'cz.kinst.jakub:android-stateful-layout-simple:2.0.5'
     compile 'com.weiwangcn.betterspinner:library-material:1.1.0'
     compile 'com.yqritc:recyclerview-flexibledivider:1.4.0'
@@ -59,19 +63,14 @@ dependencies {
     compile 'com.github.lguipeng:BubbleView:1.0.1'
     compile 'uk.co.samuelwall:material-tap-target-prompt:1.12.1'
     compile 'com.github.jrvansuita:MaterialAbout:0.1.7'
-    compile 'com.github.michael-rapp:android-preference-activity:4.2.11'
     compile 'jp.wasabeef:glide-transformations:2.0.2'
-    // If you want to use the GPU Filters
     compile 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
     compile 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
     compile 'com.codemybrainsout.onboarding:onboarder:1.0.4'
     compile 'com.github.clans:fab:1.6.4'
-    compile('com.mikepenz:materialdrawer:5.8.1@aar') {
-        transitive = true
-    }
     compile 'com.mikepenz:fontawesome-typeface:4.7.0.0@aar'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
     testCompile 'junit:junit:4.12'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }
 

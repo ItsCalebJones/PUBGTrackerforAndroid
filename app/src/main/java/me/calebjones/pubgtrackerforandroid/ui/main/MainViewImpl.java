@@ -309,29 +309,44 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
                 .withHasStableIds(true)
                 .withAccountHeader(accountHeader)
                 .addDrawerItems(
-                        new ExpandableDrawerItem()
-                                .withName("Home")
-                                .withIcon(GoogleMaterial.Icon.gmd_home)
-                                .withIdentifier(R.id.menu_home_master)
-                                .withSelectable(false)
-                                .withSubItems(
-                                        new SecondaryDrawerItem()
-                                                .withName("Statistics")
-                                                .withLevel(2)
-                                                .withIcon(GoogleMaterial.Icon.gmd_dashboard)
-                                                .withIdentifier(R.id.menu_statistics),
-                                        new SecondaryDrawerItem()
-                                                .withName("Overview")
-                                                .withLevel(2)
-                                                .withIcon(GoogleMaterial.Icon.gmd_account_circle)
-                                                .withIdentifier(R.id.menu_overview),
-                                        new SecondaryDrawerItem()
-                                                .withName("Sessions")
-                                                .withLevel(2)
-                                                .withIcon(GoogleMaterial.Icon.gmd_history)
-                                                .withIdentifier(R.id.menu_history)
-
-                                ),
+                        new PrimaryDrawerItem()
+                                .withName("Overview")
+                                .withLevel(2)
+                                .withIcon(GoogleMaterial.Icon.gmd_account_circle)
+                                .withIdentifier(R.id.menu_overview),
+                        new PrimaryDrawerItem()
+                                .withName("Statistics")
+                                .withLevel(2)
+                                .withIcon(GoogleMaterial.Icon.gmd_dashboard)
+                                .withIdentifier(R.id.menu_statistics),
+                        new PrimaryDrawerItem()
+                                .withName("Sessions")
+                                .withLevel(2)
+                                .withIcon(GoogleMaterial.Icon.gmd_history)
+                                .withIdentifier(R.id.menu_history),
+//                        new ExpandableDrawerItem()
+//                                .withName("Home")
+//                                .withIcon(GoogleMaterial.Icon.gmd_home)
+//                                .withIdentifier(R.id.menu_home_master)
+//                                .withSelectable(false)
+//                                .withSubItems(
+//                                        new SecondaryDrawerItem()
+//                                                .withName("Statistics")
+//                                                .withLevel(2)
+//                                                .withIcon(GoogleMaterial.Icon.gmd_dashboard)
+//                                                .withIdentifier(R.id.menu_statistics),
+//                                        new SecondaryDrawerItem()
+//                                                .withName("Overview")
+//                                                .withLevel(2)
+//                                                .withIcon(GoogleMaterial.Icon.gmd_account_circle)
+//                                                .withIdentifier(R.id.menu_overview),
+//                                        new SecondaryDrawerItem()
+//                                                .withName("Sessions")
+//                                                .withLevel(2)
+//                                                .withIcon(GoogleMaterial.Icon.gmd_history)
+//                                                .withIdentifier(R.id.menu_history)
+//
+//                                ),
 //                        new PrimaryDrawerItem().withName("Map")
 //                                .withIcon(GoogleMaterial.Icon.gmd_map)
 //                                .withIdentifier(R.id.menu_map)
@@ -390,6 +405,9 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
                                 case R.id.menu_twitter:
                                     createSnackbar("Twitter!");
                                     break;
+                                case R.id.menu_settings:
+                                    mainPresenter.goToSettings();
+                                    break;
                             }
                         }
                         return false;
@@ -399,11 +417,15 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
 //        if (!SupporterHelper.isSupporter()){
         if (true) {
             result.addStickyFooterItem(
-                    new PrimaryDrawerItem().withName("Become a Supporter")
-                            .withDescription("Get Pro Features")
-                            .withIcon(GoogleMaterial.Icon.gmd_mood)
-                            .withIdentifier(R.id.menu_support)
+                    new PrimaryDrawerItem().withName("Settings")
+                            .withIcon(GoogleMaterial.Icon.gmd_settings)
+                            .withIdentifier(R.id.menu_settings)
                             .withSelectable(false));
+//                    new PrimaryDrawerItem().withName("Become a Supporter")
+//                            .withDescription("Get Pro Features")
+//                            .withIcon(GoogleMaterial.Icon.gmd_mood)
+//                            .withIdentifier(R.id.menu_support)
+//                            .withSelectable(false));
         }
         mainPresenter.getUsers();
         mainPresenter.setCurrentUser();

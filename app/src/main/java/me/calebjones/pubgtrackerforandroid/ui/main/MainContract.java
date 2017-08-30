@@ -26,6 +26,8 @@ public interface MainContract {
         void goMapActivity();
 
         void goCompareActivity();
+
+        void goToSettings();
     }
 
 
@@ -91,5 +93,7 @@ public interface MainContract {
         void onUserFavoriteEvent(UserFavoriteEvent userFavoriteEvent);
 
         void setCurrentUser(long identifier);
+
+        void goToSettings();
     }
 }

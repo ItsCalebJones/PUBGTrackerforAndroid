@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="Launch Tracking">
+
+    <PreferenceCategory android:title="General">
+        <SwitchPreference
+            android:defaultValue="true"
+            android:summary="Allow anonymous analytic data to capture crashes and usage information."
+            android:title="Allow Analytic Data" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:summary="Cache the selected user regardless of favorite status."
+            android:title="Remember Current User" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Appearance">
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="night_mode"
+            android:summaryOff="Allow Launch Data to sync in the background, required for launch notifications."
+            android:summaryOn="Launch data will be synced even when the app is in the background."
+            android:title="Dark Mode" />
+        <SwitchPreference
+            android:key="ads_allowed"
+            android:summary="Help keep the lights on."
+            android:title="Allow Advertisements" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="About">
+        <Preference
+            android:icon="@drawable/logo"
+            android:summary="All statistics are queried through the PUBG Tracker Network."
+            android:title="PUBG Tracker" />
+        <Preference
+            android:summary="Check me out and follow my other projects."
+            android:title="About Me" />
+        <Preference
+            android:summary="These libraries make Android development easier."
+            android:title="Libraries" />
+    </PreferenceCategory>
+</PreferenceScreen>
