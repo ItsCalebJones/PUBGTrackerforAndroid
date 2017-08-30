@@ -64,6 +64,8 @@ public interface MainContract {
         void setUsers(List<User> users);
 
         void deleteUser(User user);
+
+        void showUserHint(Activity activity);
     }
 
     interface Presenter extends BasePresenterInterfacce {

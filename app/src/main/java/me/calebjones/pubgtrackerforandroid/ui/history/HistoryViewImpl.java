@@ -3,7 +3,7 @@ package me.calebjones.pubgtrackerforandroid.ui.history;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatButton;
@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
+import com.github.clans.fab.FloatingActionButton;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.transitionseverywhere.TransitionManager;
@@ -30,12 +31,15 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cz.kinst.jakub.view.SimpleStatefulLayout;
 import io.realm.RealmResults;
+import jonathanfinerty.once.Once;
 import me.calebjones.pubgtrackerforandroid.R;
+import me.calebjones.pubgtrackerforandroid.data.Config;
 import me.calebjones.pubgtrackerforandroid.data.enums.PUBGMode;
 import me.calebjones.pubgtrackerforandroid.data.enums.PUBGRegion;
 import me.calebjones.pubgtrackerforandroid.data.enums.PUBGSeason;
 import me.calebjones.pubgtrackerforandroid.data.models.Match;
 import me.calebjones.pubgtrackerforandroid.ui.views.ExtendedStatefulLayout;
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 
 public class HistoryViewImpl implements HistoryContract.View, SwipeRefreshLayout.OnRefreshListener {
@@ -71,9 +75,11 @@ public class HistoryViewImpl implements HistoryContract.View, SwipeRefreshLayout
     private ArrayAdapter<String> regionAdapter;
     private ArrayAdapter<String> modeAdapter;
     private HistoryRecyclerAdapter historyAdapter;
+    private Fragment fragment;
 
-    public HistoryViewImpl(Context context, LayoutInflater inflater, ViewGroup container) {
+    public HistoryViewImpl(Context context, LayoutInflater inflater, ViewGroup container, Fragment fragment) {
         this.context = context;
+        this.fragment = fragment;
         mRootView = inflater.inflate(R.layout.fragment_history, container, false);
         ButterKnife.bind(this, mRootView);
         statefulView.setEmptyImageDrawable(new IconicsDrawable(context)
@@ -170,6 +176,25 @@ public class HistoryViewImpl implements HistoryContract.View, SwipeRefreshLayout
         regionPicker.setSelection(0);
     }
 
+    @Override
+    public void showFilterHint() {
+        if (!Once.beenDone(Once.THIS_APP_INSTALL, Config.SHOW_FILTER_HINT)) {
+            new MaterialTapTargetPrompt.Builder(fragment.getActivity())
+                    .setTarget(sortFab)
+                    .setPrimaryText("Filter Results")
+                    .setSecondaryText("Tap the button to filter.")
+                    .setPromptStateChangeListener(new MaterialTapTargetPrompt.PromptStateChangeListener() {
+                        @Override
+                        public void onPromptStateChanged(MaterialTapTargetPrompt prompt, int state) {
+                            if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED || state == MaterialTapTargetPrompt.STATE_DISMISSING) {
+                                Once.markDone(Config.SHOW_FILTER_HINT);
+                            }
+                        }
+                    })
+                    .show();
+        }
+    }
+
 
     @Override
     public View getRootView() {
@@ -201,17 +226,23 @@ public class HistoryViewImpl implements HistoryContract.View, SwipeRefreshLayout
     @Override
     public void showEmpty() {
         statefulView.showEmpty();
+        sortFab.show(true);
     }
 
 
     @Override
     public void showContent() {
         statefulView.setState(SimpleStatefulLayout.State.CONTENT);
+        if (!Once.beenDone(Once.THIS_APP_INSTALL, Config.SHOW_FILTER_HINT)) {
+
+        }
+        sortFab.show(true);
     }
 
     @Override
     public void showNoUser() {
         statefulView.showNoUser();
+        sortFab.hide(true);
     }
 
     //TODO

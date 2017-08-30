@@ -1,6 +1,7 @@
 package me.calebjones.pubgtrackerforandroid.ui.history;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ public class HistoryFragment extends BaseFragment {
 
     private HistoryPresenter historyPresenter;
     private HistoryViewImpl historyView;
+    private boolean visibleToUser = false;
 
     public HistoryFragment() {
         // Required empty public constructor
@@ -20,7 +22,7 @@ public class HistoryFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        historyView = new HistoryViewImpl(getContext(), inflater, container);
+        historyView = new HistoryViewImpl(getContext(), inflater, container, this);
         historyPresenter = new HistoryPresenter(historyView);
         historyPresenter.retrieveCachedUser();
         return historyView.getRootView();
@@ -47,4 +49,19 @@ public class HistoryFragment extends BaseFragment {
         historyPresenter.onStop();
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        Timber.v("setUserVisibleHint", isVisibleToUser);
+        super.setUserVisibleHint(isVisibleToUser);
+        this.visibleToUser = isVisibleToUser;
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (visibleToUser && historyPresenter != null) {
+                    historyPresenter.checkHint();
+                }
+            }
+        }, 1000);
+    }
 }

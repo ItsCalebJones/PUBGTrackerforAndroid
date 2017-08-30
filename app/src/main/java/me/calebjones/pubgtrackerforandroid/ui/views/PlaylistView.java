@@ -3,6 +3,7 @@ package me.calebjones.pubgtrackerforandroid.ui.views;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -82,7 +83,7 @@ public class PlaylistView extends CardView {
     @BindView(R.id.overview_card)
     CardView overviewCard;
     @BindView(R.id.expand_button)
-    IconicsImageView expandButton;
+    View expandButton;
     @BindView(R.id.expandable_layout)
     ExpandableLayout expandableLayout;
 
@@ -107,6 +108,14 @@ public class PlaylistView extends CardView {
         Timber.v("init - View Inflated");
         ButterKnife.bind(this);
         Timber.v("init - Binding Completed.");
+    }
+
+    public int getVisible(){
+        return this.getVisibility();
+    }
+
+    public View getExpandButtonTarget(){
+        return expandButton;
     }
 
     public void setStats(PlayerStat stat) {

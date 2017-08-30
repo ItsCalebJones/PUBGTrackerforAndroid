@@ -1,5 +1,7 @@
 package me.calebjones.pubgtrackerforandroid.ui.statistics;
 
+import android.view.View;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -13,7 +15,9 @@ import io.realm.Realm;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
 import io.realm.Sort;
+import jonathanfinerty.once.Once;
 import me.calebjones.pubgtrackerforandroid.common.BasePresenter;
+import me.calebjones.pubgtrackerforandroid.data.Config;
 import me.calebjones.pubgtrackerforandroid.data.DataManager;
 import me.calebjones.pubgtrackerforandroid.data.enums.PUBGMode;
 import me.calebjones.pubgtrackerforandroid.data.enums.PUBGRegion;
@@ -111,17 +115,28 @@ public class StatsPresenter extends BasePresenter implements StatsContract.Prese
 
             if (soloResult != null) {
                 statsView.configureSoloPlaylist(soloResult);
+                statsView.soloVisibility(View.VISIBLE);
+            } else {
+                statsView.soloVisibility(View.GONE);
             }
 
             if (duoResult != null) {
                 statsView.configureDuoPlaylist(duoResult);
+                statsView.duoVisibility(View.VISIBLE);
+            } else {
+                statsView.duoVisibility(View.GONE);
             }
 
             if (squadResult != null) {
                 statsView.configureSquadPlaylist(squadResult);
+                statsView.squadVisibility(View.VISIBLE);
+            } else {
+                statsView.squadVisibility(View.GONE);
             }
 
-
+            if (soloResult == null && duoResult == null && squadResult == null){
+                statsView.showEmpty();
+            }
         } else
 
         {
@@ -143,6 +158,11 @@ public class StatsPresenter extends BasePresenter implements StatsContract.Prese
         Timber.d("resetClicked - reseting filters and updating adapter.");
         statsView.resetFilters();
         updateUser();
+    }
+
+    @Override
+    public void checkHint() {
+        statsView.checkHint();
     }
 
     private void updateUser() {

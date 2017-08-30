@@ -1,6 +1,8 @@
 package me.calebjones.pubgtrackerforandroid.ui.statistics;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 
 import me.calebjones.pubgtrackerforandroid.common.BaseNavigator;
 import me.calebjones.pubgtrackerforandroid.common.BasePresenterInterfacce;
@@ -8,6 +10,7 @@ import me.calebjones.pubgtrackerforandroid.common.BaseView;
 import me.calebjones.pubgtrackerforandroid.data.events.UserRefreshing;
 import me.calebjones.pubgtrackerforandroid.data.events.UserSelected;
 import me.calebjones.pubgtrackerforandroid.data.models.PlayerStat;
+import me.calebjones.pubgtrackerforandroid.ui.views.PlaylistView;
 
 
 public interface StatsContract {
@@ -49,6 +52,17 @@ public interface StatsContract {
 
         void resetFilters();
 
+        void showInfoHint(PlaylistView playlistView);
+
+        void showFilterHint();
+
+        void squadVisibility(int visibilityState);
+
+        void duoVisibility(int visibilityState);
+
+        void soloVisibility(int visibilityState);
+
+        void checkHint();
     }
 
     interface Presenter extends BasePresenterInterfacce {
@@ -63,5 +77,7 @@ public interface StatsContract {
         void sortSubmitClicked();
 
         void resetClicked();
+
+        void checkHint();
     }
 }

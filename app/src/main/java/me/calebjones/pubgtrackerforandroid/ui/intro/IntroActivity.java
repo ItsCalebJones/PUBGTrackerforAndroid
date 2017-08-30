@@ -37,25 +37,26 @@ public class IntroActivity extends AhoyOnboarderActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        AhoyOnboarderCard ahoyOnboarderCard1 = new AhoyOnboarderCard("Stats",
-                "Track your Kills, Wins and Ranking across multiple seasons.",
+        AhoyOnboarderCard statsCard = new AhoyOnboarderCard("Stats",
+                "Track your kills, wins and ranking across multiple seasons.",
                 R.drawable.ic_account_circle_48);
-        AhoyOnboarderCard ahoyOnboarderCard2 = new AhoyOnboarderCard("Compare",
+        AhoyOnboarderCard compareCard = new AhoyOnboarderCard("Compare",
                 "Easily compare your stats to your friends and favorite streamers.",
                 R.drawable.ic_thumbs_up_down);
-        AhoyOnboarderCard ahoyOnboarderCard3 = new AhoyOnboarderCard("Plan",
+        AhoyOnboarderCard planCard = new AhoyOnboarderCard("Plan",
                 "Plan your strategies and improve your game.",
                 R.drawable.ic_satellite);
 
-        ahoyOnboarderCard1.setBackgroundColor(R.color.colorPrimary);
-        ahoyOnboarderCard2.setBackgroundColor(R.color.colorAccent);
-        ahoyOnboarderCard3.setBackgroundColor(R.color.colorAccentAlt);
+        statsCard.setBackgroundColor(R.color.colorPrimary);
+        compareCard.setBackgroundColor(R.color.colorAccent);
+        planCard.setBackgroundColor(R.color.colorAccentAlt);
+
 
         List<AhoyOnboarderCard> pages = new ArrayList<>();
 
-        pages.add(ahoyOnboarderCard1);
-        pages.add(ahoyOnboarderCard2);
-        pages.add(ahoyOnboarderCard3);
+        pages.add(statsCard);
+        pages.add(compareCard);
+        pages.add(planCard);
 
         for (AhoyOnboarderCard page : pages) {
             page.setTitleColor(R.color.material_typography_primary_text_color_light);
@@ -66,8 +67,6 @@ public class IntroActivity extends AhoyOnboarderActivity {
         showNavigationControls(false);
 
         setImageBackground(R.drawable.playerunknown_intro);
-
-
         setOnboardPages(pages);
     }
     @Override
