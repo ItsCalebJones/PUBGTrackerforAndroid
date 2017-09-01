@@ -4,7 +4,8 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:theme="@style/AppTheme">
 
     <FrameLayout
         android:id="@+id/root"
@@ -31,17 +32,17 @@
 
                     <me.calebjones.pubgtrackerforandroid.ui.views.PlaylistView
                         android:id="@+id/solo_playlist"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
                     <me.calebjones.pubgtrackerforandroid.ui.views.PlaylistView
                         android:id="@+id/duo_playlist"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
                     <me.calebjones.pubgtrackerforandroid.ui.views.PlaylistView
                         android:id="@+id/squad_playlist"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
             </android.support.v4.widget.NestedScrollView>
@@ -108,7 +109,7 @@
                     android:layout_marginStart="@dimen/material_baseline_grid_2x"
                     android:layout_weight=".5"
                     android:text="Reset"
-                    app:theme="@style/Button.Color.Primary" />
+                    android:theme="@style/Button.Color.Primary" />
 
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/history_sort_submit"
@@ -119,7 +120,7 @@
                     android:layout_marginStart="@dimen/material_baseline_grid_2x"
                     android:layout_weight=".5"
                     android:text="Submit"
-                    app:theme="@style/Button.Color.Accent" />
+                    android:theme="@style/Button.Color.Accent" />
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>

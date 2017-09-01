@@ -113,7 +113,7 @@
                     android:layout_marginStart="@dimen/material_baseline_grid_2x"
                     android:layout_weight=".5"
                     android:text="Reset"
-                    app:theme="@style/Button.Color.Primary" />
+                    android:theme="@style/Button.Color.Primary" />
 
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/history_sort_submit"
@@ -124,7 +124,7 @@
                     android:layout_marginStart="@dimen/material_baseline_grid_2x"
                     android:layout_weight=".5"
                     android:text="Submit"
-                    app:theme="@style/Button.Color.AccentAlt" />
+                    android:theme="@style/Button.Color.AccentAlt" />
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>

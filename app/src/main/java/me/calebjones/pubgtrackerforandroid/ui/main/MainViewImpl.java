@@ -286,12 +286,6 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
                 .withHeaderBackground(new ImageHolder("http://i.imgur.com/Oe5nnI9.jpg"))
                 .withAccountHeader(R.layout.material_drawer_header_custom)
                 .withSavedInstance(savedInstanceState)
-                .addProfiles(//don't ask but google uses 14dp for the add account icon in gmail but 20dp for the normal icons (like manage account)
-                        new ProfileSettingDrawerItem()
-                                .withName("Manage Favorites")
-                                .withIcon(GoogleMaterial.Icon.gmd_settings)
-                        .withIdentifier(R.id.menu_profile_settings)
-                )
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override
                     public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
