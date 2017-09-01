@@ -22,8 +22,10 @@ public class HistoryFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Timber.v("onCreateView  - Creating view...");
         historyView = new HistoryViewImpl(getContext(), inflater, container, this);
         historyPresenter = new HistoryPresenter(historyView);
+        Timber.v("onCreateView  - Retrieving User.");
         historyPresenter.retrieveCachedUser();
         return historyView.getRootView();
     }

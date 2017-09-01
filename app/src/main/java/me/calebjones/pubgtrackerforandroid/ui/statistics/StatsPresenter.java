@@ -38,7 +38,7 @@ public class StatsPresenter extends BasePresenter implements StatsContract.Prese
     public StatsPresenter(StatsContract.View view) {
         statsView = view;
         statsView.setPresenter(this);
-        dataManager = new DataManager();
+        dataManager = DataManager.getInstance();
     }
 
     @Override

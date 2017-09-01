@@ -29,7 +29,7 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
     public MainPresenter(MainContract.View view){
         mainView = view;
         mainView.setPresenter(this);
-        dataManager = new DataManager();
+        dataManager = DataManager.getInstance();
     }
 
     public void setNavigator(@NonNull MainContract.Navigator navigator) {

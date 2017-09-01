@@ -1,5 +1,6 @@
 package me.calebjones.pubgtrackerforandroid.ui.history;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,11 @@ public class HistoryRecyclerAdapter extends RecyclerView.Adapter<HistoryRecycler
 
     private RealmResults<Match> matches;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm zzz - EEEE, MMMM dd, yyyy ", Locale.US);
+    private Context context;
+
+    public HistoryRecyclerAdapter(Context context) {
+        this.context = context;
+    }
 
     public void setMatches(RealmResults<Match> newMatches) {
         if (newMatches == null || newMatches.size() == 0) {
@@ -35,7 +41,7 @@ public class HistoryRecyclerAdapter extends RecyclerView.Adapter<HistoryRecycler
     @Override
     public HistoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Timber.v("onCreateViewHolder - Inflating view...");
-        View itemView = LayoutInflater.from(parent.getContext())
+        View itemView = LayoutInflater.from(context)
                 .inflate(R.layout.match_view_adapter, parent, false);
         Timber.v("onCreateViewHolder - View Inflated...");
         return new HistoryViewHolder(itemView);

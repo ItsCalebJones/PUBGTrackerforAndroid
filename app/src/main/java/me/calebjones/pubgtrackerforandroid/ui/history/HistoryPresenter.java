@@ -30,9 +30,11 @@ public class HistoryPresenter extends BasePresenter implements HistoryContract.P
     private RealmResults<Match> matches;
 
     public HistoryPresenter(HistoryContract.View view){
+        Timber.v("Creating HistoryPresenter with View.");
         historyView = view;
         historyView.setPresenter(this);
-        dataManager = new DataManager();
+        dataManager = DataManager.getInstance();
+        Timber.v("Creating HistoryPresenter complete.");
     }
 
     @Override

@@ -21,6 +21,7 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import jonathanfinerty.once.Once;
 import jp.wasabeef.glide.transformations.BlurTransformation;
+import me.calebjones.pubgtrackerforandroid.data.DataManager;
 import me.calebjones.pubgtrackerforandroid.data.networking.DataClient;
 import me.calebjones.pubgtrackerforandroid.utils.GlideApp;
 import timber.log.Timber;
@@ -36,6 +37,7 @@ public class TrackerApplication extends Application {
                 .build();
         Realm.setDefaultConfiguration(config);
         DataClient.create();
+        DataManager.create();
         Timber.plant(new Timber.DebugTree());
         AppCompatDelegate.setDefaultNightMode(
                 AppCompatDelegate.MODE_NIGHT_YES);

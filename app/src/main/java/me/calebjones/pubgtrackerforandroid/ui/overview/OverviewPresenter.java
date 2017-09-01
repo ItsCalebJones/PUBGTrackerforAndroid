@@ -32,7 +32,7 @@ public class OverviewPresenter extends BasePresenter implements OverviewContract
     public OverviewPresenter(OverviewContract.View view) {
         overviewView = view;
         overviewView.setPresenter(this);
-        dataManager = new DataManager();
+        dataManager = DataManager.getInstance();
 
     }
 

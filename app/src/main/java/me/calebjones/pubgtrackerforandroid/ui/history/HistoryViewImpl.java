@@ -39,6 +39,7 @@ import me.calebjones.pubgtrackerforandroid.data.enums.PUBGRegion;
 import me.calebjones.pubgtrackerforandroid.data.enums.PUBGSeason;
 import me.calebjones.pubgtrackerforandroid.data.models.Match;
 import me.calebjones.pubgtrackerforandroid.ui.views.ExtendedStatefulLayout;
+import timber.log.Timber;
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 
@@ -78,25 +79,29 @@ public class HistoryViewImpl implements HistoryContract.View, SwipeRefreshLayout
     private Fragment fragment;
 
     public HistoryViewImpl(Context context, LayoutInflater inflater, ViewGroup container, Fragment fragment) {
+        Timber.v("HistoryViewImpl  - Creating view...");
         this.context = context;
         this.fragment = fragment;
+        Timber.v("HistoryViewImpl  - Inflating layout...");
         mRootView = inflater.inflate(R.layout.fragment_history, container, false);
+        Timber.v("HistoryViewImpl  - Binding View... with rootview.");
         ButterKnife.bind(this, mRootView);
+        Timber.v("HistoryViewImpl  - Creating Stateful layout.");
         statefulView.setEmptyImageDrawable(new IconicsDrawable(context)
                 .icon(GoogleMaterial.Icon.gmd_info_outline)
                 .color(ContextCompat.getColor(context, R.color.material_color_white))
                 .sizeDp(64));
-
+        Timber.v("HistoryViewImpl  - Setting up Spinners");
         setUpSpinners();
+        Timber.v("HistoryViewImpl  - Configuring Recyler");
         setUpRecyclerView();
         refreshView.setOnRefreshListener(this);
     }
 
     private void setUpRecyclerView() {
-        historyAdapter = new HistoryRecyclerAdapter();
+        historyAdapter = new HistoryRecyclerAdapter(context);
         historyRecyclerView.setAdapter(historyAdapter);
         historyRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        historyRecyclerView.setItemAnimator(new DefaultItemAnimator());
         historyRecyclerView.setNestedScrollingEnabled(false);
         historyRecyclerView.addItemDecoration(
                 new HorizontalDividerItemDecoration

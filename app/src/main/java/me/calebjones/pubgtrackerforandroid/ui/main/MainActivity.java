@@ -52,6 +52,7 @@ public class MainActivity extends BaseActivity implements MainContract.Navigator
         adapter.addFragment(historyFragment);
         mainView.viewPager.setAdapter(adapter);
         mainView.viewPager.setCurrentItem(1);
+        mainView.viewPager.setOffscreenPageLimit(3);
         mainView.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

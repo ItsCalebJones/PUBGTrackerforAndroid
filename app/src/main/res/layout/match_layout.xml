@@ -3,6 +3,8 @@
     android:id="@+id/match_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/material_baseline_grid_1x"
+    android:layout_marginBottom="@dimen/material_baseline_grid_1x"
     android:orientation="vertical">
 
     <LinearLayout
