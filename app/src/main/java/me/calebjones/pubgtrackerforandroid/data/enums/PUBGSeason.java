@@ -9,7 +9,8 @@ public enum PUBGSeason {
     ALL("all", "All"),
     PRE1_2017("2017-pre1", "Early Access Season #1"),
     PRE2_2017("2017-pre2", "Early Access Season #2"),
-    PRE3_2017("2017-pre3", "Early Access Season #3");
+    PRE3_2017("2017-pre3", "Early Access Season #3"),
+    PRE4_2017("2017-pre4", "Early Access Season #4");
 
     PUBGSeason(String seasonKey, String seasonName) {
         this.seasonName = seasonName;
