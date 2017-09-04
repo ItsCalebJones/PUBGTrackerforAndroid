@@ -5,7 +5,7 @@
     <item name="menu_compare" type="id">menu_compare</item>
     <item name="menu_new" type="id">menu_new</item>
     <item name="menu_feedback" type="id">menu_feedback</item>
-    <item name="menu_twitter" type="id">menu_twitter</item>
+    <item name="menu_tracker" type="id">menu_twitter</item>
     <item name="menu_support" type="id">menu_support</item>
     <item name="menu_history" type="id">menu_history</item>
     <item name="menu_statistics" type="id">menu_statistics</item>

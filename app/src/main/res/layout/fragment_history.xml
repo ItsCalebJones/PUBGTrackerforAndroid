@@ -19,17 +19,20 @@
             android:layout_height="match_parent"
             app:emptyLayout="@layout/empty_layout"
             app:state="empty"
-            app:stateTextAppearance="@style/TextAppearance.AppCompat">
+            app:stateTextAppearance="@style/TextAppearance.AppCompat"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <android.support.v4.widget.SwipeRefreshLayout
                 android:id="@+id/refresh"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/history_recycler_view"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
                 </android.support.v7.widget.RecyclerView>
@@ -142,6 +145,7 @@
         app:ico_color="@android:color/white"
         app:ico_icon="gmd-filter-list"
         app:ico_size="24dp"
+        android:layout_above="@+id/navigation_view"
         app:layout_anchorGravity="bottom|right|end"
         app:pressedTranslationZ="6dp"
         app:rippleColor="@color/material_color_white_50_percent" />

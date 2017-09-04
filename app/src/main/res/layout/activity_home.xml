@@ -6,11 +6,6 @@
     android:layout_height="match_parent"
     android:theme="@style/AppTheme">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appbar"
             android:layout_width="match_parent"
@@ -28,22 +23,21 @@
 
         <android.support.v4.view.ViewPager
             android:id="@+id/contentFrame"
-            android:layout_below="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@+id/appbar"
             android:layout_above="@+id/navigation_view"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-        <com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationView
-            android:id="@+id/navigation_view"
-            android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            app:itemBackground="@color/colorPrimary"
-            app:itemIconTint="@color/white"
-            app:itemTextColor="@color/white"
-            app:menu="@menu/navigation" />
-    </RelativeLayout>
+    <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
+        android:id="@+id/navigation_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        app:itemBackground="@color/colorPrimary"
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
+        app:menu="@menu/navigation" />
 
 </android.support.design.widget.CoordinatorLayout>

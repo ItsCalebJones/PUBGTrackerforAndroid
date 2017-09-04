@@ -88,6 +88,7 @@ public class StatsPresenter extends BasePresenter implements StatsContract.Prese
             List<PUBGRegion> regionList = Arrays.asList(PUBGRegion.values());
             List<PUBGSeason> seasonList = new ArrayList<>();
 
+            seasonList.add(PUBGSeason.PRE4_2017);
             seasonList.add(PUBGSeason.PRE3_2017);
             seasonList.add(PUBGSeason.PRE2_2017);
             seasonList.add(PUBGSeason.PRE1_2017);

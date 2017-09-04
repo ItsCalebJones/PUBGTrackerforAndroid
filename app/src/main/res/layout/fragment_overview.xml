@@ -35,7 +35,7 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="@dimen/material_baseline_grid_2.5x">
 
                         <TextView
                             android:id="@+id/profile_name"
@@ -56,14 +56,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignEnd="@+id/profile_name"
-                            android:layout_centerVertical="true"
+                            android:layout_alignParentBottom="true"
                             android:layout_marginStart="@dimen/material_baseline_grid_2x" />
 
                     </RelativeLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="@dimen/material_baseline_grid_2.5x"
                         android:layout_marginEnd="@dimen/material_baseline_grid_0.5x"
                         android:layout_marginStart="@dimen/material_baseline_grid_0.5x"
                         android:orientation="horizontal">

@@ -17,7 +17,6 @@ public class OverviewFragment extends BaseFragment {
 
     private OverviewPresenter overviewPresenter;
     private OverviewViewImpl overviewView;
-    private boolean firstLaunch = Prefs.getBoolean(Config.PREF_FIRST_BOOT, true);
     private boolean informationDismissed = Prefs.getBoolean(Config.PREF_INFORMATION_CARD_DISMISSED, false);
 
     public OverviewFragment() {
@@ -45,8 +44,6 @@ public class OverviewFragment extends BaseFragment {
     }
 
     private void checkFirstBoot() {
-        Timber.v("FirstLaunch - running first boot hints." + firstLaunch);
-        Prefs.putBoolean(Config.PREF_FIRST_BOOT, false);
     }
 
     @Override

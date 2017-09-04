@@ -43,14 +43,15 @@ public class StatsViewImpl implements StatsContract.View {
 
     @BindView(R.id.solo_playlist)
     PlaylistView soloPlaylist;
-    @BindView(R.id.stateful_view)
-    ExtendedStatefulLayout statefulView;
-    @BindView(R.id.container)
-    CoordinatorLayout container;
     @BindView(R.id.duo_playlist)
     PlaylistView duoPlaylist;
     @BindView(R.id.squad_playlist)
     PlaylistView squadPlaylist;
+
+    @BindView(R.id.stateful_view)
+    ExtendedStatefulLayout statefulView;
+    @BindView(R.id.container)
+    CoordinatorLayout container;
     @BindView(R.id.season_picker)
     AppCompatSpinner seasonPicker;
     @BindView(R.id.region_picker)
@@ -174,7 +175,6 @@ public class StatsViewImpl implements StatsContract.View {
         new MaterialTapTargetPrompt.Builder(fragment.getActivity())
                 .setTarget(playlistView.getExpandButtonTarget())
                 .setFocalColour(Color.WHITE)
-                .setFocalColourAlpha(10)
                 .setPrimaryText("Expand It")
                 .setSecondaryText("Tap the button to see more information.")
                 .setPromptStateChangeListener(new MaterialTapTargetPrompt.PromptStateChangeListener()
@@ -234,6 +234,7 @@ public class StatsViewImpl implements StatsContract.View {
         List<PUBGRegion> regionList = Arrays.asList(PUBGRegion.values());
         List<PUBGSeason> seasonList = new ArrayList<>();
 
+        seasonList.add(PUBGSeason.PRE4_2017);
         seasonList.add(PUBGSeason.PRE3_2017);
         seasonList.add(PUBGSeason.PRE2_2017);
         seasonList.add(PUBGSeason.PRE1_2017);

@@ -34,7 +34,7 @@ public class MainActivity extends BaseActivity implements MainContract.Navigator
 
         mainPresenter = new MainPresenter(mainView);
         mainPresenter.setNavigator(getNavigator(mainPresenter));
-        mainView.navigation.selectTab(1);
+        mainView.navigation.setCurrentItem(1);
         setupViewPager();
         mainView.setUpDrawer(this, savedInstanceState);
         if (!Once.beenDone(Once.THIS_APP_INSTALL, Config.SHOW_USERNAME_HINT)) {

@@ -2,17 +2,11 @@ package me.calebjones.pubgtrackerforandroid;
 
 import android.app.Application;
 import android.content.ContextWrapper;
-import android.graphics.BlurMaskFilter;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v7.app.AppCompatDelegate;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.annotation.GlideModule;
-import com.bumptech.glide.module.AppGlideModule;
-import com.mikepenz.iconics.context.IconicsLayoutInflater2;
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.pixplicity.easyprefs.library.Prefs;
@@ -20,7 +14,6 @@ import com.pixplicity.easyprefs.library.Prefs;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import jonathanfinerty.once.Once;
-import jp.wasabeef.glide.transformations.BlurTransformation;
 import me.calebjones.pubgtrackerforandroid.data.DataManager;
 import me.calebjones.pubgtrackerforandroid.data.networking.DataClient;
 import me.calebjones.pubgtrackerforandroid.utils.GlideApp;
@@ -39,8 +32,6 @@ public class TrackerApplication extends Application {
         DataClient.create();
         DataManager.create();
         Timber.plant(new Timber.DebugTree());
-        AppCompatDelegate.setDefaultNightMode(
-                AppCompatDelegate.MODE_NIGHT_YES);
 
         new Prefs.Builder()
                 .setContext(this)
@@ -48,6 +39,9 @@ public class TrackerApplication extends Application {
                 .setPrefsName(getPackageName())
                 .setUseDefaultSharedPreference(true)
                 .build();
+
+        AppCompatDelegate.setDefaultNightMode(
+                AppCompatDelegate.MODE_NIGHT_YES);
 
         //initialize and create the image loader logic
         DrawerImageLoader.init(new AbstractDrawerImageLoader() {

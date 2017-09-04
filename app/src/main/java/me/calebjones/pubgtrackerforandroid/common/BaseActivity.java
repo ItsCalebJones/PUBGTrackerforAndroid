@@ -4,12 +4,15 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 
 import com.mikepenz.iconics.context.IconicsContextWrapper;
 import com.mikepenz.iconics.context.IconicsLayoutInflater;
 import com.mikepenz.iconics.context.IconicsLayoutInflater2;
+import com.pixplicity.easyprefs.library.Prefs;
 
 import io.realm.Realm;
+import me.calebjones.pubgtrackerforandroid.data.Config;
 
 public class BaseActivity extends AppCompatActivity {
 

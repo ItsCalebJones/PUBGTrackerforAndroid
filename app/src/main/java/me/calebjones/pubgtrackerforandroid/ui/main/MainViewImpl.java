@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -15,61 +16,50 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.lapism.searchview.SearchAdapter;
 import com.lapism.searchview.SearchHistoryTable;
 import com.lapism.searchview.SearchItem;
 import com.lapism.searchview.SearchView;
-import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationItem;
-import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationView;
-import com.luseen.luseenbottomnavigation.BottomNavigation.OnBottomNavigationItemClickListener;
-import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
-import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
-import com.mikepenz.materialdrawer.model.ExpandableDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.ProfileSettingDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.transitionseverywhere.Recolor;
 import com.transitionseverywhere.TransitionManager;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Timer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import jonathanfinerty.once.Once;
 import me.calebjones.pubgtrackerforandroid.R;
 import me.calebjones.pubgtrackerforandroid.data.Config;
-import me.calebjones.pubgtrackerforandroid.data.models.PlayerStat;
 import me.calebjones.pubgtrackerforandroid.data.models.User;
-import me.calebjones.pubgtrackerforandroid.ui.intro.IntroActivity;
 import timber.log.Timber;
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
-
-import static com.github.library.bubbleview.BubbleDrawable.BubbleType.COLOR;
 
 
 public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextListener,
         SearchView.OnMenuClickListener,
-        OnBottomNavigationItemClickListener {
+        AHBottomNavigation.OnTabSelectedListener {
 
     public int[] color;
     public int[] topColor;
     @BindView(R.id.coordinator)
     CoordinatorLayout coordinator;
     @BindView(R.id.navigation_view)
-    BottomNavigationView navigation;
+    AHBottomNavigation navigation;
     @BindView(R.id.searchView)
     SearchView searchView;
     @BindView(R.id.contentFrame)
@@ -90,7 +80,7 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         setUpColors();
         setUpSearchView();
         setupNavigationView();
-        navigation.setOnBottomNavigationItemClickListener(this);
+        navigation.setOnTabSelectedListener(this);
         ViewCompat.setElevation(appbar, 0);
         appbar.setElevation(0);
     }
@@ -135,39 +125,26 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
 
     private void setupNavigationView() {
 
-        BottomNavigationItem statsItem = new BottomNavigationItem
+        AHBottomNavigationItem statsItem = new AHBottomNavigationItem
                 (context.getResources().getString(R.string.title_statistics),
-                        color[0],
-                        R.drawable.ic_dashboard_black_24dp);
-        BottomNavigationItem homeItem = new BottomNavigationItem
-                (context.getResources().getString(R.string.title_home),
-                        color[1],
-                        R.drawable.ic_account_circle_black_24);
-        BottomNavigationItem historyItem = new BottomNavigationItem
-                (context.getResources().getString(R.string.title_history),
-                        color[2],
-                        R.drawable.ic_history_black_24dp);
-        navigation.addTab(statsItem);
-        navigation.addTab(homeItem);
-        navigation.addTab(historyItem);
-    }
+                        R.drawable.ic_dashboard_black_24dp,
+                        color[0]);
 
-    @Override
-    public void onNavigationItemClick(int item) {
-        switch (item) {
-            case 1:
-                onOverviewClicked();
-                updateTopColor(color[1], topColor[1]);
-                break;
-            case 2:
-                onMatchHistoryClicked();
-                updateTopColor(color[2], topColor[2]);
-                break;
-            case 0:
-                onStatisticsClicked();
-                updateTopColor(color[0], topColor[0]);
-                break;
-        }
+        AHBottomNavigationItem homeItem = new AHBottomNavigationItem
+                (context.getResources().getString(R.string.title_home),
+                        R.drawable.ic_account_circle_black_24,
+                        color[1]);
+
+        AHBottomNavigationItem historyItem = new AHBottomNavigationItem
+                (context.getResources().getString(R.string.title_history),
+                        R.drawable.ic_history_black_24dp,
+                        color[2]);
+
+        navigation.addItem(statsItem);
+        navigation.addItem(homeItem);
+        navigation.addItem(historyItem);
+        navigation.setTranslucentNavigationEnabled(true);
+        navigation.setColored(true);
     }
 
     private void updateTopColor(int color, int topColor) {
@@ -236,15 +213,15 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     public void onPageChaged(int position) {
         switch (position) {
             case 0:
-                navigation.selectTab(0);
+                navigation.setCurrentItem(0);
                 updateTopColor(color[0], topColor[0]);
                 break;
             case 1:
-                navigation.selectTab(1);
+                navigation.setCurrentItem(1);
                 updateTopColor(color[1], topColor[1]);
                 break;
             case 2:
-                navigation.selectTab(2);
+                navigation.setCurrentItem(2);
                 updateTopColor(color[2], topColor[2]);
                 break;
         }
@@ -289,7 +266,7 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override
                     public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
-                        if (!currentProfile && profile.getIdentifier() != R.id.menu_profile_settings){
+                        if (!currentProfile && profile.getIdentifier() != R.id.menu_profile_settings) {
                             mainPresenter.setCurrentUser(profile.getIdentifier());
                         }
                         return false;
@@ -363,10 +340,9 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
                                 .withIdentifier(R.id.menu_feedback)
                                 .withSelectable(false),
                         new SecondaryDrawerItem()
-                                .withIcon(FontAwesome.Icon.faw_twitter)
-                                .withName("Twitter")
-                                .withDescription("Stay Connected!")
-                                .withIdentifier(R.id.menu_twitter)
+                                .withIcon(R.drawable.logo)
+                                .withName("PUBG Tracker")
+                                .withIdentifier(R.id.menu_tracker)
                                 .withSelectable(false)
                 ).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -391,13 +367,20 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
                                     mainPresenter.goCompareClicked();
                                     break;
                                 case R.id.menu_new:
-                                    createSnackbar("Changelog!");
+                                    MaterialDialog.Builder builder = new MaterialDialog.Builder(context)
+                                            .title("Whats New?")
+                                            .content("NOTHING - It's a Beta!")
+                                            .positiveText("Got it!");
+                                    builder.show();
                                     break;
                                 case R.id.menu_feedback:
-                                    createSnackbar("Feedback!");
+                                    createSnackbar("Feedback mechanism coming!");
                                     break;
-                                case R.id.menu_twitter:
-                                    createSnackbar("Twitter!");
+                                case R.id.menu_tracker:
+                                    String url = "https://pubgtracker.com";
+                                    Intent i = new Intent(Intent.ACTION_VIEW);
+                                    i.setData(Uri.parse(url));
+                                    context.startActivity(i);
                                     break;
                                 case R.id.menu_settings:
                                     mainPresenter.goToSettings();
@@ -432,7 +415,7 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
 
     @Override
     public void setActiveUser(User user) {
-        if (user == null){
+        if (user == null) {
             Timber.e("User cannot be null, no active users found.");
             return;
         }
@@ -453,12 +436,12 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
 
     @Override
     public void deleteUser(User user) {
-        for (IProfile profile: accountHeader.getProfiles()){
+        for (IProfile profile : accountHeader.getProfiles()) {
             profile.getName();
             user.getPubgTrackerId();
-            if (profile.getIdentifier() == user.getPubgTrackerId()){
+            if (profile.getIdentifier() == user.getPubgTrackerId()) {
                 accountHeader.removeProfile(profile);
-                if (user.isCurrentUser()){
+                if (user.isCurrentUser()) {
                     accountHeader.setActiveProfile(convertUserToProfile(user));
                 }
             }
@@ -470,16 +453,12 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         new MaterialTapTargetPrompt.Builder(activity)
                 .setTarget(searchView)
                 .setFocalColour(Color.TRANSPARENT)
-                .setFocalColourAlpha(0)
                 .setPrimaryText("Search Your Username")
                 .setSecondaryText("Tap the bar to find your username.")
-                .setPromptStateChangeListener(new MaterialTapTargetPrompt.PromptStateChangeListener()
-                {
+                .setPromptStateChangeListener(new MaterialTapTargetPrompt.PromptStateChangeListener() {
                     @Override
-                    public void onPromptStateChanged(MaterialTapTargetPrompt prompt, int state)
-                    {
-                        if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED || state == MaterialTapTargetPrompt.STATE_DISMISSING)
-                        {
+                    public void onPromptStateChanged(MaterialTapTargetPrompt prompt, int state) {
+                        if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED || state == MaterialTapTargetPrompt.STATE_DISMISSING) {
                             Once.markDone(Config.SHOW_USERNAME_HINT);
                         }
                     }
@@ -493,5 +472,28 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
                 .withName(user.getPlayerName())
                 .withIcon(user.getAvatar());
         return profile;
+    }
+
+    @Override
+    public boolean onTabSelected(int position, boolean wasSelected) {
+        if (navigation.isHidden()) {
+            navigation.restoreBottomNavigation(true);
+        }
+        switch (position) {
+            case 1:
+                onOverviewClicked();
+                updateTopColor(color[1], topColor[1]);
+                return true;
+            case 2:
+                onMatchHistoryClicked();
+                updateTopColor(color[2], topColor[2]);
+                return true;
+            case 0:
+                onStatisticsClicked();
+                updateTopColor(color[0], topColor[0]);
+                return true;
+            default:
+                return false;
+        }
     }
 }

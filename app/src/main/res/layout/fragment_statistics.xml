@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/md_dark_background"
     android:theme="@style/AppTheme">
 
     <FrameLayout
@@ -33,17 +34,17 @@
                     <me.calebjones.pubgtrackerforandroid.ui.views.PlaylistView
                         android:id="@+id/solo_playlist"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"/>
 
                     <me.calebjones.pubgtrackerforandroid.ui.views.PlaylistView
                         android:id="@+id/duo_playlist"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"/>
 
                     <me.calebjones.pubgtrackerforandroid.ui.views.PlaylistView
                         android:id="@+id/squad_playlist"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"/>
                 </LinearLayout>
             </android.support.v4.widget.NestedScrollView>
 

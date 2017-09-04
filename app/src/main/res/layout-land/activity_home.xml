@@ -17,7 +17,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/material_baseline_grid_1x"
-            android:paddingStart="@dimen/material_baseline_grid_6x"
             app:elevation="0dp"
             android:background="?attr/colorPrimary">
 
@@ -37,13 +36,12 @@
             android:paddingStart="@dimen/material_baseline_grid_6x"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-        <com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationView
+        <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
             android:id="@+id/navigation_view"
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            app:bnv_tablet="true"
             app:itemBackground="@color/colorPrimary"
             app:itemIconTint="@color/white"
             app:itemTextColor="@color/white"
