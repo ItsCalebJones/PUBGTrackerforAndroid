@@ -24,6 +24,10 @@
 
     </style>
 
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
     <style name="Button.Color.Primary" parent="AppTheme">
         <item name="colorButtonNormal">@color/colorPrimary</item>
         <item name="android:textColor">@color/material_color_white</item>

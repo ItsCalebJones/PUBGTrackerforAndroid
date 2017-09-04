@@ -1,10 +1,12 @@
 package me.calebjones.pubgtrackerforandroid;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.ContextWrapper;
 import android.graphics.BlurMaskFilter;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v7.app.AppCompatDelegate;
 import android.widget.ImageView;
@@ -23,6 +25,7 @@ import jonathanfinerty.once.Once;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import me.calebjones.pubgtrackerforandroid.data.networking.DataClient;
 import me.calebjones.pubgtrackerforandroid.utils.GlideApp;
+import me.calebjones.pubgtrackerforandroid.utils.SplashScreenHelper;
 import timber.log.Timber;
 
 public class TrackerApplication extends Application {
@@ -30,6 +33,7 @@ public class TrackerApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        registerActivityLifecycleCallbacks(new SplashScreenHelper());
         Realm.init(this);
         RealmConfiguration config = new RealmConfiguration.Builder()
                 .deleteRealmIfMigrationNeeded()
@@ -65,4 +69,6 @@ public class TrackerApplication extends Application {
 
         Once.initialise(this);
     }
+
+
 }
