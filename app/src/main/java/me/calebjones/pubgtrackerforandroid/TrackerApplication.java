@@ -6,17 +6,16 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v7.app.AppCompatDelegate;
 import android.widget.ImageView;
-
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.pixplicity.easyprefs.library.Prefs;
-
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import jonathanfinerty.once.Once;
 import me.calebjones.pubgtrackerforandroid.data.DataManager;
 import me.calebjones.pubgtrackerforandroid.data.networking.DataClient;
 import me.calebjones.pubgtrackerforandroid.utils.GlideApp;
+import me.calebjones.pubgtrackerforandroid.utils.SplashScreenHelper;
 import timber.log.Timber;
 
 public class TrackerApplication extends Application {
@@ -24,6 +23,7 @@ public class TrackerApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        registerActivityLifecycleCallbacks(new SplashScreenHelper());
         Realm.init(this);
         RealmConfiguration config = new RealmConfiguration.Builder()
                 .deleteRealmIfMigrationNeeded()
@@ -61,4 +61,6 @@ public class TrackerApplication extends Application {
 
         Once.initialise(this);
     }
+
+
 }

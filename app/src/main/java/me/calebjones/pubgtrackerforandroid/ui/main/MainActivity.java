@@ -56,7 +56,8 @@ public class MainActivity extends BaseActivity implements MainContract.Navigator
         mainView.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+                Timber.v("onPageScrolled - Position: %s Position Offset: %s PositionOffsetPixels: %s", position, positionOffset, positionOffsetPixels);
+                mainView.onPageScrolled(position, positionOffset, positionOffsetPixels);
             }
 
             @Override
@@ -66,7 +67,7 @@ public class MainActivity extends BaseActivity implements MainContract.Navigator
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
+                Timber.v("onPageScrollStateChanged - State: %s", state);
             }
         });
         return adapter;

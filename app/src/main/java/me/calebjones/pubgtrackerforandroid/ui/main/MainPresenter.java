@@ -25,6 +25,7 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
     private final MainContract.View mainView;
     private MainContract.Navigator homeNavigator;
     private DataManager dataManager;
+    private User currentUser;
 
     public MainPresenter(MainContract.View view){
         mainView = view;
@@ -56,6 +57,7 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
                             mainView.createSnackbar(user.getMessage());
                         } else if (user.getPlayerName() != null) {
                             dataManager.getDataSaver().save(user);
+                            currentUser = user;
                             mainView.setActiveUser(user);
                             sendUserToEventBus(user);
                         }
@@ -146,7 +148,8 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
 
     @Override
     public void setCurrentUser() {
-        mainView.setActiveUser(dataManager.getCurrentUser());
+        currentUser = dataManager.getCurrentUser();
+        mainView.setActiveUser(currentUser);
     }
 
     @Override
@@ -159,6 +162,18 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
     @Override
     public void goToSettings() {
         homeNavigator.goToSettings();
+    }
+
+    @Override
+    public void setFavoriteUserState(final boolean currentUserState) {
+        getRealm().executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                currentUser.setFavoriteUser(currentUserState);
+                realm.copyToRealmOrUpdate(currentUser);
+                EventBus.getDefault().post(new UserFavoriteEvent(currentUser));
+            }
+        });
     }
 
 

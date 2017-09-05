@@ -39,6 +39,10 @@ public interface MainContract {
 
     interface View extends BaseView<Presenter> {
 
+        void setProfileName(String name);
+
+        void setCurrentRatingAndRank(String rating, String rank, String kd);
+
         void setSupportToolbar(String title);
 
         void onOverviewClicked();
@@ -95,5 +99,7 @@ public interface MainContract {
         void setCurrentUser(long identifier);
 
         void goToSettings();
+
+        void setFavoriteUserState(boolean favoriteUser);
     }
 }

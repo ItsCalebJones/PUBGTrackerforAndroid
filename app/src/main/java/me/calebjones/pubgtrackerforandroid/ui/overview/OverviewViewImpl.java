@@ -37,10 +37,6 @@ public class OverviewViewImpl implements OverviewContract.View, SwipeRefreshLayo
 
     private static final String STATE_EMPTY = "STATE_EMPTY";
     private static final String STATE_NO_USER = "NO_USER";
-    @BindView(R.id.profile_name)
-    TextView name;
-    @BindView(R.id.current_rank)
-    TextView rank;
     @BindView(R.id.information_card)
     CardView informationCard;
     @BindView(R.id.overview_card)
@@ -81,14 +77,11 @@ public class OverviewViewImpl implements OverviewContract.View, SwipeRefreshLayo
     TextView playlistKDRanking;
     @BindView(R.id.playlist_root)
     LinearLayout playlistOneRoot;
-    @BindView(R.id.current_KD)
-    TextView currentKD;
     @BindView(R.id.overview_stat_one_root)
     LinearLayout overviewStatOneRoot;
     @BindView(R.id.overview_stat_two_root)
     LinearLayout overviewStatTwoRoot;
-    @BindView(R.id.favorite_icon)
-    IconicsImageView userStatusIcon;
+
     @BindView(R.id.home_coordinator)
     CoordinatorLayout homeCoordinator;
     @BindView(R.id.last_match_card)
@@ -107,7 +100,6 @@ public class OverviewViewImpl implements OverviewContract.View, SwipeRefreshLayo
     private OverviewContract.Presenter overviewPresenter;
     private View mRootView;
     private Context context;
-    private boolean favoriteUser;
 
     public OverviewViewImpl(Context context, LayoutInflater inflater, ViewGroup container) {
         this.context = context;
@@ -131,26 +123,6 @@ public class OverviewViewImpl implements OverviewContract.View, SwipeRefreshLayo
     @Override
     public void setPresenter(OverviewContract.Presenter presenter) {
         overviewPresenter = presenter;
-    }
-
-    @Override
-    public void setProfileAvatar(String name) {
-    }
-
-    @Override
-    public void setProfileName(String name) {
-        this.name.setText(name);
-    }
-
-    @Override
-    public void setCurrentRatingAndRank(String rating, String rank, String kd) {
-        TransitionManager.beginDelayedTransition(container);
-        String stringRank = "#" + rank;
-        String stringKd = context.getString(R.string.current_Kd) + " " + kd;
-        this.rank.setText(stringRank);
-        this.currentKD.setText(stringKd);
-        this.currentKD.setVisibility(View.VISIBLE);
-        this.rank.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -249,23 +221,6 @@ public class OverviewViewImpl implements OverviewContract.View, SwipeRefreshLayo
     }
 
     @Override
-    public void setFavoriteUserIcon(boolean state) {
-        TransitionManager.beginDelayedTransition(container);
-        favoriteUser = state;
-        if (favoriteUser) {
-            userStatusIcon.setIcon(new IconicsDrawable(context)
-                    .icon(GoogleMaterial.Icon.gmd_star)
-                    .color(ContextCompat.getColor(context, R.color.colorAccentAlt))
-                    .sizeDp(16));
-        } else {
-            userStatusIcon.setIcon(new IconicsDrawable(context)
-                    .icon(GoogleMaterial.Icon.gmd_star_border)
-                    .color(ContextCompat.getColor(context, R.color.material_color_white))
-                    .sizeDp(16));
-        }
-    }
-
-    @Override
     public void createSnackbar(String message) {
         Snackbar.make(homeCoordinator, message, Snackbar.LENGTH_LONG).show();
     }
@@ -315,12 +270,6 @@ public class OverviewViewImpl implements OverviewContract.View, SwipeRefreshLayo
     public void onExploreViewClicked() {
     }
 
-    @OnClick(R.id.favorite_icon)
-    public void onCurrentUserIconClicked() {
-        favoriteUser = !favoriteUser;
-        setFavoriteUserIcon(favoriteUser);
-        overviewPresenter.setFavoriteUserState(favoriteUser);
-    }
 
     @Override
     public void onRefresh() {

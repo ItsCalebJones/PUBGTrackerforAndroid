@@ -67,34 +67,6 @@ public class OverviewPresenter extends BasePresenter implements OverviewContract
                 overviewView.setOverviewSeasonOneVisible(false);
             }
         }
-
-        overviewView.setProfileAvatar(user.getAvatar());
-        overviewView.setProfileName(user.getPlayerName());
-        overviewView.setCurrentRatingAndRank(
-                highestElo.getStats().get(9).getValue(),
-                String.valueOf(highestElo.getStats().get(9).getRank()),
-                findKD(user));
-        overviewView.setFavoriteUserIcon(user.isFavoriteUser());
-    }
-
-    private String findKD(User user) {
-        Float highestKD = null;
-        for (PlayerStat playerStat : user.getPlayerStats()) {
-            if (Objects.equals(playerStat.getSeason(), user.getDefaultSeason()) &&
-                    Objects.equals(playerStat.getRegion(), "agg")) {
-                float currentKd = playerStat.getStats().get(0).getValueDec();
-                if (highestKD == null) {
-                    highestKD = currentKd;
-                } else if (highestKD < currentKd) {
-                    highestKD = currentKd;
-                }
-            }
-        }
-        if (highestKD != null) {
-            return String.valueOf(highestKD);
-        } else {
-            return "Unknown";
-        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -141,18 +113,6 @@ public class OverviewPresenter extends BasePresenter implements OverviewContract
             overviewView.showNoUser();
             overviewView.setRefreshEnabled(false);
         }
-    }
-
-    @Override
-    public void setFavoriteUserState(final boolean currentUserState) {
-        getRealm().executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                currentUser.setFavoriteUser(currentUserState);
-                realm.copyToRealmOrUpdate(currentUser);
-                EventBus.getDefault().post(new UserFavoriteEvent(currentUser));
-            }
-        });
     }
 
     @Override

@@ -27,12 +27,6 @@ public interface OverviewContract {
 
     interface View extends BaseView<Presenter> {
 
-        void setProfileAvatar(String name);
-
-        void setProfileName(String name);
-
-        void setCurrentRatingAndRank(String rating, String rank, String kd);
-
         void showIntroHelper();
 
         void onInformationCardDismissClicked();
@@ -55,7 +49,6 @@ public interface OverviewContract {
 
         void setOverviewSeasonTwoVisible(boolean state);
 
-        void setFavoriteUserIcon(boolean state);
 
         void createSnackbar(String localizedMessage);
 
@@ -84,8 +77,6 @@ public interface OverviewContract {
         void setInformationCardDismissed(boolean b);
 
         void retrieveCachedUser();
-
-        void setFavoriteUserState(boolean currentUserState);
 
         void refreshCurrentUser();
     }

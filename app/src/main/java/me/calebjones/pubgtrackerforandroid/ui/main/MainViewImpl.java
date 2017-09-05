@@ -15,6 +15,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
@@ -24,6 +25,8 @@ import com.lapism.searchview.SearchHistoryTable;
 import com.lapism.searchview.SearchItem;
 import com.lapism.searchview.SearchView;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
+import com.mikepenz.iconics.view.IconicsImageView;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -39,12 +42,15 @@ import com.transitionseverywhere.Recolor;
 import com.transitionseverywhere.TransitionManager;
 
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import jonathanfinerty.once.Once;
 import me.calebjones.pubgtrackerforandroid.R;
 import me.calebjones.pubgtrackerforandroid.data.Config;
+import me.calebjones.pubgtrackerforandroid.data.models.PlayerStat;
 import me.calebjones.pubgtrackerforandroid.data.models.User;
 import timber.log.Timber;
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
@@ -66,12 +72,21 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     ViewPager viewPager;
     @BindView(R.id.appbar)
     AppBarLayout appbar;
+    @BindView(R.id.profile_name)
+    TextView profileName;
+    @BindView(R.id.favorite_icon)
+    IconicsImageView favoriteIcon;
+    @BindView(R.id.current_rank)
+    TextView currentRank;
+    @BindView(R.id.current_KD)
+    TextView currentKD;
     private View mRootView;
     private MainContract.Presenter mainPresenter;
     private SearchHistoryTable historyDatabase;
     private Context context;
     private Drawer result;
     private AccountHeader accountHeader;
+    private boolean favoriteUser;
 
     public MainViewImpl(Context context, ViewGroup container) {
         this.context = context;
@@ -143,7 +158,6 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         navigation.addItem(statsItem);
         navigation.addItem(homeItem);
         navigation.addItem(historyItem);
-        navigation.setTranslucentNavigationEnabled(true);
         navigation.setColored(true);
     }
 
@@ -419,8 +433,67 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
             Timber.e("User cannot be null, no active users found.");
             return;
         }
-//        accountHeader.setHeaderBackground(new ImageHolder("http://res.cloudinary.com/dnkkbfy3m/image/upload/e_blur:1500/v1503931147/orR8Jtd_ntupcz.jpg"));
         accountHeader.setActiveProfile(convertUserToProfile(user));
+        PlayerStat highestElo = null;
+        for (PlayerStat playerStat : user.getPlayerStats()) {
+            if (Objects.equals(playerStat.getSeason(), user.getDefaultSeason()) &&
+                    !Objects.equals(playerStat.getRegion(), "agg")) {
+                float elo = playerStat.getStats().get(9).getValueDec();
+                if (highestElo == null) {
+                    highestElo = playerStat;
+                } else if (highestElo.getStats().get(9).getValueDec() < elo) {
+                    highestElo = playerStat;
+                }
+            }
+        }
+        setProfileName(user.getPlayerName());
+        setCurrentRatingAndRank(
+                highestElo.getStats().get(9).getValue(),
+                String.valueOf(highestElo.getStats().get(9).getRank()),
+                findKD(user));
+        setFavoriteUserIcon(user.isFavoriteUser());
+    }
+
+    private String findKD(User user) {
+        Float highestKD = null;
+        for (PlayerStat playerStat : user.getPlayerStats()) {
+            if (Objects.equals(playerStat.getSeason(), user.getDefaultSeason()) &&
+                    Objects.equals(playerStat.getRegion(), "agg")) {
+                float currentKd = playerStat.getStats().get(0).getValueDec();
+                if (highestKD == null) {
+                    highestKD = currentKd;
+                } else if (highestKD < currentKd) {
+                    highestKD = currentKd;
+                }
+            }
+        }
+        if (highestKD != null) {
+            return String.valueOf(highestKD);
+        } else {
+            return "Unknown";
+        }
+    }
+
+    @OnClick(R.id.favorite_icon)
+    public void onCurrentUserIconClicked() {
+        favoriteUser = !favoriteUser;
+        setFavoriteUserIcon(favoriteUser);
+        mainPresenter.setFavoriteUserState(favoriteUser);
+    }
+
+    private void setFavoriteUserIcon(boolean state) {
+        favoriteUser = state;
+        if (favoriteUser) {
+            favoriteIcon.setIcon(new IconicsDrawable(context)
+                    .icon(GoogleMaterial.Icon.gmd_star)
+                    .color(ContextCompat.getColor(context, R.color.colorAccentAlt))
+                    .sizeDp(16));
+        } else {
+            favoriteIcon.setIcon(new IconicsDrawable(context)
+                    .icon(GoogleMaterial.Icon.gmd_star_border)
+                    .color(ContextCompat.getColor(context, R.color.material_color_white))
+                    .sizeDp(16));
+        }
     }
 
     @Override
@@ -495,5 +568,44 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
             default:
                 return false;
         }
+    }
+
+    @Override
+    public void setProfileName(String name) {
+        profileName.setText(name);
+    }
+
+    @Override
+    public void setCurrentRatingAndRank(String rating, String rank, String kd) {
+        String stringRank = "#" + rank;
+        String stringKd = context.getString(R.string.current_Kd) + " " + kd;
+        currentRank.setText(stringRank);
+        currentKD.setText(stringKd);
+        currentKD.setVisibility(View.VISIBLE);
+        currentRank.setVisibility(View.VISIBLE);
+    }
+
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        if (positionOffset == 0) {
+            return;
+        }
+        // Retrieve the current and next ColorFragment
+        final int fromColor = color[position];
+        final int toColor = color[position + 1];
+        // Blend the colors and adjust the ActionBar
+        final int blended = blendColors(toColor, fromColor, positionOffset);
+        final int blendedTop = blendColors(toColor, fromColor, positionOffset);
+        appbar.setBackgroundColor(blended);
+        if (result != null) {
+            result.getDrawerLayout().setStatusBarBackgroundColor(blended);
+        }
+    }
+
+    private int blendColors(int from, int to, float ratio) {
+        final float inverseRation = 1f - ratio;
+        final float r = Color.red(from) * ratio + Color.red(to) * inverseRation;
+        final float g = Color.green(from) * ratio + Color.green(to) * inverseRation;
+        final float b = Color.blue(from) * ratio + Color.blue(to) * inverseRation;
+        return Color.rgb((int) r, (int) g, (int) b);
     }
 }
