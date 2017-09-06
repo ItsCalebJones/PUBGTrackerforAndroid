@@ -10,6 +10,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -103,6 +104,8 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         setupNavigationView();
         refresh.setOnRefreshListener(this);
         this.window = window;
+        ViewCompat.setElevation(appbar, 0);
+        appbar.setElevation(0);
     }
 
     private void setUpSearchView() {
@@ -289,7 +292,7 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
                 .withActivity(activity)
                 .withCompactStyle(false)
                 .withTranslucentStatusBar(true)
-                .withHeaderBackground(new ImageHolder("http://i.imgur.com/Oe5nnI9.jpg"))
+                .withHeaderBackground(R.drawable.playerunknowns_battlegrounds_guy)
                 .withAccountHeader(R.layout.material_drawer_header_custom)
                 .withSavedInstance(savedInstanceState)
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
@@ -630,13 +633,13 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
 
         appbar.setBackgroundColor(blended);
         navigation.setBackgroundColor(blended);
-        if (result != null) {
-            result.getDrawerLayout().setStatusBarBackgroundColor(blendedTop);
-        }
-        // clear FLAG_TRANSLUCENT_STATUS flag:
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//        if (result != null) {
+//            result.getDrawerLayout().setStatusBarBackgroundColor(blendedTop);
+//        }
+//        // clear FLAG_TRANSLUCENT_STATUS flag:
+//        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+//        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(blendedTop);
     }
 
