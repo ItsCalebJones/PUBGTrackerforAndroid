@@ -31,7 +31,6 @@ public class MainActivity extends BaseActivity implements MainContract.Navigator
         }
         mainView = new MainViewImpl(this, null);
         setContentView(mainView.getRootView());
-
         mainPresenter = new MainPresenter(mainView);
         mainPresenter.setNavigator(getNavigator(mainPresenter));
         mainView.navigation.setCurrentItem(1);
@@ -53,6 +52,7 @@ public class MainActivity extends BaseActivity implements MainContract.Navigator
         mainView.viewPager.setAdapter(adapter);
         mainView.viewPager.setCurrentItem(1);
         mainView.viewPager.setOffscreenPageLimit(3);
+        mainView.viewPager.setPagingEnabled(true);
         mainView.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

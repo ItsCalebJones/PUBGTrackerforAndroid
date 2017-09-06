@@ -37,6 +37,13 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
         homeNavigator = navigator;
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Override
+    public void onUserEventReceived(UserSelected userSelected) {
+        setCurrentUser();
+    }
+
+
     @Override
     public boolean searchQuerySubmitted(final String query) {
         sendRefreshingState(true);
@@ -87,6 +94,7 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
     private void sendUserToEventBus(User user) {
         EventBus.getDefault().post(new UserSelected(user));
     }
+
 
     @Override
     public void goOverviewClicked() {

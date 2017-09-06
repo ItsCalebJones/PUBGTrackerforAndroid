@@ -11,7 +11,8 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewPager;
+import android.support.v7.view.menu.MenuBuilder;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationViewPager;
 import com.lapism.searchview.SearchAdapter;
 import com.lapism.searchview.SearchHistoryTable;
 import com.lapism.searchview.SearchItem;
@@ -69,7 +71,7 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     @BindView(R.id.searchView)
     SearchView searchView;
     @BindView(R.id.contentFrame)
-    ViewPager viewPager;
+    AHBottomNavigationViewPager viewPager;
     @BindView(R.id.appbar)
     AppBarLayout appbar;
     @BindView(R.id.profile_name)
@@ -96,8 +98,6 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         setUpSearchView();
         setupNavigationView();
         navigation.setOnTabSelectedListener(this);
-        ViewCompat.setElevation(appbar, 0);
-        appbar.setElevation(0);
     }
 
     private void setUpSearchView() {
@@ -122,6 +122,7 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
             }
         });
         searchView.setVoice(false);
+//        searchView.setVisibility(View.GONE);
     }
 
     private void setUpColors() {
@@ -159,6 +160,7 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         navigation.addItem(homeItem);
         navigation.addItem(historyItem);
         navigation.setColored(true);
+        navigation.setBehaviorTranslationEnabled(true);
     }
 
     private void updateTopColor(int color, int topColor) {
@@ -592,12 +594,18 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         // Retrieve the current and next ColorFragment
         final int fromColor = color[position];
         final int toColor = color[position + 1];
+
+        final int fromColorTop = topColor[position];
+        final int toColorTop = topColor[position + 1];
+
         // Blend the colors and adjust the ActionBar
         final int blended = blendColors(toColor, fromColor, positionOffset);
-        final int blendedTop = blendColors(toColor, fromColor, positionOffset);
+        final int blendedTop = blendColors(toColorTop, fromColorTop, positionOffset);
+
         appbar.setBackgroundColor(blended);
+        navigation.setBackgroundColor(blended);
         if (result != null) {
-            result.getDrawerLayout().setStatusBarBackgroundColor(blended);
+            result.getDrawerLayout().setStatusBarBackgroundColor(blendedTop);
         }
     }
 

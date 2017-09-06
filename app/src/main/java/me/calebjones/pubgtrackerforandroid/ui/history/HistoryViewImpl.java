@@ -103,10 +103,6 @@ public class HistoryViewImpl implements HistoryContract.View, SwipeRefreshLayout
         historyRecyclerView.setAdapter(historyAdapter);
         historyRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         historyRecyclerView.setNestedScrollingEnabled(false);
-        historyRecyclerView.addItemDecoration(
-                new HorizontalDividerItemDecoration
-                        .Builder(context)
-                        .build());
     }
 
     private void setUpSpinners() {

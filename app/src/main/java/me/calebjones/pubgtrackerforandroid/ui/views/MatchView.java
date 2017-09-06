@@ -62,7 +62,7 @@ public class MatchView extends LinearLayout {
 
     private void init(Context context) {
         Timber.v("init - Binding and Inflating views.");
-        inflate(context, R.layout.match_layout, this);
+        inflate(context, R.layout.match_card, this);
         Timber.v("init - View Inflated");
         ButterKnife.bind(this);
         Timber.v("init - Binding Completed.");

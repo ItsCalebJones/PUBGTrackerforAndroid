@@ -11,6 +11,8 @@ import me.calebjones.pubgtrackerforandroid.common.BaseNavigator;
 import me.calebjones.pubgtrackerforandroid.common.BasePresenterInterfacce;
 import me.calebjones.pubgtrackerforandroid.common.BaseView;
 import me.calebjones.pubgtrackerforandroid.data.events.UserFavoriteEvent;
+import me.calebjones.pubgtrackerforandroid.data.events.UserRefreshing;
+import me.calebjones.pubgtrackerforandroid.data.events.UserSelected;
 import me.calebjones.pubgtrackerforandroid.data.models.User;
 
 public interface MainContract {
@@ -75,6 +77,8 @@ public interface MainContract {
     }
 
     interface Presenter extends BasePresenterInterfacce {
+
+        void onUserEventReceived(UserSelected userSelected);
 
         boolean searchQuerySubmitted(String query);
 
