@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/md_dark_background"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/material_baseline_grid_8x"
     android:theme="@style/AppTheme">
 
     <FrameLayout
@@ -25,7 +24,9 @@
 
             <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/material_baseline_grid_10x"
+                android:clipToPadding="false">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -131,16 +132,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginBottom="@dimen/material_baseline_grid_8x"
+        android:layout_marginBottom="@dimen/material_baseline_grid_17x"
         android:layout_marginEnd="@dimen/material_baseline_grid_3x"
         android:clickable="true"
-        app:backgroundTint="@color/colorAccent"
+        app:fab_colorNormal="@color/colorAccent"
+        app:fab_colorPressed="@color/colorAccentDark"
         app:borderWidth="0dp"
         app:elevation="12dp"
         app:ico_color="@android:color/white"
         app:ico_icon="gmd-filter-list"
         app:ico_size="24dp"
-        app:layout_anchorGravity="bottom|right|end"
-        app:pressedTranslationZ="6dp"
-        app:rippleColor="@color/material_color_white_50_percent" />
+        app:layout_anchorGravity="bottom|right|end" />
 </android.support.design.widget.CoordinatorLayout>

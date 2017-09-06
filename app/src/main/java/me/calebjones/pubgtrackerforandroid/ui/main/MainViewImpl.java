@@ -133,13 +133,13 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         color = new int[]{
                 ContextCompat.getColor(context, R.color.colorAccentAlt),
                 ContextCompat.getColor(context, R.color.colorPrimary),
-                ContextCompat.getColor(context, R.color.material_color_blue_500)
+                ContextCompat.getColor(context, R.color.colorAccent)
         };
 
         topColor = new int[]{
-                ContextCompat.getColor(context, R.color.material_color_red_700),
+                ContextCompat.getColor(context, R.color.colorAccentAltDark),
                 ContextCompat.getColor(context, R.color.colorPrimaryDark),
-                ContextCompat.getColor(context, R.color.material_color_blue_700)
+                ContextCompat.getColor(context, R.color.colorAccentDark)
         };
     }
 

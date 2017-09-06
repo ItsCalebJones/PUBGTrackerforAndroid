@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/material_baseline_grid_8x"
     android:theme="@style/AppTheme">
 
     <me.calebjones.pubgtrackerforandroid.ui.views.ExtendedStatefulLayout
@@ -23,6 +22,8 @@
                 <android.support.v4.widget.NestedScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:paddingBottom="@dimen/material_baseline_grid_10x"
+                    android:clipToPadding="false"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                     <LinearLayout

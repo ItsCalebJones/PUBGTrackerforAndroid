@@ -16,6 +16,7 @@ import butterknife.ButterKnife;
 import io.realm.RealmResults;
 import me.calebjones.pubgtrackerforandroid.R;
 import me.calebjones.pubgtrackerforandroid.data.models.Match;
+import me.calebjones.pubgtrackerforandroid.ui.views.MatchCardView;
 import me.calebjones.pubgtrackerforandroid.ui.views.MatchView;
 import timber.log.Timber;
 
@@ -61,7 +62,7 @@ public class HistoryRecyclerAdapter extends RecyclerView.Adapter<HistoryRecycler
 
     public class HistoryViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.match_view)
-        public MatchView matchView;
+        public MatchCardView matchView;
 
         public HistoryViewHolder(View itemView) {
             super(itemView);

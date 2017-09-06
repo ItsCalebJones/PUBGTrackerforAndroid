@@ -13,10 +13,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.calebjones.pubgtrackerforandroid.R;
 import me.calebjones.pubgtrackerforandroid.data.models.Match;
-import timber.log.Timber;
 
 
-public class MatchView extends LinearLayout {
+public class MatchCardView extends LinearLayout {
 
     @BindView(R.id.match_overview_match_title)
     TextView matchOverviewMatchTitle;
@@ -45,23 +44,23 @@ public class MatchView extends LinearLayout {
     @BindView(R.id.match_result_title)
     TextView matchResultTitle;
 
-    public MatchView(Context context) {
+    public MatchCardView(Context context) {
         super(context);
         init(context);
     }
 
-    public MatchView(Context context, @Nullable AttributeSet attrs) {
+    public MatchCardView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
-    public MatchView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public MatchCardView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }
 
     private void init(Context context) {
-        inflate(context, R.layout.match_layout, this);
+        inflate(context, R.layout.match_card, this);
         ButterKnife.bind(this);
     }
 
