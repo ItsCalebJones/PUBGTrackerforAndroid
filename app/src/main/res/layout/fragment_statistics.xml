@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/md_dark_background"
     android:orientation="vertical"
+    android:paddingBottom="@dimen/material_baseline_grid_8x"
     android:theme="@style/AppTheme">
 
     <FrameLayout
@@ -22,37 +23,31 @@
             app:state="empty"
             app:stateTextAppearance="@style/TextAppearance.AppCompat">
 
-            <android.support.v4.widget.SwipeRefreshLayout
-                android:id="@+id/refresh"
+            <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <android.support.v4.widget.NestedScrollView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                    <me.calebjones.pubgtrackerforandroid.ui.views.PlaylistView
+                        android:id="@+id/solo_playlist"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
-                        <me.calebjones.pubgtrackerforandroid.ui.views.PlaylistView
-                            android:id="@+id/solo_playlist"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                    <me.calebjones.pubgtrackerforandroid.ui.views.PlaylistView
+                        android:id="@+id/duo_playlist"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
-                        <me.calebjones.pubgtrackerforandroid.ui.views.PlaylistView
-                            android:id="@+id/duo_playlist"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                        <me.calebjones.pubgtrackerforandroid.ui.views.PlaylistView
-                            android:id="@+id/squad_playlist"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-                </android.support.v4.widget.NestedScrollView>
-            </android.support.v4.widget.SwipeRefreshLayout>
+                    <me.calebjones.pubgtrackerforandroid.ui.views.PlaylistView
+                        android:id="@+id/squad_playlist"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
 
         </me.calebjones.pubgtrackerforandroid.ui.views.ExtendedStatefulLayout>
 

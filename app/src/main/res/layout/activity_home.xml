@@ -4,6 +4,7 @@
     android:id="@+id/coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:theme="@style/AppTheme">
 
     <android.support.design.widget.AppBarLayout
@@ -11,21 +12,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
-        android:paddingBottom="@dimen/material_baseline_grid_1x"
-        app:elevation="0dp">
+        android:fitsSystemWindows="false"
+        android:paddingBottom="@dimen/material_baseline_grid_1x">
 
         <com.lapism.searchview.SearchView
             android:id="@+id/searchView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="false"
+            app:layout_behavior="com.lapism.searchview.SearchBehavior"
+            app:search_shadow="false"/>
 
         <LinearLayout
-            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="@dimen/material_baseline_grid_1x"
             android:layout_marginTop="@dimen/material_baseline_grid_1x"
+            android:fitsSystemWindows="false"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -38,12 +42,12 @@
                     style="@style/TextAppearance.AppCompat.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
                     android:layout_centerInParent="true"
                     android:layout_marginEnd="@dimen/material_baseline_grid_1x"
                     android:layout_marginStart="@dimen/material_baseline_grid_1x"
                     android:paddingEnd="@dimen/material_baseline_grid_2.5x"
                     android:paddingStart="@dimen/material_baseline_grid_2.5x"
-                    android:layout_alignParentBottom="true"
                     android:textStyle="bold"
                     app:layout_collapseMode="pin" />
 
@@ -88,15 +92,23 @@
             </LinearLayout>
         </LinearLayout>
 
+
     </android.support.design.widget.AppBarLayout>
 
-    <com.aurelhubert.ahbottomnavigation.AHBottomNavigationViewPager
-        android:id="@+id/contentFrame"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/navigation_view"
         android:layout_below="@+id/appbar"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <com.aurelhubert.ahbottomnavigation.AHBottomNavigationViewPager
+            android:id="@+id/contentFrame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
         android:id="@+id/navigation_view"

@@ -33,7 +33,7 @@ import me.calebjones.pubgtrackerforandroid.ui.views.ExtendedStatefulLayout;
 import me.calebjones.pubgtrackerforandroid.ui.views.MatchView;
 
 
-public class OverviewViewImpl implements OverviewContract.View, SwipeRefreshLayout.OnRefreshListener {
+public class OverviewViewImpl implements OverviewContract.View {
 
     private static final String STATE_EMPTY = "STATE_EMPTY";
     private static final String STATE_NO_USER = "NO_USER";
@@ -41,8 +41,6 @@ public class OverviewViewImpl implements OverviewContract.View, SwipeRefreshLayo
     CardView informationCard;
     @BindView(R.id.overview_card)
     CardView overviewCard;
-    @BindView(R.id.refresh)
-    SwipeRefreshLayout refresh;
     @BindView(R.id.root)
     ViewGroup container;
     @BindView(R.id.close_information_button)
@@ -81,7 +79,6 @@ public class OverviewViewImpl implements OverviewContract.View, SwipeRefreshLayo
     LinearLayout overviewStatOneRoot;
     @BindView(R.id.overview_stat_two_root)
     LinearLayout overviewStatTwoRoot;
-
     @BindView(R.id.home_coordinator)
     CoordinatorLayout homeCoordinator;
     @BindView(R.id.last_match_card)
@@ -105,7 +102,6 @@ public class OverviewViewImpl implements OverviewContract.View, SwipeRefreshLayo
         this.context = context;
         mRootView = inflater.inflate(R.layout.fragment_overview, container, false);
         ButterKnife.bind(this, mRootView);
-        refresh.setOnRefreshListener(this);
         overviewStateView.setStateView(STATE_EMPTY, LayoutInflater.from(context).inflate(R.layout.empty_layout, null));
         overviewStateView.setStateView(STATE_NO_USER, LayoutInflater.from(context).inflate(R.layout.no_user_layout, null));
     }
@@ -226,14 +222,6 @@ public class OverviewViewImpl implements OverviewContract.View, SwipeRefreshLayo
     }
 
     @Override
-    public void setRefreshing(boolean state) {
-        if (overviewStateView.getState() == ExtendedStatefulLayout.State.NO_USER_BUBBLE){
-            overviewStateView.showProgress();
-        }
-        refresh.setRefreshing(state);
-    }
-
-    @Override
     public void showEmpty() {
         overviewStateView.showEmpty();
     }
@@ -261,18 +249,8 @@ public class OverviewViewImpl implements OverviewContract.View, SwipeRefreshLayo
         overviewPresenter.setInformationCardDismissed(true);
     }
 
-    @Override
-    public void setRefreshEnabled(boolean state) {
-        refresh.setEnabled(state);
-    }
-
     @OnClick(R.id.close_information_button)
     public void onExploreViewClicked() {
     }
 
-
-    @Override
-    public void onRefresh() {
-        overviewPresenter.refreshCurrentUser();
-    }
 }

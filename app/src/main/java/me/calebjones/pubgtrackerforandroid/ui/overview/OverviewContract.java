@@ -3,7 +3,7 @@ package me.calebjones.pubgtrackerforandroid.ui.overview;
 import android.support.annotation.NonNull;
 
 import me.calebjones.pubgtrackerforandroid.common.BaseNavigator;
-import me.calebjones.pubgtrackerforandroid.common.BasePresenterInterfacce;
+import me.calebjones.pubgtrackerforandroid.common.BasePresenterInterface;
 import me.calebjones.pubgtrackerforandroid.common.BaseView;
 import me.calebjones.pubgtrackerforandroid.data.events.UserRefreshing;
 import me.calebjones.pubgtrackerforandroid.data.events.UserSelected;
@@ -31,8 +31,6 @@ public interface OverviewContract {
 
         void onInformationCardDismissClicked();
 
-        void setRefreshEnabled(boolean state);
-
         void setInformationCardVisible(boolean state);
 
         void setOverviewCardVisible(boolean state);
@@ -49,10 +47,7 @@ public interface OverviewContract {
 
         void setOverviewSeasonTwoVisible(boolean state);
 
-
         void createSnackbar(String localizedMessage);
-
-        void setRefreshing(boolean state);
 
         void showEmpty();
 
@@ -62,7 +57,7 @@ public interface OverviewContract {
 
     }
 
-    interface Presenter extends BasePresenterInterfacce {
+    interface Presenter extends BasePresenterInterface {
 
         void applyUser(User user);
 
@@ -78,6 +73,5 @@ public interface OverviewContract {
 
         void retrieveCachedUser();
 
-        void refreshCurrentUser();
     }
 }

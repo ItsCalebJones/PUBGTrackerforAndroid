@@ -10,12 +10,12 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.view.menu.MenuBuilder;
-import android.support.v7.widget.Toolbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -60,7 +60,8 @@ import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextListener,
         SearchView.OnMenuClickListener,
-        AHBottomNavigation.OnTabSelectedListener {
+        AHBottomNavigation.OnTabSelectedListener,
+        SwipeRefreshLayout.OnRefreshListener {
 
     public int[] color;
     public int[] topColor;
@@ -82,6 +83,8 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     TextView currentRank;
     @BindView(R.id.current_KD)
     TextView currentKD;
+    @BindView(R.id.refresh)
+    SwipeRefreshLayout refresh;
     private View mRootView;
     private MainContract.Presenter mainPresenter;
     private SearchHistoryTable historyDatabase;
@@ -89,15 +92,17 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     private Drawer result;
     private AccountHeader accountHeader;
     private boolean favoriteUser;
+    private Window window;
 
-    public MainViewImpl(Context context, ViewGroup container) {
+    public MainViewImpl(Context context, ViewGroup container, Window window) {
         this.context = context;
         mRootView = LayoutInflater.from(context).inflate(R.layout.activity_home, container);
         ButterKnife.bind(this, mRootView);
         setUpColors();
         setUpSearchView();
         setupNavigationView();
-        navigation.setOnTabSelectedListener(this);
+        refresh.setOnRefreshListener(this);
+        this.window = window;
     }
 
     private void setUpSearchView() {
@@ -122,12 +127,11 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
             }
         });
         searchView.setVoice(false);
-//        searchView.setVisibility(View.GONE);
     }
 
     private void setUpColors() {
         color = new int[]{
-                ContextCompat.getColor(context, R.color.material_color_red_500),
+                ContextCompat.getColor(context, R.color.colorAccentAlt),
                 ContextCompat.getColor(context, R.color.colorPrimary),
                 ContextCompat.getColor(context, R.color.material_color_blue_500)
         };
@@ -161,6 +165,8 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         navigation.addItem(historyItem);
         navigation.setColored(true);
         navigation.setBehaviorTranslationEnabled(true);
+        navigation.setTranslucentNavigationEnabled(true);
+        navigation.setOnTabSelectedListener(this);
     }
 
     private void updateTopColor(int color, int topColor) {
@@ -170,6 +176,11 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         if (result != null) {
             result.getDrawerLayout().setStatusBarBackgroundColor(topColor);
         }
+        // clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(topColor);
     }
 
     @Override
@@ -182,6 +193,7 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         historyDatabase.addItem(new SearchItem(string), 1);
         mainPresenter.searchQuerySubmitted(string);
         searchView.close(true);
+        refresh.setRefreshing(true);
         return true;
     }
 
@@ -276,6 +288,7 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         accountHeader = new AccountHeaderBuilder()
                 .withActivity(activity)
                 .withCompactStyle(false)
+                .withTranslucentStatusBar(true)
                 .withHeaderBackground(new ImageHolder("http://i.imgur.com/Oe5nnI9.jpg"))
                 .withAccountHeader(R.layout.material_drawer_header_custom)
                 .withSavedInstance(savedInstanceState)
@@ -293,6 +306,7 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         result = new DrawerBuilder()
                 .withActivity(activity)
                 .withTranslucentStatusBar(true)
+                .withTranslucentNavigationBar(true)
                 .withHasStableIds(true)
                 .withAccountHeader(accountHeader)
                 .addDrawerItems(
@@ -487,12 +501,12 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         favoriteUser = state;
         if (favoriteUser) {
             favoriteIcon.setIcon(new IconicsDrawable(context)
-                    .icon(GoogleMaterial.Icon.gmd_star)
-                    .color(ContextCompat.getColor(context, R.color.colorAccentAlt))
+                    .icon(GoogleMaterial.Icon.gmd_favorite)
+                    .color(ContextCompat.getColor(context, R.color.material_color_white))
                     .sizeDp(16));
         } else {
             favoriteIcon.setIcon(new IconicsDrawable(context)
-                    .icon(GoogleMaterial.Icon.gmd_star_border)
+                    .icon(GoogleMaterial.Icon.gmd_favorite_border)
                     .color(ContextCompat.getColor(context, R.color.material_color_white))
                     .sizeDp(16));
         }
@@ -541,6 +555,18 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
                 .show();
     }
 
+    @Override
+    public void setRefreshing(boolean refreshing) {
+        refresh.setRefreshing(refreshing);
+    }
+
+    @Override
+    public void enableDisableSwipeRefresh(boolean enable) {
+        if (refresh != null) {
+            refresh.setEnabled(enable);
+        }
+    }
+
     private IProfile convertUserToProfile(User user) {
         IProfile profile = new ProfileDrawerItem()
                 .withIdentifier(user.getPubgTrackerId())
@@ -587,7 +613,7 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         currentRank.setVisibility(View.VISIBLE);
     }
 
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    public void onPageScrolled(int position, float positionOffset) {
         if (positionOffset == 0) {
             return;
         }
@@ -607,6 +633,11 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         if (result != null) {
             result.getDrawerLayout().setStatusBarBackgroundColor(blendedTop);
         }
+        // clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(blendedTop);
     }
 
     private int blendColors(int from, int to, float ratio) {
@@ -615,5 +646,10 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         final float g = Color.green(from) * ratio + Color.green(to) * inverseRation;
         final float b = Color.blue(from) * ratio + Color.blue(to) * inverseRation;
         return Color.rgb((int) r, (int) g, (int) b);
+    }
+
+    @Override
+    public void onRefresh() {
+        mainPresenter.refreshCurrentUser();
     }
 }

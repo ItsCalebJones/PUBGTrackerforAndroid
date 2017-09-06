@@ -63,34 +63,20 @@ public class HistoryPresenter extends BasePresenter implements HistoryContract.P
     public void onUserEventReceived(UserSelected userSelected) {
         currentUser = userSelected.user;
         Timber.i("onUserEventReceived - EventBus - Message received - User: %s", currentUser.getPlayerName());
-        historyView.setRefreshEnabled(true);
-        historyView.showContent();
         updateAdapter(currentUser);
     }
 
     private void updateAdapter(User user) {
         Timber.d("updateAdapter - Retrieving match history.");
         matches = retrieveMatchHistory(user.getPubgTrackerId());
-        matches.addChangeListener(new RealmChangeListener<RealmResults<Match>>() {
-            @Override
-            public void onChange(RealmResults<Match> matches) {
-                if (matches.size() > 0) {
-                    Timber.v("updateAdapter RealmChangeListener - Found %s matches - Adding to adapter.", matches.size());
-                    historyView.setAdapterMatches(matches);
-                    historyView.showContent();
-                } else {
-                    Timber.v("updateAdapter RealmChangeListener - Found no matches - Showing empty view.");
-                    historyView.showEmpty();
-                }
-            }
-        });
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    @Override
-    public void onRefreshEventReceiver(UserRefreshing state) {
-        Timber.i("onRefreshEventReceiver - EventBus - Message received - Refreshing: %s", state.refreshing);
-        historyView.setRefreshing(state.refreshing);
+        if (matches.size() > 0) {
+            Timber.v("updateAdapter RealmChangeListener - Found %s matches - Adding to adapter.", matches.size());
+            historyView.setAdapterMatches(matches);
+            historyView.showContent();
+        } else {
+            Timber.v("updateAdapter RealmChangeListener - Found no matches - Showing empty view.");
+            historyView.showEmpty();
+        }
     }
 
     @Override
@@ -121,44 +107,6 @@ public class HistoryPresenter extends BasePresenter implements HistoryContract.P
         }
     }
 
-    //Todo
-    @Override
-    public void refreshCurrentUser() {
-        Timber.i("refreshCurrentUser - refreshing %s matches.", currentUser.getPlayerName());
-        dataManager.updateUserByProfileName(currentUser.getPlayerName(), new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                Timber.d("refreshCurrentUser - onResponse - Successful: %s", response.isSuccessful());
-                if (response.isSuccessful()){
-                    User user = response.body();
-                    if (user != null) {
-                        if (user.getError() != null && user.getMessage() != null) {
-                            Timber.e("refreshCurrentUser - onResponse - Error: %s", user.getMessage());
-                            historyView.createSnackbar(user.getMessage());
-                        } else if (user.getPlayerName() != null) {
-                            Timber.d("refreshCurrentUser - onResponse - Saving user data.");
-                            dataManager.getDataSaver().save(user);
-                        }
-                    }
-                } else {
-                    Timber.e("refreshCurrentUser - onResponse - Error: %s", response.message());
-                    historyView.createSnackbar(response.message());
-                    Timber.e(response.message());
-                }
-                historyView.setRefreshing(false);
-            }
-
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                Timber.e(t);
-                Timber.e("refreshCurrentUser - onFailure - Error: %s", t.getLocalizedMessage());
-                historyView.createSnackbar(t.getLocalizedMessage());
-                historyView.setRefreshing(false);
-            }
-        });
-    }
-
     @Override
     public RealmResults<Match> retrieveMatchHistory(int pubgTrackerId) {
         Timber.d("retrieveMatchHistory - Retrieving Match History...");
@@ -182,7 +130,7 @@ public class HistoryPresenter extends BasePresenter implements HistoryContract.P
             matchRealmQuery.contains("matchDisplay", mode);
         }
 
-        return matchRealmQuery.findAllSortedAsync("updated", Sort.DESCENDING);
+        return matchRealmQuery.findAllSorted("updated", Sort.DESCENDING);
 
     }
 

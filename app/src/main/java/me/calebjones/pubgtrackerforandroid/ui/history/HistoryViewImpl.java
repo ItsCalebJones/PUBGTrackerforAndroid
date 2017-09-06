@@ -43,7 +43,7 @@ import timber.log.Timber;
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 
-public class HistoryViewImpl implements HistoryContract.View, SwipeRefreshLayout.OnRefreshListener {
+public class HistoryViewImpl implements HistoryContract.View {
 
     @BindView(R.id.history_recycler_view)
     RecyclerView historyRecyclerView;
@@ -65,8 +65,6 @@ public class HistoryViewImpl implements HistoryContract.View, SwipeRefreshLayout
     AppCompatButton historySortSubmit;
     @BindView(R.id.history_sort_reset)
     AppCompatButton historySortReset;
-    @BindView(R.id.refresh)
-    SwipeRefreshLayout refreshView;
 
     private HistoryContract.Presenter historyPresenter;
     private View mRootView;
@@ -79,29 +77,26 @@ public class HistoryViewImpl implements HistoryContract.View, SwipeRefreshLayout
     private Fragment fragment;
 
     public HistoryViewImpl(Context context, LayoutInflater inflater, ViewGroup container, Fragment fragment) {
-        Timber.v("HistoryViewImpl  - Creating view...");
+        Timber.d("HistoryViewImpl  - Creating view...");
         this.context = context;
         this.fragment = fragment;
-        Timber.v("HistoryViewImpl  - Inflating layout...");
         mRootView = inflater.inflate(R.layout.fragment_history, container, false);
-        Timber.v("HistoryViewImpl  - Binding View... with rootview.");
         ButterKnife.bind(this, mRootView);
-        Timber.v("HistoryViewImpl  - Creating Stateful layout.");
         statefulView.setEmptyImageDrawable(new IconicsDrawable(context)
                 .icon(GoogleMaterial.Icon.gmd_info_outline)
                 .color(ContextCompat.getColor(context, R.color.material_color_white))
                 .sizeDp(64));
-        Timber.v("HistoryViewImpl  - Setting up Spinners");
         setUpSpinners();
-        Timber.v("HistoryViewImpl  - Configuring Recyler");
         setUpRecyclerView();
-        refreshView.setOnRefreshListener(this);
     }
 
     private void setUpRecyclerView() {
         historyAdapter = new HistoryRecyclerAdapter(context);
+        historyAdapter.setHasStableIds(true);
         historyRecyclerView.setAdapter(historyAdapter);
-        historyRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+        layoutManager.setInitialPrefetchItemCount(5);
+        historyRecyclerView.setLayoutManager(layoutManager);
         historyRecyclerView.setNestedScrollingEnabled(false);
     }
 
@@ -248,20 +243,8 @@ public class HistoryViewImpl implements HistoryContract.View, SwipeRefreshLayout
 
     //TODO
     @Override
-    public void setRefreshEnabled(boolean state) {
-        refreshView.setEnabled(state);
-    }
-
-    //TODO
-    @Override
     public void createSnackbar(String message) {
 
-    }
-
-    //TODO
-    @Override
-    public void setRefreshing(boolean state) {
-        refreshView.setRefreshing(state);
     }
 
     @Override
@@ -308,8 +291,4 @@ public class HistoryViewImpl implements HistoryContract.View, SwipeRefreshLayout
         checkFabIcon();
     }
 
-    @Override
-    public void onRefresh() {
-        historyPresenter.refreshCurrentUser();
-    }
 }

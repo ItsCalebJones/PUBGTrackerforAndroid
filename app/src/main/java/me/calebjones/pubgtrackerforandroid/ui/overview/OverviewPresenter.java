@@ -72,7 +72,7 @@ public class OverviewPresenter extends BasePresenter implements OverviewContract
     @Subscribe(threadMode = ThreadMode.MAIN)
     @Override
     public void onUserEventReceived(UserSelected userSelected) {
-        overviewView.setRefreshEnabled(true);
+        Timber.v("onUserEventReceived - UserSelected event.");
         overviewView.showContent();
         applyUser(userSelected.user);
     }
@@ -80,7 +80,6 @@ public class OverviewPresenter extends BasePresenter implements OverviewContract
     @Subscribe(threadMode = ThreadMode.MAIN)
     @Override
     public void onRefreshEventReceiver(UserRefreshing state) {
-        overviewView.setRefreshing(state.refreshing);
     }
 
     @Override
@@ -108,42 +107,9 @@ public class OverviewPresenter extends BasePresenter implements OverviewContract
         User user = dataManager.getCurrentUser();
         if (user != null) {
             applyUser(user);
-            overviewView.setRefreshEnabled(true);
         } else {
             overviewView.showNoUser();
-            overviewView.setRefreshEnabled(false);
         }
-    }
-
-    @Override
-    public void refreshCurrentUser() {
-        dataManager.updateUserByProfileName(currentUser.getPlayerName(), new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                if (response.isSuccessful()) {
-                    User user = response.body();
-                    if (user != null) {
-                        if (user.getError() != null && user.getMessage() != null) {
-                            overviewView.createSnackbar(user.getMessage());
-                        } else if (user.getPlayerName() != null) {
-                            dataManager.getDataSaver().save(user);
-                        }
-                    }
-                } else {
-                    overviewView.createSnackbar(response.message());
-                    Timber.e(response.message());
-                }
-                overviewView.setRefreshing(false);
-            }
-
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                Timber.e(t);
-                overviewView.createSnackbar(t.getLocalizedMessage());
-                overviewView.setRefreshing(false);
-            }
-        });
     }
 
     @Override

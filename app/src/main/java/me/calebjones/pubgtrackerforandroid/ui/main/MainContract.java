@@ -8,10 +8,9 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 import me.calebjones.pubgtrackerforandroid.common.BaseNavigator;
-import me.calebjones.pubgtrackerforandroid.common.BasePresenterInterfacce;
+import me.calebjones.pubgtrackerforandroid.common.BasePresenterInterface;
 import me.calebjones.pubgtrackerforandroid.common.BaseView;
 import me.calebjones.pubgtrackerforandroid.data.events.UserFavoriteEvent;
-import me.calebjones.pubgtrackerforandroid.data.events.UserRefreshing;
 import me.calebjones.pubgtrackerforandroid.data.events.UserSelected;
 import me.calebjones.pubgtrackerforandroid.data.models.User;
 
@@ -74,9 +73,13 @@ public interface MainContract {
         void deleteUser(User user);
 
         void showUserHint(Activity activity);
+
+        void setRefreshing(boolean refreshing);
+
+        void enableDisableSwipeRefresh(boolean enable);
     }
 
-    interface Presenter extends BasePresenterInterfacce {
+    interface Presenter extends BasePresenterInterface {
 
         void onUserEventReceived(UserSelected userSelected);
 
@@ -105,5 +108,7 @@ public interface MainContract {
         void goToSettings();
 
         void setFavoriteUserState(boolean favoriteUser);
+
+        void refreshCurrentUser();
     }
 }

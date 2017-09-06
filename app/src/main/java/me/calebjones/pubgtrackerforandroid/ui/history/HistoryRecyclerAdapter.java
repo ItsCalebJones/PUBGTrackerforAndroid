@@ -40,17 +40,13 @@ public class HistoryRecyclerAdapter extends RecyclerView.Adapter<HistoryRecycler
 
     @Override
     public HistoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Timber.v("onCreateViewHolder - Inflating view...");
-        View itemView = LayoutInflater.from(context)
-                .inflate(R.layout.match_view_adapter, parent, false);
-        Timber.v("onCreateViewHolder - View Inflated...");
+        View itemView = LayoutInflater.from(context).inflate(R.layout.match_view_adapter, parent, false);
         return new HistoryViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(HistoryViewHolder holder, int position) {
         Match match = matches.get(position);
-        Timber.v("onBindViewHolder - Binding view %s with %s", position, match.getMatch());
         holder.matchView.setMatch(match, simpleDateFormat);
     }
 

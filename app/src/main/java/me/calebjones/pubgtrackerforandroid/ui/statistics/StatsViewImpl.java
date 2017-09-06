@@ -47,7 +47,6 @@ public class StatsViewImpl implements StatsContract.View {
     PlaylistView duoPlaylist;
     @BindView(R.id.squad_playlist)
     PlaylistView squadPlaylist;
-
     @BindView(R.id.stateful_view)
     ExtendedStatefulLayout statefulView;
     @BindView(R.id.container)

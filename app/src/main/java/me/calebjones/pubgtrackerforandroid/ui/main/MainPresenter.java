@@ -40,7 +40,9 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
     @Subscribe(threadMode = ThreadMode.MAIN)
     @Override
     public void onUserEventReceived(UserSelected userSelected) {
+        Timber.d("UserSelected Event Received.");
         setCurrentUser();
+        mainView.setRefreshing(false);
     }
 
 
@@ -66,7 +68,6 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
                             dataManager.getDataSaver().save(user);
                             currentUser = user;
                             mainView.setActiveUser(user);
-                            sendUserToEventBus(user);
                         }
                     }
                 } else {
@@ -180,6 +181,37 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
                 currentUser.setFavoriteUser(currentUserState);
                 realm.copyToRealmOrUpdate(currentUser);
                 EventBus.getDefault().post(new UserFavoriteEvent(currentUser));
+            }
+        });
+    }
+
+    @Override
+    public void refreshCurrentUser() {
+        dataManager.updateUserByProfileName(currentUser.getPlayerName(), new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.isSuccessful()) {
+                    User user = response.body();
+                    if (user != null) {
+                        if (user.getError() != null && user.getMessage() != null) {
+                            mainView.createSnackbar(user.getMessage());
+                        } else if (user.getPlayerName() != null) {
+                            dataManager.getDataSaver().save(user);
+                        }
+                    }
+                } else {
+                    mainView.createSnackbar(response.message());
+                    Timber.e(response.message());
+                }
+                mainView.setRefreshing(false);
+            }
+
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Timber.e(t);
+                mainView.createSnackbar(t.getLocalizedMessage());
+                mainView.setRefreshing(false);
             }
         });
     }

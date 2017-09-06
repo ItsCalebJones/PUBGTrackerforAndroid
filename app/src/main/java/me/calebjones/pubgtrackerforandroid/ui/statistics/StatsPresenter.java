@@ -77,12 +77,18 @@ public class StatsPresenter extends BasePresenter implements StatsContract.Prese
     @Subscribe(threadMode = ThreadMode.MAIN)
     @Override
     public void onUserEventReceived(UserSelected userSelected) {
-        retrieveCachedUser();
+        Timber.v("onUserEventReceived - UserSelected event.");
+        currentUser = userSelected.user;
+        applyUser(currentUser);
     }
 
     @Override
     public void retrieveCachedUser() {
         currentUser = dataManager.getCurrentUser();
+        applyUser(currentUser);
+    }
+
+    private void applyUser(User currentUser) {
         if (currentUser != null) {
             statsView.showContent();
             List<PUBGRegion> regionList = Arrays.asList(PUBGRegion.values());
@@ -143,7 +149,6 @@ public class StatsPresenter extends BasePresenter implements StatsContract.Prese
         {
             statsView.showNoUser();
         }
-
     }
 
     @Override

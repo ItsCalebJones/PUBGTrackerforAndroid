@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/coordinator"
     android:layout_width="match_parent"
@@ -13,34 +12,113 @@
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appbar"
-            android:layout_alignStart="@+id/navigation_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/navigation_view"
+            android:background="?attr/colorPrimary"
             android:paddingBottom="@dimen/material_baseline_grid_1x"
-            app:elevation="0dp"
-            android:background="?attr/colorPrimary">
+            app:elevation="0dp">
 
             <com.lapism.searchview.SearchView
                 android:id="@+id/searchView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/material_baseline_grid_1x"
+                android:layout_marginTop="@dimen/material_baseline_grid_1x"
+                android:fitsSystemWindows="false"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/material_baseline_grid_3x">
+
+                    <TextView
+                        android:id="@+id/profile_name"
+                        style="@style/TextAppearance.AppCompat.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginEnd="@dimen/material_baseline_grid_1x"
+                        android:layout_marginStart="@dimen/material_baseline_grid_1x"
+                        android:paddingEnd="@dimen/material_baseline_grid_2.5x"
+                        android:paddingStart="@dimen/material_baseline_grid_2.5x"
+                        android:textStyle="bold"
+                        app:layout_collapseMode="pin" />
+
+                    <com.mikepenz.iconics.view.IconicsImageView
+                        android:id="@+id/favorite_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@+id/profile_name"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="@dimen/material_baseline_grid_2.5x" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/material_baseline_grid_2.5x"
+                    android:layout_marginEnd="@dimen/material_baseline_grid_0.5x"
+                    android:layout_marginStart="@dimen/material_baseline_grid_0.5x"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/current_rank"
+                        style="@style/TextAppearance.AppCompat.Subhead"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/material_baseline_grid_0.5x"
+                        android:layout_marginStart="@dimen/material_baseline_grid_0.5x"
+                        android:gravity="center"
+                        android:text="Rank: "
+                        android:visibility="invisible" />
+
+                    <TextView
+                        android:id="@+id/current_KD"
+                        style="@style/TextAppearance.AppCompat.Subhead"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/material_baseline_grid_0.5x"
+                        android:layout_marginStart="@dimen/material_baseline_grid_0.5x"
+                        android:gravity="center"
+                        android:text="K/D: "
+                        android:visibility="invisible" />
+                </LinearLayout>
+            </LinearLayout>
+
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/contentFrame"
-            android:layout_below="@+id/appbar"
-            android:layout_alignStart="@+id/navigation_view"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingStart="@dimen/material_baseline_grid_6x"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+            android:layout_above="@+id/navigation_view"
+            android:layout_below="@+id/appbar"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <com.aurelhubert.ahbottomnavigation.AHBottomNavigationViewPager
+                android:id="@+id/contentFrame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignStart="@+id/navigation_view"
+                android:layout_below="@+id/appbar"
+                android:paddingStart="@dimen/material_baseline_grid_6x"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        </android.support.v4.widget.SwipeRefreshLayout>
 
         <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
             android:id="@+id/navigation_view"
-            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_gravity="start"
             app:itemBackground="@color/colorPrimary"
             app:itemIconTint="@color/white"

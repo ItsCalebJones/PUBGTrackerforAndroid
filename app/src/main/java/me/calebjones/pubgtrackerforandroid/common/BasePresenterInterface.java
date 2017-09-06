@@ -1,8 +1,6 @@
 package me.calebjones.pubgtrackerforandroid.common;
 
-import io.realm.Realm;
-
-public interface BasePresenterInterfacce {
+public interface BasePresenterInterface {
     void onStart();
 
     void onStop();

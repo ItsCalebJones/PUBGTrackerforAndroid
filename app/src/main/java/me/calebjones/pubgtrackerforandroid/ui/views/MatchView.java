@@ -61,18 +61,13 @@ public class MatchView extends LinearLayout {
     }
 
     private void init(Context context) {
-        Timber.v("init - Binding and Inflating views.");
         inflate(context, R.layout.match_card, this);
-        Timber.v("init - View Inflated");
         ButterKnife.bind(this);
-        Timber.v("init - Binding Completed.");
     }
 
     public void setMatch(Match match, SimpleDateFormat simpleDateFormat) {
-        Timber.v("setPlayerStats - Received Match ID: %s", match.getId());
         setMatchResult(match);
 
-        Timber.v("setPlayerStats - Getting data from Match.");
         String matchRatingText = String.valueOf((int) match.getRating());
         String matchRatingChangeText = String.valueOf((int) match.getRatingChange());
 
@@ -86,12 +81,9 @@ public class MatchView extends LinearLayout {
         String matchDistanceText = String.valueOf((int) match.getMoveDistance()) + "m";
         String matchSurvivedText = String.valueOf((int) match.getTimeSurvived()) + " sec";
         String matchOverviewMatchTitleText = match.getRegionDisplay() + " - " + match.getMatchDisplay();
-        Timber.v("setPlayerStats - Getting Date from Match.");
         String matchOverviewDateText = simpleDateFormat.format(match.getUpdated());
-        Timber.v("setPlayerStats - Getting Date from Match - Complete.");
 
 
-        Timber.v("setPlayerStats - Setting Views with data.");
         matchRating.setText(matchRatingText);
         matchKills.setText(matchKillsText);
         matchDamage.setText(matchDamageText);
@@ -102,8 +94,6 @@ public class MatchView extends LinearLayout {
     }
 
     private void setMatchResult(Match match) {
-        Timber.v("setMatchResult - Checking result.");
-
         if (match.getRounds() > 1){
             sessionContainer.setVisibility(View.VISIBLE);
             matchCount.setText(String.valueOf(match.getRounds()));
@@ -114,13 +104,10 @@ public class MatchView extends LinearLayout {
             sessionContainer.setVisibility(View.GONE);
             matchResultTitle.setText("RESULT");
             if (match.getWins() == 1) {
-                Timber.v("setMatchResult - Returning Win.");
                 matchResult.setText("Win");
             } else if (match.getTop10() == 1) {
-                Timber.v("setMatchResult - Returning Top Ten.");
                 matchResult.setText("Top Ten");
             } else {
-                Timber.v("setMatchResult - Returning Died.");
                 matchResult.setText("Died");
             }
         }

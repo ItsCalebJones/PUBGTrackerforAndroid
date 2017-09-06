@@ -29,6 +29,11 @@ public class DataSaver {
                     Timber.d("save -executeTransaction - %s is favorite.", user.getPlayerName());
                     user.setFavoriteUser(true);
                 }
+                User currentUser = realm.where(User.class).equalTo("currentUser", true).findFirst();
+
+                currentUser.setCurrentUser(false);
+                realm.copyToRealmOrUpdate(currentUser);
+
                 user.setCurrentUser(true);
                 realm.copyToRealmOrUpdate(user);
             }

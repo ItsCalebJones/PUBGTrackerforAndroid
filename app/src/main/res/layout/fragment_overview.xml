@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingBottom="@dimen/material_baseline_grid_8x"
     android:theme="@style/AppTheme">
 
     <me.calebjones.pubgtrackerforandroid.ui.views.ExtendedStatefulLayout
@@ -19,18 +20,10 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <android.support.v4.widget.SwipeRefreshLayout
-                android:id="@+id/refresh"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-
                 <android.support.v4.widget.NestedScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
 
                     <LinearLayout
                         android:id="@+id/root"
@@ -63,7 +56,6 @@
 
                     </LinearLayout>
                 </android.support.v4.widget.NestedScrollView>
-            </android.support.v4.widget.SwipeRefreshLayout>
         </LinearLayout>
     </me.calebjones.pubgtrackerforandroid.ui.views.ExtendedStatefulLayout>
 </android.support.design.widget.CoordinatorLayout>
