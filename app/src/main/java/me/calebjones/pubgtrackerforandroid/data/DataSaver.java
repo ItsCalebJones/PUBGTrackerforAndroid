@@ -31,8 +31,10 @@ public class DataSaver {
                 }
                 User currentUser = realm.where(User.class).equalTo("currentUser", true).findFirst();
 
-                currentUser.setCurrentUser(false);
-                realm.copyToRealmOrUpdate(currentUser);
+                if (currentUser != null) {
+                    currentUser.setCurrentUser(false);
+                    realm.copyToRealmOrUpdate(currentUser);
+                }
 
                 user.setCurrentUser(true);
                 realm.copyToRealmOrUpdate(user);

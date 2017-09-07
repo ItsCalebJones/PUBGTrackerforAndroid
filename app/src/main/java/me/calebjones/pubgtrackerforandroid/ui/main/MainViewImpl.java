@@ -178,6 +178,7 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         appbar.setBackgroundColor(color);
         if (result != null) {
             result.getDrawerLayout().setStatusBarBackgroundColor(topColor);
+            result.getHeader().setBackgroundColor(color);
         }
         // clear FLAG_TRANSLUCENT_STATUS flag:
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
