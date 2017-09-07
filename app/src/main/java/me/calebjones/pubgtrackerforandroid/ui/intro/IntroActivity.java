@@ -66,7 +66,13 @@ public class IntroActivity extends AhoyOnboarderActivity {
         setFinishButtonTitle("Done");
         showNavigationControls(false);
 
-        setImageBackground(R.drawable.playerunknown_intro);
+        List<Integer> colorList = new ArrayList<>();
+        colorList.add(R.color.colorPrimaryDark);
+        colorList.add(R.color.colorAccentDark);
+        colorList.add(R.color.colorAccentAltDark);
+
+        setColorBackground(colorList);
+        setImageBackground(R.drawable.playerunknowns_battlegrounds_guy);
         setOnboardPages(pages);
     }
     @Override

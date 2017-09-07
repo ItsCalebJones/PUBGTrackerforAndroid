@@ -15,7 +15,7 @@ import me.calebjones.pubgtrackerforandroid.data.models.User;
 public interface OverviewContract {
 
     interface Navigator extends BaseNavigator {
-
+        void showIntro();
     }
 
 
@@ -73,5 +73,6 @@ public interface OverviewContract {
 
         void retrieveCachedUser();
 
+        void showIntro();
     }
 }

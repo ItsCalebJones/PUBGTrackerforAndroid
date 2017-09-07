@@ -249,8 +249,9 @@ public class OverviewViewImpl implements OverviewContract.View {
         overviewPresenter.setInformationCardDismissed(true);
     }
 
-    @OnClick(R.id.close_information_button)
-    public void onExploreViewClicked() {
+    @OnClick(R.id.show_intro_button)
+    public void onShowIntro() {
+        overviewPresenter.showIntro();
     }
 
 }
