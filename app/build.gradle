@@ -33,10 +33,10 @@ dependencies {
     compile('com.mikepenz:materialdrawer:5.8.1@aar') {
         transitive = true
     }
-    compile 'com.android.support:support-v4:26.0.1'
-    compile 'com.android.support:support-v4:26.0.1'
-    compile 'com.android.support:appcompat-v7:26.0.1'
-    compile 'com.android.support:design:26.0.1'
+    compile 'com.android.support:support-v4:26.0.2'
+    compile 'com.android.support:appcompat-v7:26.0.2'
+    compile 'com.android.support:design:26.0.2'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.jakewharton:butterknife:8.8.1'
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.google.code.gson:gson:2.8.1'
@@ -69,5 +69,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    compile 'com.airbnb.android:lottie:2.2.1'
 }
 

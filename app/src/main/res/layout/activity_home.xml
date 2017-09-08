@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:fitsSystemWindows="false"
             app:layout_behavior="com.lapism.searchview.SearchBehavior"
-            app:search_shadow="false"/>
+            app:search_shadow="false" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,63 +33,46 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/material_baseline_grid_3x">
 
-                <TextView
-                    android:id="@+id/profile_name"
-                    style="@style/TextAppearance.AppCompat.Title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerInParent="true"
-                    android:layout_marginEnd="@dimen/material_baseline_grid_1x"
-                    android:layout_marginStart="@dimen/material_baseline_grid_1x"
-                    android:paddingEnd="@dimen/material_baseline_grid_2.5x"
-                    android:paddingStart="@dimen/material_baseline_grid_2.5x"
-                    android:textStyle="bold"
-                    app:layout_collapseMode="pin" />
-
-                <com.mikepenz.iconics.view.IconicsImageView
-                    android:id="@+id/favorite_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignEnd="@+id/profile_name"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginStart="@dimen/material_baseline_grid_2.5x" />
-
-            </RelativeLayout>
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/profile_name"
+                style="@style/TextAppearance.AppCompat.Title"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/material_baseline_grid_2.5x"
+                android:layout_height="wrap_content"
+                android:gravity="center|bottom"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                app:layout_collapseMode="pin" />
+
+            <TextView
+                android:id="@+id/current_rank"
+                style="@style/TextAppearance.AppCompat.Subhead"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center|bottom"
+                android:textAlignment="center"
+                android:visibility="invisible" />
+
+
+            <TextView
+                android:id="@+id/current_KD"
+                style="@style/TextAppearance.AppCompat.Subhead"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_marginEnd="@dimen/material_baseline_grid_0.5x"
                 android:layout_marginStart="@dimen/material_baseline_grid_0.5x"
-                android:orientation="horizontal">
+                android:gravity="center"
+                android:visibility="invisible" />
 
-                <TextView
-                    android:id="@+id/current_rank"
-                    style="@style/TextAppearance.AppCompat.Subhead"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/material_baseline_grid_0.5x"
-                    android:layout_marginStart="@dimen/material_baseline_grid_0.5x"
-                    android:gravity="center"
-                    android:text="Rank: "
-                    android:visibility="invisible" />
 
-                <TextView
-                    android:id="@+id/current_KD"
-                    style="@style/TextAppearance.AppCompat.Subhead"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/material_baseline_grid_0.5x"
-                    android:layout_marginStart="@dimen/material_baseline_grid_0.5x"
-                    android:gravity="center"
-                    android:text="K/D: "
-                    android:visibility="invisible" />
-            </LinearLayout>
+            <com.airbnb.lottie.LottieAnimationVie
+                android:id="@+id/favorite_icon"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                app:lottie_fileName="twitter.json"
+                app:lottie_scale="0.08"/>
+
         </LinearLayout>
 
 

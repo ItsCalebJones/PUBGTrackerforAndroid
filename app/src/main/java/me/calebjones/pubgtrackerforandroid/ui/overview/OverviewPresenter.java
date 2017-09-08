@@ -50,8 +50,10 @@ public class OverviewPresenter extends BasePresenter implements OverviewContract
     }
 
     private void configureMatchCard(User user) {
-        overviewView.setMatchCardVisible(true);
-        overviewView.setMatchCardContent(user.getMatchHistory().get(0));
+        if (user.getMatchHistory().size() > 0) {
+            overviewView.setMatchCardVisible(true);
+            overviewView.setMatchCardContent(user.getMatchHistory().get(0));
+        }
     }
 
     private void configureOverviewCard(User user) {

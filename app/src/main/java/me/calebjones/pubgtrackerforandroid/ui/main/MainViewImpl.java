@@ -20,6 +20,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.airbnb.lottie.LottieAnimationView;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationViewPager;
@@ -28,13 +29,11 @@ import com.lapism.searchview.SearchHistoryTable;
 import com.lapism.searchview.SearchItem;
 import com.lapism.searchview.SearchView;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
-import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.view.IconicsImageView;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
@@ -79,7 +78,7 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     @BindView(R.id.profile_name)
     TextView profileName;
     @BindView(R.id.favorite_icon)
-    IconicsImageView favoriteIcon;
+    LottieAnimationView favoriteIcon;
     @BindView(R.id.current_rank)
     TextView currentRank;
     @BindView(R.id.current_KD)
@@ -375,7 +374,8 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
                                 .withSelectable(false),
                         new SecondaryDrawerItem()
                                 .withIcon(R.drawable.logo)
-                                .withName("PUBG Tracker")
+                                .withName("PUBG")
+                                .withDescription("Tracker Network")
                                 .withIdentifier(R.id.menu_tracker)
                                 .withSelectable(false)
                 ).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
@@ -453,6 +453,7 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
             Timber.e("User cannot be null, no active users found.");
             return;
         }
+        Timber.d("setActiveUser - Configuring user %s", user.getPlayerName());
         accountHeader.setActiveProfile(convertUserToProfile(user));
         PlayerStat highestElo = null;
         for (PlayerStat playerStat : user.getPlayerStats()) {
@@ -467,11 +468,15 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
             }
         }
         setProfileName(user.getPlayerName());
-        setCurrentRatingAndRank(
-                highestElo.getStats().get(9).getValue(),
-                String.valueOf(highestElo.getStats().get(9).getRank()),
-                findKD(user));
         setFavoriteUserIcon(user.isFavoriteUser());
+        if (highestElo != null) {
+            setCurrentRatingAndRank(
+                    highestElo.getStats().get(9).getValue(),
+                    String.valueOf(highestElo.getStats().get(9).getRank()),
+                    findKD(user));
+        } else {
+            setCurrentRatingAndRank("", " N/A", "");
+        }
     }
 
     private String findKD(User user) {
@@ -504,15 +509,17 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     private void setFavoriteUserIcon(boolean state) {
         favoriteUser = state;
         if (favoriteUser) {
-            favoriteIcon.setIcon(new IconicsDrawable(context)
-                    .icon(GoogleMaterial.Icon.gmd_favorite)
-                    .color(ContextCompat.getColor(context, R.color.material_color_white))
-                    .sizeDp(16));
+            favoriteIcon.playAnimation();
+//            favoriteIcon.setIcon(new IconicsDrawable(context)
+//                    .icon(GoogleMaterial.Icon.gmd_favorite)
+//                    .color(ContextCompat.getColor(context, R.color.material_color_white))
+//                    .sizeDp(28));
         } else {
-            favoriteIcon.setIcon(new IconicsDrawable(context)
-                    .icon(GoogleMaterial.Icon.gmd_favorite_border)
-                    .color(ContextCompat.getColor(context, R.color.material_color_white))
-                    .sizeDp(16));
+            favoriteIcon.setProgress(0f);
+//            favoriteIcon.setIcon(new IconicsDrawable(context)
+//                    .icon(GoogleMaterial.Icon.gmd_favorite_border)
+//                    .color(ContextCompat.getColor(context, R.color.material_color_white))
+//                    .sizeDp(28));
         }
     }
 
@@ -567,7 +574,9 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     @Override
     public void enableDisableSwipeRefresh(boolean enable) {
         if (refresh != null) {
-            refresh.setEnabled(enable);
+            if (!refresh.isRefreshing()){
+                refresh.setEnabled(enable);
+            }
         }
     }
 
@@ -611,7 +620,7 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     public void setCurrentRatingAndRank(String rating, String rank, String kd) {
         String stringRank = "#" + rank;
         String stringKd = context.getString(R.string.current_Kd) + " " + kd;
-        currentRank.setText(stringRank);
+        currentRank.setText(rating);
         currentKD.setText(stringKd);
         currentKD.setVisibility(View.VISIBLE);
         currentRank.setVisibility(View.VISIBLE);

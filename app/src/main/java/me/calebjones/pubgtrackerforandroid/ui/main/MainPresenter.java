@@ -55,6 +55,7 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
     }
 
     private void getUserByName(String query) {
+        Timber.v("Searching for %s...", query);
         EventBus.getDefault().post(new UserRefreshing(true));
         dataManager.updateUserByProfileName(query, new Callback<User>() {
             @Override
@@ -71,6 +72,7 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
                         }
                     }
                 } else {
+                    mainView.setRefreshing(false);
                     mainView.createSnackbar(response.message());
                     Timber.e(response.message());
                 }
@@ -82,7 +84,7 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
             public void onFailure(Call<User> call, Throwable t) {
                 Timber.e(t);
                 mainView.createSnackbar(t.getLocalizedMessage());
-
+                mainView.setRefreshing(false);
                 sendRefreshingState(false);
             }
         });
