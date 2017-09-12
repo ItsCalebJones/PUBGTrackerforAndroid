@@ -1,27 +1,105 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.24.0'
+        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.6.4'
+        classpath 'org.moallemi.gradle.advanced-build-version:gradle-plugin:1.5.3'
+        classpath 'com.github.hotchemi:gradle-proguard-plugin:0.1.0'
+    }
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'realm-android'
+apply plugin: 'io.fabric'
+apply plugin: 'org.moallemi.advanced-build-version'
+apply plugin: 'com.getkeepsafe.dexcount'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
+advancedVersioning {
+    nameOptions {
+        versionMajor 0
+        versionMinor 0
+        versionPatch 1
+
+    }
+    codeOptions {
+        versionCodeType org.moallemi.gradle.internal.VersionCodeType.AUTO_INCREMENT_ONE_STEP
+        dependsOnTasks 'release'
+    }
+    outputOptions {
+    }
+}
+
+def appVersionName = advancedVersioning.versionName
+def appVersionCode = advancedVersioning.versionCode
+
+def renameAPK(variant, defaultConfig, buildType) {
+    variant.outputs.each { output ->
+        def formattedDate = new Date().format('yyyyMMdd')
+
+        def file = output.packageApplication.outputFile
+        def fileName = applicationName + "-" + buildType + "-" + defaultConfig.versionName + "." + defaultConfig.versionCode + "-" + formattedDate + "-" + 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim() + ".apk"
+        output.packageApplication.outputFile = new File(file.parent, fileName)
+    }
+}
 
 android {
     compileSdkVersion 26
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "me.calebjones.pubgtrackerforandroid"
-        minSdkVersion 21
+        manifestPlaceholders = [crashlyticsApiKey: fabric_key]
+        minSdkVersion 19
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionCode appVersionCode
+        versionName appVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        release {
+        debug {
+            ext.alwaysUpdateBuildId = false
+            ext.enableCrashlytics = false
+            applicationIdSuffix '.debug'
+            manifestPlaceholders = [appNameLabel         : "Debug"]
+            debuggable true
+            renderscriptOptimLevel 3
+            versionNameSuffix "debug"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [appNameLabel         : "PUBG Tracker"]
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            applicationVariants.all { variant ->
+                if (variant.buildType.name == "release") {
+                    renameAPK(variant, defaultConfig, "release")
+                }
+            }
         }
     }
     configurations.all {
         resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
     }
-
+    productFlavors {
+        debugTesting {
+            minSdkVersion 21
+            multiDexEnabled false
+        }
+        prod {
+            // The actual minSdkVersion for the application.
+            minSdkVersion 19
+            multiDexEnabled false
+        }
+    }
 }
 
 dependencies {
@@ -70,5 +148,8 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.airbnb.android:lottie:2.2.1'
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+        transitive = true;
+    }
 }
 

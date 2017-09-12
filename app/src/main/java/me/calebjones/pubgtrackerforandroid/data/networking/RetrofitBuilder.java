@@ -18,6 +18,8 @@ import java.util.concurrent.TimeUnit;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import me.calebjones.pubgtrackerforandroid.R;
+import me.calebjones.pubgtrackerforandroid.TrackerApplication;
 import me.calebjones.pubgtrackerforandroid.data.Config;
 import me.calebjones.pubgtrackerforandroid.data.models.RealmStr;
 import okhttp3.Interceptor;
@@ -52,7 +54,7 @@ public class RetrofitBuilder {
 
                 // Request customization: add request headers
                 Request.Builder requestBuilder = original.newBuilder()
-                        .addHeader("TRN-Api-Key", "4a678fac-46a8-47e2-bc23-24f9294fa82c");
+                        .addHeader("TRN-Api-Key", TrackerApplication.getContext().getString(R.string.pubg_tracker_key));
 
                 Request request = requestBuilder.build();
                 return chain.proceed(request);
