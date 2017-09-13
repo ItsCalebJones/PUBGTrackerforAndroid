@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -104,7 +105,9 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         refresh.setOnRefreshListener(this);
         this.window = window;
         ViewCompat.setElevation(appbar, 0);
-        appbar.setElevation(0);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            appbar.setElevation(0);
+        }
     }
 
     private void setUpSearchView() {
@@ -183,7 +186,9 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(topColor);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(topColor);
+        }
     }
 
     @Override
@@ -650,7 +655,9 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
 //        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 //        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
 //        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(blendedTop);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(blendedTop);
+        }
     }
 
     private int blendColors(int from, int to, float ratio) {

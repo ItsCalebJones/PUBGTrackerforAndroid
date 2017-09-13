@@ -4,9 +4,8 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_dark_background"
-    android:orientation="vertical"
-    android:theme="@style/AppTheme">
+    android:orientation="vertical">
+
 
     <FrameLayout
         android:id="@+id/root"
@@ -24,39 +23,25 @@
 
             <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingBottom="@dimen/material_baseline_grid_10x"
-                android:clipToPadding="false">
+                android:layout_height="match_parent">
 
-                <LinearLayout
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/history_recycler_view"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent"
+                    android:paddingBottom="@dimen/material_baseline_grid_10x"
+                    android:clipToPadding="false">
 
-                    <me.calebjones.pubgtrackerforandroid.ui.views.PlaylistView
-                        android:id="@+id/solo_playlist"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <me.calebjones.pubgtrackerforandroid.ui.views.PlaylistView
-                        android:id="@+id/duo_playlist"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <me.calebjones.pubgtrackerforandroid.ui.views.PlaylistView
-                        android:id="@+id/squad_playlist"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
+                </android.support.v7.widget.RecyclerView>
             </android.support.v4.widget.NestedScrollView>
-
         </me.calebjones.pubgtrackerforandroid.ui.views.ExtendedStatefulLayout>
+
 
         <LinearLayout
             android:id="@+id/sorting_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorAccentAlt"
+            android:background="@color/material_color_blue_500"
             android:orientation="vertical"
             android:visibility="invisible">
 
@@ -78,6 +63,23 @@
                 android:layout_marginStart="@dimen/material_baseline_grid_2x"
                 android:hint="Select a Season" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/material_baseline_grid_2x"
+                android:layout_marginStart="@dimen/material_baseline_grid_2x"
+                android:layout_marginTop="@dimen/material_baseline_grid_1x"
+                android:text="Mode"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/mode_picker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/material_baseline_grid_1x"
+                android:layout_marginEnd="@dimen/material_baseline_grid_2x"
+                android:layout_marginStart="@dimen/material_baseline_grid_2x"
+                android:hint="Select a Mode" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -122,7 +124,7 @@
                     android:layout_marginStart="@dimen/material_baseline_grid_2x"
                     android:layout_weight=".5"
                     android:text="Submit"
-                    android:theme="@style/Button.Color.Accent" />
+                    android:theme="@style/Button.Color.AccentAlt" />
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>
@@ -131,16 +133,18 @@
         android:id="@+id/sort_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/navigation_view"
         android:layout_gravity="bottom|end"
-        android:layout_marginBottom="@dimen/material_baseline_grid_8x"
+        android:layout_marginBottom="@dimen/material_baseline_grid_16x"
         android:layout_marginEnd="@dimen/material_baseline_grid_3x"
         android:clickable="true"
-        app:fab_colorNormal="@color/colorAccent"
-        app:fab_colorPressed="@color/colorAccentDark"
+        app:fab_colorNormal="@color/colorAccentAlt"
+        app:fab_colorPressed="@color/colorAccentAltDark"
         app:borderWidth="0dp"
         app:elevation="12dp"
         app:ico_color="@android:color/white"
         app:ico_icon="gmd-filter-list"
         app:ico_size="24dp"
+        app:fab_showShadow="true"
         app:layout_anchorGravity="bottom|right|end" />
 </android.support.design.widget.CoordinatorLayout>
