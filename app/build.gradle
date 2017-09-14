@@ -68,7 +68,7 @@ android {
             ext.enableCrashlytics = false
             applicationIdSuffix '.debug'
             applicationName = "Debug"
-            manifestPlaceholders = [appNameLabel         : "Debug"]
+            manifestPlaceholders = [appNameLabel         : "PUBG - Debug"]
             debuggable true
             versionNameSuffix "debug"
         }
@@ -134,7 +134,6 @@ dependencies {
     compile 'com.weiwangcn.betterspinner:library-material:1.1.0'
     compile 'com.yqritc:recyclerview-flexibledivider:1.4.0'
     compile 'com.jonathanfinerty.once:once:1.2.2'
-    compile 'uk.co.samuelwall:material-tap-target-prompt:2.0.0'
     compile 'com.github.jrvansuita:MaterialAbout:0.1.7'
     compile 'com.afollestad.material-dialogs:core:0.9.4.3'
     compile 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'

@@ -149,10 +149,5 @@ public class HistoryPresenter extends BasePresenter implements HistoryContract.P
         updateAdapter(currentUser);
     }
 
-    @Override
-    public void checkHint() {
-        if (currentUser != null){
-            historyView.showFilterHint();
-        }
-    }
+
 }

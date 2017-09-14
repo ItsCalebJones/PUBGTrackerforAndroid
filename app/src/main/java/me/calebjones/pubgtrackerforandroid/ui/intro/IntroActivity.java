@@ -36,7 +36,6 @@ public class IntroActivity extends AhoyOnboarderActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         AhoyOnboarderCard statsCard = new AhoyOnboarderCard("Stats",
                 "Track your kills, wins and ranking across multiple seasons.",
                 R.drawable.ic_account_circle_48);

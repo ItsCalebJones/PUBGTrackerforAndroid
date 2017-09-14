@@ -47,8 +47,6 @@ public interface HistoryContract {
         String getMode(int position);
 
         void resetFilters();
-
-        void showFilterHint();
     }
 
     interface Presenter extends BasePresenterInterface {
@@ -67,7 +65,5 @@ public interface HistoryContract {
         void sortSubmitClicked();
 
         void resetClicked();
-
-        void checkHint();
     }
 }

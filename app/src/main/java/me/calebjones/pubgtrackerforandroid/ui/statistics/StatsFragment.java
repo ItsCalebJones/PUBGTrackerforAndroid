@@ -56,14 +56,5 @@ public class StatsFragment extends BaseFragment {
         Timber.v("setUserVisibleHint", isVisibleToUser);
         super.setUserVisibleHint(isVisibleToUser);
         this.visibleToUser = isVisibleToUser;
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (visibleToUser && statsPresenter != null) {
-                    statsPresenter.checkHint();
-                }
-            }
-        }, 1000);
     }
 }

@@ -36,7 +36,6 @@ import me.calebjones.pubgtrackerforandroid.data.enums.PUBGSeason;
 import me.calebjones.pubgtrackerforandroid.data.models.PlayerStat;
 import me.calebjones.pubgtrackerforandroid.ui.views.ExtendedStatefulLayout;
 import me.calebjones.pubgtrackerforandroid.ui.views.PlaylistView;
-import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 
 public class StatsViewImpl implements StatsContract.View {
@@ -170,48 +169,6 @@ public class StatsViewImpl implements StatsContract.View {
     }
 
     @Override
-    public void showInfoHint(PlaylistView playlistView) {
-        new MaterialTapTargetPrompt.Builder(fragment.getActivity())
-                .setTarget(playlistView.getExpandButtonTarget())
-                .setFocalColour(Color.WHITE)
-                .setPrimaryText("Expand It")
-                .setSecondaryText("Tap the button to see more information.")
-                .setPromptStateChangeListener(new MaterialTapTargetPrompt.PromptStateChangeListener()
-                {
-                    @Override
-                    public void onPromptStateChanged(MaterialTapTargetPrompt prompt, int state)
-                    {
-                        if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED || state == MaterialTapTargetPrompt.STATE_DISMISSING)
-                        {
-                            Once.markDone(Config.SHOW_INFO_HINT);
-                            showFilterHint();
-                        }
-                    }
-                })
-                .show();
-    }
-
-    @Override
-    public void showFilterHint() {
-        new MaterialTapTargetPrompt.Builder(fragment.getActivity())
-                .setTarget(sortFab)
-                .setPrimaryText("Filter Results")
-                .setSecondaryText("Tap the button to filter.")
-                .setPromptStateChangeListener(new MaterialTapTargetPrompt.PromptStateChangeListener()
-                {
-                    @Override
-                    public void onPromptStateChanged(MaterialTapTargetPrompt prompt, int state)
-                    {
-                        if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED || state == MaterialTapTargetPrompt.STATE_DISMISSING)
-                        {
-                            Once.markDone(Config.SHOW_FILTER_HINT);
-                        }
-                    }
-                })
-                .show();
-    }
-
-    @Override
     public void squadVisibility(int visibilityState) {
         TransitionManager.beginDelayedTransition(container);
         squadPlaylist.setVisibility(visibilityState);
@@ -301,23 +258,4 @@ public class StatsViewImpl implements StatsContract.View {
         statsPresenter.sortSubmitClicked();
     }
 
-
-    @Override
-    public void checkHint() {
-        if (Objects.equals(statefulView.getState(), SimpleStatefulLayout.State.CONTENT)) {
-            if (soloPlaylist.getVisible() == View.VISIBLE) {
-                if (!Once.beenDone(Once.THIS_APP_INSTALL, Config.SHOW_INFO_HINT)) {
-                    showInfoHint(soloPlaylist);
-                }
-            } else if (duoPlaylist.getVisible() == View.VISIBLE) {
-                if (!Once.beenDone(Once.THIS_APP_INSTALL, Config.SHOW_INFO_HINT)) {
-                    showInfoHint(duoPlaylist);
-                }
-            } else if (squadPlaylist.getVisible() == View.VISIBLE) {
-                if (!Once.beenDone(Once.THIS_APP_INSTALL, Config.SHOW_INFO_HINT)) {
-                    showInfoHint(squadPlaylist);
-                }
-            }
-        }
-    }
 }

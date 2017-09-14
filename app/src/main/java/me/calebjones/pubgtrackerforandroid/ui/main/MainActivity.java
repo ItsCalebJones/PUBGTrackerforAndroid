@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import com.mikepenz.materialdrawer.Drawer;
 
 import jonathanfinerty.once.Once;
+import me.calebjones.pubgtrackerforandroid.R;
 import me.calebjones.pubgtrackerforandroid.common.BaseActivity;
 import me.calebjones.pubgtrackerforandroid.data.Config;
 import me.calebjones.pubgtrackerforandroid.ui.history.HistoryFragment;
@@ -27,6 +28,7 @@ public class MainActivity extends BaseActivity implements MainContract.Navigator
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.AppTheme_Transparent);
         if (!Once.beenDone(Once.THIS_APP_INSTALL, Config.SHOW_APP_TOUR)) {
             startActivity(new Intent(this, IntroActivity.class));
         }
