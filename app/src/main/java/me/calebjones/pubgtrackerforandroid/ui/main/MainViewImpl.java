@@ -94,6 +94,7 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     private AccountHeader accountHeader;
     private boolean favoriteUser;
     private Window window;
+    private boolean refreshingAllowed = false;
 
     public MainViewImpl(Context context, ViewGroup container, Window window) {
         this.context = context;
@@ -455,9 +456,13 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     @Override
     public void setActiveUser(User user) {
         if (user == null) {
+            refreshingAllowed = false;
             Timber.e("User cannot be null, no active users found.");
             return;
+        } else {
+            refreshingAllowed = true;
         }
+        setRefreshEnabled(refreshingAllowed);
         Timber.d("setActiveUser - Configuring user %s", user.getPlayerName());
         accountHeader.setActiveProfile(convertUserToProfile(user));
         PlayerStat highestElo = null;
@@ -530,9 +535,12 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
 
     @Override
     public void setUsers(List<User> users) {
-//        if (users.size() > 0){
-//            accountHeader.setHeaderBackground(new ImageHolder("http://res.cloudinary.com/dnkkbfy3m/image/upload/e_blur:1500/v1503931147/orR8Jtd_ntupcz.jpg"));
-//        }
+        if (users.size() == 0){
+            refreshingAllowed = false;
+        } else {
+            refreshingAllowed = true;
+        }
+        setRefreshEnabled(refreshingAllowed);
         for (User user : users) {
             IProfile profile = convertUserToProfile(user);
             accountHeader.addProfiles(profile);
@@ -577,10 +585,14 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     }
 
     @Override
-    public void enableDisableSwipeRefresh(boolean enable) {
-        if (refresh != null) {
+    public void setRefreshEnabled(boolean enable) {
+        if (refresh != null ) {
             if (!refresh.isRefreshing()){
-                refresh.setEnabled(enable);
+                if (refreshingAllowed){
+                    refresh.setEnabled(enable);
+                } else {
+                    refresh.setEnabled(false);
+                }
             }
         }
     }

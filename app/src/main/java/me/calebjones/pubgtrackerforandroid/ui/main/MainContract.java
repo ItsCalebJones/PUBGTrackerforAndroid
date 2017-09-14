@@ -76,7 +76,7 @@ public interface MainContract {
 
         void setRefreshing(boolean refreshing);
 
-        void enableDisableSwipeRefresh(boolean enable);
+        void setRefreshEnabled(boolean enable);
     }
 
     interface Presenter extends BasePresenterInterface {

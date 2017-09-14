@@ -1,12 +1,9 @@
 package me.calebjones.pubgtrackerforandroid.ui.main;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.mikepenz.materialdrawer.Drawer;
 
@@ -70,7 +67,7 @@ public class MainActivity extends BaseActivity implements MainContract.Navigator
 
             @Override
             public void onPageScrollStateChanged(int state) {
-                mainView.enableDisableSwipeRefresh( state == ViewPager.SCROLL_STATE_IDLE );
+                mainView.setRefreshEnabled( state == ViewPager.SCROLL_STATE_IDLE );
             }
         });
         return adapter;

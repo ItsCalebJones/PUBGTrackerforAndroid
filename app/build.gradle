@@ -67,12 +67,10 @@ android {
             ext.alwaysUpdateBuildId = false
             ext.enableCrashlytics = false
             applicationIdSuffix '.debug'
+            applicationName = "Debug"
             manifestPlaceholders = [appNameLabel         : "Debug"]
             debuggable true
-            renderscriptOptimLevel 3
             versionNameSuffix "debug"
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {
             minifyEnabled true
