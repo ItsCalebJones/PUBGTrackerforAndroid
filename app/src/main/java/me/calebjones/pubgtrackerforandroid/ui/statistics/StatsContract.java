@@ -49,17 +49,11 @@ public interface StatsContract {
 
         void resetFilters();
 
-        void showInfoHint(PlaylistView playlistView);
-
-        void showFilterHint();
-
         void squadVisibility(int visibilityState);
 
         void duoVisibility(int visibilityState);
 
         void soloVisibility(int visibilityState);
-
-        void checkHint();
     }
 
     interface Presenter extends BasePresenterInterface {
@@ -74,7 +68,5 @@ public interface StatsContract {
         void sortSubmitClicked();
 
         void resetClicked();
-
-        void checkHint();
     }
 }

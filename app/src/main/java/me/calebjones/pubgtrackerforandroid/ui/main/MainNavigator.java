@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
+import me.calebjones.pubgtrackerforandroid.ui.map.MapActivity;
 import me.calebjones.pubgtrackerforandroid.ui.settings.SettingsActivity;
 
 public class MainNavigator implements MainContract.Navigator {
@@ -19,7 +20,7 @@ public class MainNavigator implements MainContract.Navigator {
 
     @Override
     public void goMapActivity() {
-
+        homeActivity.startActivity(new Intent(homeActivity, MapActivity.class));
     }
 
     @Override

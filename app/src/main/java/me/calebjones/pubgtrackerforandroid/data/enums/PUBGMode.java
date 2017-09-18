@@ -8,7 +8,10 @@ public enum PUBGMode {
     ALL("agg", "All"),
     SOLO("solo", "Solo"),
     DUO("duo", "Duo"),
-    SQUAD("squad","Squad");
+    SQUAD("squad","Squad"),
+    FPP_SOLO("solo-fpp","FP Solo"),
+    FPP_DUO("duo-fpp","FP Duo"),
+    FPP_SQUAD("squad-fpp","FP Squad");
 
     PUBGMode(String keyName, String modeName) {
         this.keyName = keyName;

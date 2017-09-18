@@ -166,11 +166,6 @@ public class StatsPresenter extends BasePresenter implements StatsContract.Prese
         updateUser();
     }
 
-    @Override
-    public void checkHint() {
-        statsView.checkHint();
-    }
-
     private void updateUser() {
         retrieveCachedUser();
     }

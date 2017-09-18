@@ -21,7 +21,6 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.airbnb.lottie.LottieAnimationView;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationViewPager;
@@ -30,12 +29,14 @@ import com.lapism.searchview.SearchHistoryTable;
 import com.lapism.searchview.SearchItem;
 import com.lapism.searchview.SearchView;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.view.IconicsImageView;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
+import com.mikepenz.materialdrawer.model.ExpandableDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
@@ -56,7 +57,6 @@ import me.calebjones.pubgtrackerforandroid.data.Config;
 import me.calebjones.pubgtrackerforandroid.data.models.PlayerStat;
 import me.calebjones.pubgtrackerforandroid.data.models.User;
 import timber.log.Timber;
-import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 
 public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextListener,
@@ -79,7 +79,7 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     @BindView(R.id.profile_name)
     TextView profileName;
     @BindView(R.id.favorite_icon)
-    LottieAnimationView favoriteIcon;
+    IconicsImageView favoriteIcon;
     @BindView(R.id.current_rank)
     TextView currentRank;
     @BindView(R.id.current_KD)
@@ -183,13 +183,13 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
             result.getDrawerLayout().setStatusBarBackgroundColor(topColor);
             result.getHeader().setBackgroundColor(color);
         }
-        // clear FLAG_TRANSLUCENT_STATUS flag:
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.setStatusBarColor(topColor);
-        }
+//        // clear FLAG_TRANSLUCENT_STATUS flag:
+//        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+//        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            window.setStatusBarColor(topColor);
+//        }
     }
 
     @Override
@@ -272,6 +272,7 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     @Override
     public void openSearchView() {
         searchView.open(true);
+        searchView.showKeyboard();
     }
 
     @Override
@@ -319,48 +320,33 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
                 .withHasStableIds(true)
                 .withAccountHeader(accountHeader)
                 .addDrawerItems(
-                        new PrimaryDrawerItem()
-                                .withName("Overview")
-                                .withLevel(2)
-                                .withIcon(GoogleMaterial.Icon.gmd_account_circle)
-                                .withIdentifier(R.id.menu_overview),
-                        new PrimaryDrawerItem()
-                                .withName("Statistics")
-                                .withLevel(2)
-                                .withIcon(GoogleMaterial.Icon.gmd_dashboard)
-                                .withIdentifier(R.id.menu_statistics),
-                        new PrimaryDrawerItem()
-                                .withName("Sessions")
-                                .withLevel(2)
-                                .withIcon(GoogleMaterial.Icon.gmd_history)
-                                .withIdentifier(R.id.menu_history),
-//                        new ExpandableDrawerItem()
-//                                .withName("Home")
-//                                .withIcon(GoogleMaterial.Icon.gmd_home)
-//                                .withIdentifier(R.id.menu_home_master)
-//                                .withSelectable(false)
-//                                .withSubItems(
-//                                        new SecondaryDrawerItem()
-//                                                .withName("Statistics")
-//                                                .withLevel(2)
-//                                                .withIcon(GoogleMaterial.Icon.gmd_dashboard)
-//                                                .withIdentifier(R.id.menu_statistics),
-//                                        new SecondaryDrawerItem()
-//                                                .withName("Overview")
-//                                                .withLevel(2)
-//                                                .withIcon(GoogleMaterial.Icon.gmd_account_circle)
-//                                                .withIdentifier(R.id.menu_overview),
-//                                        new SecondaryDrawerItem()
-//                                                .withName("Sessions")
-//                                                .withLevel(2)
-//                                                .withIcon(GoogleMaterial.Icon.gmd_history)
-//                                                .withIdentifier(R.id.menu_history)
-//
-//                                ),
-//                        new PrimaryDrawerItem().withName("Map")
-//                                .withIcon(GoogleMaterial.Icon.gmd_map)
-//                                .withIdentifier(R.id.menu_map)
-//                                .withSelectable(false),
+                        new ExpandableDrawerItem()
+                                .withName("Home")
+                                .withIcon(GoogleMaterial.Icon.gmd_home)
+                                .withIdentifier(R.id.menu_home_master)
+                                .withSelectable(false)
+                                .withSubItems(
+                                        new SecondaryDrawerItem()
+                                                .withName("Statistics")
+                                                .withLevel(2)
+                                                .withIcon(GoogleMaterial.Icon.gmd_dashboard)
+                                                .withIdentifier(R.id.menu_statistics),
+                                        new SecondaryDrawerItem()
+                                                .withName("Overview")
+                                                .withLevel(2)
+                                                .withIcon(GoogleMaterial.Icon.gmd_account_circle)
+                                                .withIdentifier(R.id.menu_overview),
+                                        new SecondaryDrawerItem()
+                                                .withName("Sessions")
+                                                .withLevel(2)
+                                                .withIcon(GoogleMaterial.Icon.gmd_history)
+                                                .withIdentifier(R.id.menu_history)
+
+                                ),
+                        new PrimaryDrawerItem().withName("Map")
+                                .withIcon(GoogleMaterial.Icon.gmd_map)
+                                .withIdentifier(R.id.menu_map)
+                                .withSelectable(false),
 //                        new PrimaryDrawerItem().withName("Compare")
 //                                .withIcon(GoogleMaterial.Icon.gmd_compare)
 //                                .withIdentifier(R.id.menu_compare)
@@ -519,23 +505,21 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     private void setFavoriteUserIcon(boolean state) {
         favoriteUser = state;
         if (favoriteUser) {
-            favoriteIcon.playAnimation();
-//            favoriteIcon.setIcon(new IconicsDrawable(context)
-//                    .icon(GoogleMaterial.Icon.gmd_favorite)
-//                    .color(ContextCompat.getColor(context, R.color.material_color_white))
-//                    .sizeDp(28));
+            favoriteIcon.setIcon(new IconicsDrawable(context)
+                    .icon(GoogleMaterial.Icon.gmd_favorite)
+                    .color(ContextCompat.getColor(context, R.color.material_color_white))
+                    .sizeDp(28));
         } else {
-            favoriteIcon.setProgress(0f);
-//            favoriteIcon.setIcon(new IconicsDrawable(context)
-//                    .icon(GoogleMaterial.Icon.gmd_favorite_border)
-//                    .color(ContextCompat.getColor(context, R.color.material_color_white))
-//                    .sizeDp(28));
+            favoriteIcon.setIcon(new IconicsDrawable(context)
+                    .icon(GoogleMaterial.Icon.gmd_favorite_border)
+                    .color(ContextCompat.getColor(context, R.color.material_color_white))
+                    .sizeDp(28));
         }
     }
 
     @Override
     public void setUsers(List<User> users) {
-        if (users.size() == 0){
+        if (users.size() == 0) {
             refreshingAllowed = false;
         } else {
             refreshingAllowed = true;
@@ -563,20 +547,7 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
 
     @Override
     public void showUserHint(Activity activity) {
-        new MaterialTapTargetPrompt.Builder(activity)
-                .setTarget(searchView)
-                .setFocalColour(Color.TRANSPARENT)
-                .setPrimaryText("Search Your Username")
-                .setSecondaryText("Tap the bar to find your username.")
-                .setPromptStateChangeListener(new MaterialTapTargetPrompt.PromptStateChangeListener() {
-                    @Override
-                    public void onPromptStateChanged(MaterialTapTargetPrompt prompt, int state) {
-                        if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED || state == MaterialTapTargetPrompt.STATE_DISMISSING) {
-                            Once.markDone(Config.SHOW_USERNAME_HINT);
-                        }
-                    }
-                })
-                .show();
+        Once.markDone(Config.SHOW_USERNAME_HINT);
     }
 
     @Override
@@ -586,9 +557,9 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
 
     @Override
     public void setRefreshEnabled(boolean enable) {
-        if (refresh != null ) {
-            if (!refresh.isRefreshing()){
-                if (refreshingAllowed){
+        if (refresh != null) {
+            if (!refresh.isRefreshing()) {
+                if (refreshingAllowed) {
                     refresh.setEnabled(enable);
                 } else {
                     refresh.setEnabled(false);
@@ -660,9 +631,10 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
 
         appbar.setBackgroundColor(blended);
         navigation.setBackgroundColor(blended);
-//        if (result != null) {
-//            result.getDrawerLayout().setStatusBarBackgroundColor(blendedTop);
-//        }
+        if (result != null) {
+            result.getDrawerLayout().setStatusBarBackgroundColor(blendedTop);
+            result.getHeader().setBackgroundColor(blendedTop);
+        }
 //        // clear FLAG_TRANSLUCENT_STATUS flag:
 //        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 //        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window

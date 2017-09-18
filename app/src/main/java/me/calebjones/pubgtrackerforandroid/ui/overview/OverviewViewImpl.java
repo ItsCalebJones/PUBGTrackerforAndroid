@@ -233,7 +233,7 @@ public class OverviewViewImpl implements OverviewContract.View {
 
     @Override
     public void showNoUser() {
-        overviewStateView.showNoUser(true);
+        overviewStateView.showNoUser();
     }
 
 

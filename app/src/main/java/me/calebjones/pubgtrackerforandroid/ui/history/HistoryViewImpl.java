@@ -16,12 +16,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-
 import com.github.clans.fab.FloatingActionButton;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.transitionseverywhere.TransitionManager;
-import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import java.util.Arrays;
 import java.util.List;
@@ -40,7 +38,6 @@ import me.calebjones.pubgtrackerforandroid.data.enums.PUBGSeason;
 import me.calebjones.pubgtrackerforandroid.data.models.Match;
 import me.calebjones.pubgtrackerforandroid.ui.views.ExtendedStatefulLayout;
 import timber.log.Timber;
-import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 
 public class HistoryViewImpl implements HistoryContract.View {
@@ -170,25 +167,6 @@ public class HistoryViewImpl implements HistoryContract.View {
         modePicker.setSelection(0);
         seasonPicker.setSelection(0);
         regionPicker.setSelection(0);
-    }
-
-    @Override
-    public void showFilterHint() {
-        if (!Once.beenDone(Once.THIS_APP_INSTALL, Config.SHOW_FILTER_HINT)) {
-            new MaterialTapTargetPrompt.Builder(fragment.getActivity())
-                    .setTarget(sortFab)
-                    .setPrimaryText("Filter Results")
-                    .setSecondaryText("Tap the button to filter.")
-                    .setPromptStateChangeListener(new MaterialTapTargetPrompt.PromptStateChangeListener() {
-                        @Override
-                        public void onPromptStateChanged(MaterialTapTargetPrompt prompt, int state) {
-                            if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED || state == MaterialTapTargetPrompt.STATE_DISMISSING) {
-                                Once.markDone(Config.SHOW_FILTER_HINT);
-                            }
-                        }
-                    })
-                    .show();
-        }
     }
 
 

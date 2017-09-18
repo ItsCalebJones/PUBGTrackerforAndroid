@@ -56,14 +56,5 @@ public class HistoryFragment extends BaseFragment {
         Timber.v("setUserVisibleHint", isVisibleToUser);
         super.setUserVisibleHint(isVisibleToUser);
         this.visibleToUser = isVisibleToUser;
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (visibleToUser && historyPresenter != null) {
-                    historyPresenter.checkHint();
-                }
-            }
-        }, 1000);
     }
 }
