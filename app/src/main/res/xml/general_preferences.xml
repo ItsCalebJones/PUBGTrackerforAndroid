@@ -2,24 +2,18 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="Launch Tracking">
-
-    <PreferenceCategory android:title="General">
-        <SwitchPreference
-            android:defaultValue="true"
-            android:summary="Allow anonymous analytic data to capture crashes and usage information."
-            android:title="Allow Analytic Data" />
-    </PreferenceCategory>
     <PreferenceCategory android:title="Appearance">
         <SwitchPreference
             android:key="ads_allowed"
+            android:enabled="false"
             android:summary="Help keep the lights on."
-            android:title="Allow Advertisements" />
+            android:title="Allow Ads" />
     </PreferenceCategory>
     <PreferenceCategory android:title="About">
         <Preference
             android:key="pubg_tracker"
             android:icon="@drawable/logo"
-            android:summary="All statistics are queried through the PUBG Tracker Network."
+            android:summary="All statistics are powered by the PUBG Tracker Network."
             android:title="PUBG Tracker"/>
         <Preference
             android:key="about_me"
