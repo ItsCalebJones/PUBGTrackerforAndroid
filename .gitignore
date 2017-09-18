@@ -10,3 +10,7 @@
 .idea
 app/src/main/res/values/config.xml
 gradle.properties
+gradlew.bat
+gradlew
+gradle/wrapper/gradle-wrapper.properties
+gradle/wrapper/gradle-wrapper.jar

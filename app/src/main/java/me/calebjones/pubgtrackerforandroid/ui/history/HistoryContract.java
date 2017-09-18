@@ -53,7 +53,6 @@ public interface HistoryContract {
 
         void onUserEventReceived(UserSelected userSelected);
 
-
         void registerEventBus();
 
         void unRegisterEventBus();

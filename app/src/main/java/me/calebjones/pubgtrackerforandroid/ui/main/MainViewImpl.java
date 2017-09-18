@@ -36,6 +36,7 @@ import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
+import com.mikepenz.materialdrawer.model.ExpandableDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
@@ -319,48 +320,33 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
                 .withHasStableIds(true)
                 .withAccountHeader(accountHeader)
                 .addDrawerItems(
-                        new PrimaryDrawerItem()
-                                .withName("Overview")
-                                .withLevel(2)
-                                .withIcon(GoogleMaterial.Icon.gmd_account_circle)
-                                .withIdentifier(R.id.menu_overview),
-                        new PrimaryDrawerItem()
-                                .withName("Statistics")
-                                .withLevel(2)
-                                .withIcon(GoogleMaterial.Icon.gmd_dashboard)
-                                .withIdentifier(R.id.menu_statistics),
-                        new PrimaryDrawerItem()
-                                .withName("Sessions")
-                                .withLevel(2)
-                                .withIcon(GoogleMaterial.Icon.gmd_history)
-                                .withIdentifier(R.id.menu_history),
-//                        new ExpandableDrawerItem()
-//                                .withName("Home")
-//                                .withIcon(GoogleMaterial.Icon.gmd_home)
-//                                .withIdentifier(R.id.menu_home_master)
-//                                .withSelectable(false)
-//                                .withSubItems(
-//                                        new SecondaryDrawerItem()
-//                                                .withName("Statistics")
-//                                                .withLevel(2)
-//                                                .withIcon(GoogleMaterial.Icon.gmd_dashboard)
-//                                                .withIdentifier(R.id.menu_statistics),
-//                                        new SecondaryDrawerItem()
-//                                                .withName("Overview")
-//                                                .withLevel(2)
-//                                                .withIcon(GoogleMaterial.Icon.gmd_account_circle)
-//                                                .withIdentifier(R.id.menu_overview),
-//                                        new SecondaryDrawerItem()
-//                                                .withName("Sessions")
-//                                                .withLevel(2)
-//                                                .withIcon(GoogleMaterial.Icon.gmd_history)
-//                                                .withIdentifier(R.id.menu_history)
-//
-//                                ),
-//                        new PrimaryDrawerItem().withName("Map")
-//                                .withIcon(GoogleMaterial.Icon.gmd_map)
-//                                .withIdentifier(R.id.menu_map)
-//                                .withSelectable(false),
+                        new ExpandableDrawerItem()
+                                .withName("Home")
+                                .withIcon(GoogleMaterial.Icon.gmd_home)
+                                .withIdentifier(R.id.menu_home_master)
+                                .withSelectable(false)
+                                .withSubItems(
+                                        new SecondaryDrawerItem()
+                                                .withName("Statistics")
+                                                .withLevel(2)
+                                                .withIcon(GoogleMaterial.Icon.gmd_dashboard)
+                                                .withIdentifier(R.id.menu_statistics),
+                                        new SecondaryDrawerItem()
+                                                .withName("Overview")
+                                                .withLevel(2)
+                                                .withIcon(GoogleMaterial.Icon.gmd_account_circle)
+                                                .withIdentifier(R.id.menu_overview),
+                                        new SecondaryDrawerItem()
+                                                .withName("Sessions")
+                                                .withLevel(2)
+                                                .withIcon(GoogleMaterial.Icon.gmd_history)
+                                                .withIdentifier(R.id.menu_history)
+
+                                ),
+                        new PrimaryDrawerItem().withName("Map")
+                                .withIcon(GoogleMaterial.Icon.gmd_map)
+                                .withIdentifier(R.id.menu_map)
+                                .withSelectable(false),
 //                        new PrimaryDrawerItem().withName("Compare")
 //                                .withIcon(GoogleMaterial.Icon.gmd_compare)
 //                                .withIdentifier(R.id.menu_compare)

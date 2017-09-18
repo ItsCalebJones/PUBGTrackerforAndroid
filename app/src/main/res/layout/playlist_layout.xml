@@ -69,6 +69,7 @@
                 android:paddingEnd="@dimen/material_baseline_grid_1x"
                 android:paddingStart="@dimen/material_baseline_grid_1x"
                 android:text="RATING"
+                android:textAlignment="center"
                 android:textStyle="bold" />
 
             <TextView
@@ -79,6 +80,7 @@
                 android:paddingEnd="@dimen/material_baseline_grid_1x"
                 android:paddingStart="@dimen/material_baseline_grid_1x"
                 android:text="- -"
+                android:textAlignment="center"
                 android:textStyle="bold" />
 
             <TextView
@@ -110,6 +112,7 @@
                     android:paddingEnd="@dimen/material_baseline_grid_1x"
                     android:paddingStart="@dimen/material_baseline_grid_1x"
                     android:text="WIN %"
+                    android:textAlignment="center"
                     android:textStyle="bold" />
 
                 <TextView
@@ -120,6 +123,7 @@
                     android:paddingEnd="@dimen/material_baseline_grid_1x"
                     android:paddingStart="@dimen/material_baseline_grid_1x"
                     android:text="- -"
+                    android:textAlignment="center"
                     android:textStyle="bold" />
 
                 <TextView
@@ -160,6 +164,7 @@
                     android:paddingEnd="@dimen/material_baseline_grid_1x"
                     android:paddingStart="@dimen/material_baseline_grid_1x"
                     android:text="TOP 10 RATE"
+                    android:textAlignment="center"
                     android:textStyle="bold" />
 
                 <TextView
@@ -170,6 +175,7 @@
                     android:paddingEnd="@dimen/material_baseline_grid_1x"
                     android:paddingStart="@dimen/material_baseline_grid_1x"
                     android:text="- -"
+                    android:textAlignment="center"
                     android:textStyle="bold" />
 
                 <TextView
@@ -202,6 +208,7 @@
                     android:paddingEnd="@dimen/material_baseline_grid_1x"
                     android:paddingStart="@dimen/material_baseline_grid_1x"
                     android:text="K/D RATIO"
+                    android:textAlignment="center"
                     android:textStyle="bold" />
 
                 <TextView
@@ -212,6 +219,7 @@
                     android:paddingEnd="@dimen/material_baseline_grid_1x"
                     android:paddingStart="@dimen/material_baseline_grid_1x"
                     android:text="- -"
+                    android:textAlignment="center"
                     android:textStyle="bold" />
 
                 <TextView
