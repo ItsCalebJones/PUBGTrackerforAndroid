@@ -12,7 +12,8 @@
         android:label="${appNameLabel}"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        tools:replace="android:label">
+        android:value="26.1.0"
+        tools:replace="android:value,android:label">
         <activity
             android:name=".ui.splash.SplashActivity"
             android:label="${appNameLabel}"
