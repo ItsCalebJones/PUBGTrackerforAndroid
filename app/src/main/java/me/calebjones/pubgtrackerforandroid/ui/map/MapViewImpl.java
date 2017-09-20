@@ -4,13 +4,16 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.ActionBar;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 
 import butterknife.BindView;
@@ -18,7 +21,7 @@ import butterknife.ButterKnife;
 import me.calebjones.pubgtrackerforandroid.R;
 
 
-public class MapViewImpl implements MapContract.View{
+public class MapViewImpl implements MapContract.View, AHBottomNavigation.OnTabSelectedListener {
 
     private View mRootView;
     private Context context;
@@ -48,15 +51,6 @@ public class MapViewImpl implements MapContract.View{
         public void run() {
             // Delayed removal of status and navigation bar
 
-            // Note that some of these constants are new as of API 16 (Jelly Bean)
-            // and API 19 (KitKat). It is safe to use them, as they are inlined
-            // at compile-time and do nothing on earlier devices.
-            imageView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
-                    | View.SYSTEM_UI_FLAG_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         }
     };
     private final Runnable mShowPart2Runnable = new Runnable() {
@@ -67,7 +61,7 @@ public class MapViewImpl implements MapContract.View{
 //            if (actionBar != null) {
 //                actionBar.show();
 //            }
-            navigation.setVisibility(View.VISIBLE);
+            navigation.restoreBottomNavigation(true);
         }
     };
     private boolean mVisible;
@@ -97,6 +91,8 @@ public class MapViewImpl implements MapContract.View{
     AHBottomNavigation navigation;
     @BindView(R.id.fullscreen_map)
     SubsamplingScaleImageView imageView;
+    @BindView(R.id.map_coordinator)
+    CoordinatorLayout coordinator;
 
 
     public MapViewImpl(Context context, ViewGroup container){
@@ -109,10 +105,24 @@ public class MapViewImpl implements MapContract.View{
 //            actionBar.setDisplayHomeAsUpEnabled(true);
 //        }
 
+        AHBottomNavigationItem erangelItem = new AHBottomNavigationItem
+                ("Erangel", ContextCompat.getDrawable(context, R.drawable.erangel),
+                        ContextCompat.getColor(context, R.color.primary));
+
+        AHBottomNavigationItem desertItem = new AHBottomNavigationItem
+                ("Desert (TBD)",
+                        ContextCompat.getDrawable(context, R.drawable.desert),
+                        ContextCompat.getColor(context, R.color.accent));
+
+        navigation.addItem(erangelItem);
+        navigation.addItem(desertItem);
+        navigation.setColored(true);
+        navigation.setOnTabSelectedListener(this);
+
         mVisible = true;
 
         // Set up the user interaction to manually show or hide the system UI.
-        imageView.setOnClickListener(new View.OnClickListener() {
+        coordinator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 toggle();
@@ -152,7 +162,7 @@ public class MapViewImpl implements MapContract.View{
 //        if (actionBar != null) {
 //            actionBar.hide();
 //        }
-        navigation.setVisibility(View.GONE);
+        navigation.hideBottomNavigation(true);
         mVisible = false;
 
         // Schedule a runnable to remove the status and navigation bar after a delay
@@ -163,8 +173,7 @@ public class MapViewImpl implements MapContract.View{
     @SuppressLint("InlinedApi")
     private void show() {
         // Show the system bar
-        navigation.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+        navigation.restoreBottomNavigation(true);
         mVisible = true;
 
         // Schedule a runnable to display UI elements after a delay
@@ -178,5 +187,19 @@ public class MapViewImpl implements MapContract.View{
     private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
+    }
+
+    @Override
+    public boolean onTabSelected(int position, boolean wasSelected) {
+        switch (position) {
+            case 0:
+                imageView.setImage(ImageSource.resource(R.drawable.erangel_map));
+                return true;
+            case 1:
+                imageView.setImage(ImageSource.resource(R.drawable.desert_map));
+                return true;
+            default:
+                return false;
+        }
     }
 }

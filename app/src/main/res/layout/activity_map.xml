@@ -1,5 +1,6 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/map_coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -13,26 +14,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:zoomEnabled="true"
-        app:src="@drawable/pubg_map"
+        app:src="@drawable/erangel_map"
         />
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
-
         <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
             android:id="@+id/navigation_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:fitsSystemWindows="true"
             android:layout_gravity="bottom|center_horizontal"
             app:itemBackground="@color/colorPrimary"
             app:itemIconTint="@color/white"
             app:itemTextColor="@color/white"
             app:menu="@menu/navigation" />
 
-    </FrameLayout>
-
-</FrameLayout>
+</android.support.design.widget.CoordinatorLayout>
