@@ -22,7 +22,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingBottom="@dimen/material_baseline_grid_10x"
-                android:clipToPadding="false"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <LinearLayout
@@ -36,23 +35,26 @@
                         layout="@layout/information_card"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="@dimen/material_card_edge_margin" />
+                        android:layout_margin="@dimen/material_card_edge_margin"
+                        android:padding="@dimen/material_card_edge_margin"/>
 
                     <include
                         android:id="@+id/overview_card"
                         layout="@layout/playlist_overview_card"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:visibility="gone"
                         android:layout_margin="@dimen/material_card_edge_margin"
-                        android:visibility="gone" />
+                        android:padding="@dimen/material_card_edge_margin"/>
 
                     <include
                         android:id="@+id/last_match_card"
                         layout="@layout/last_match_card"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:visibility="gone"
                         android:layout_margin="@dimen/material_card_edge_margin"
-                        android:visibility="gone" />
+                        android:padding="@dimen/material_card_edge_margin"/>
 
                 </LinearLayout>
             </android.support.v4.widget.NestedScrollView>

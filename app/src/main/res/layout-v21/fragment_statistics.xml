@@ -133,7 +133,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="@dimen/material_baseline_grid_16x"
-        android:layout_marginEnd="@dimen/material_baseline_grid_3x"
+        android:layout_marginEnd="@dimen/material_baseline_grid_1x"
         android:clickable="true"
         app:fab_colorNormal="@color/colorAccent"
         app:fab_colorPressed="@color/colorAccentDark"
