@@ -11,7 +11,7 @@ public class UserRefreshing {
     public final boolean refreshing;
 
     public UserRefreshing(boolean refreshing){
-        Timber.d("EventBust - UserRefreshing - Refreshing: %s", refreshing);
+        Timber.d("EventBus - UserRefreshing - Refreshing: %s", refreshing);
         this.refreshing = refreshing;
     }
 }

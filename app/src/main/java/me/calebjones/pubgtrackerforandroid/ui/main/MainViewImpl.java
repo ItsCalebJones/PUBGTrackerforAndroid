@@ -281,6 +281,11 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     }
 
     @Override
+    public void createErrorSnackbar(String message) {
+        Snackbar.make(coordinator, "Error: " + message, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
     public void createSnackbarSetCurrentUser(String message, final User user) {
         Snackbar snackbar = Snackbar.make(coordinator, message, Snackbar.LENGTH_LONG);
 

@@ -62,7 +62,7 @@ public class HistoryPresenter extends BasePresenter implements HistoryContract.P
     @Override
     public void onUserEventReceived(UserSelected userSelected) {
         currentUser = userSelected.user;
-        Timber.i("onUserEventReceived - EventBus - Message received - User: %s", currentUser.getPlayerName());
+        Timber.i("onUserSelectedEventReceived - EventBus - Message received - User: %s", currentUser.getPlayerName());
         updateAdapter(currentUser);
     }
 

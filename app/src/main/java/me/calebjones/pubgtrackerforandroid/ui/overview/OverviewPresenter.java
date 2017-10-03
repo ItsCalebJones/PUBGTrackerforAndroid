@@ -80,7 +80,7 @@ public class OverviewPresenter extends BasePresenter implements OverviewContract
     @Subscribe(threadMode = ThreadMode.MAIN)
     @Override
     public void onUserEventReceived(UserSelected userSelected) {
-        Timber.v("onUserEventReceived - UserSelected event.");
+        Timber.v("onUserSelectedEventReceived - UserSelected event.");
         overviewView.showContent();
         applyUser(userSelected.user);
     }

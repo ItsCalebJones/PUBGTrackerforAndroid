@@ -6,12 +6,12 @@ import java.util.Map;
 
 public enum PUBGMode {
     ALL("agg", "All"),
-    SOLO("solo", "Solo"),
-    DUO("duo", "Duo"),
-    SQUAD("squad","Squad"),
-    FPP_SOLO("solo-fpp","FP Solo"),
-    FPP_DUO("duo-fpp","FP Duo"),
-    FPP_SQUAD("squad-fpp","FP Squad");
+    SOLO("solo", "Third Person - Solo"),
+    DUO("duo", "Third Person - Duo"),
+    SQUAD("squad","Third Person - Squad"),
+    FPP_SOLO("solo-fpp","First Person - Solo"),
+    FPP_DUO("duo-fpp","First Person - Duo"),
+    FPP_SQUAD("squad-fpp","First Person - Squad");
 
     PUBGMode(String keyName, String modeName) {
         this.keyName = keyName;

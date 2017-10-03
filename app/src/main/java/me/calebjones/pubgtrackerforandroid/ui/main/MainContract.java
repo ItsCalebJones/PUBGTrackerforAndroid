@@ -11,6 +11,7 @@ import me.calebjones.pubgtrackerforandroid.common.BaseNavigator;
 import me.calebjones.pubgtrackerforandroid.common.BasePresenterInterface;
 import me.calebjones.pubgtrackerforandroid.common.BaseView;
 import me.calebjones.pubgtrackerforandroid.data.events.UserFavoriteEvent;
+import me.calebjones.pubgtrackerforandroid.data.events.UserRefreshing;
 import me.calebjones.pubgtrackerforandroid.data.events.UserSelected;
 import me.calebjones.pubgtrackerforandroid.data.models.User;
 
@@ -60,6 +61,8 @@ public interface MainContract {
 
         void createSnackbar(String message);
 
+        void createErrorSnackbar(String message);
+
         void createSnackbarSetCurrentUser(String message, User user);
 
         void setUpDrawer(Activity activity, Bundle savedInstanceState);
@@ -81,7 +84,9 @@ public interface MainContract {
 
     interface Presenter extends BasePresenterInterface {
 
-        void onUserEventReceived(UserSelected userSelected);
+        void onUserSelectedEventReceived(UserSelected userSelected);
+
+        void onUserRefreshingEventReceived(UserRefreshing userRefreshing);
 
         boolean searchQuerySubmitted(String query);
 

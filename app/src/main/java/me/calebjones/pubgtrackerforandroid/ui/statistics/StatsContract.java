@@ -43,9 +43,13 @@ public interface StatsContract {
 
         int getSeasonFilter();
 
+        int getViewModeFilter();
+
         String getSeason(int position);
 
         String getRegion(int position);
+
+        int getViewMode(int position);
 
         void resetFilters();
 

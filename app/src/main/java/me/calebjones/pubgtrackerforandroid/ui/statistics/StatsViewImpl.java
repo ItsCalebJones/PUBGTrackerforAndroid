@@ -1,7 +1,6 @@
 package me.calebjones.pubgtrackerforandroid.ui.statistics;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
@@ -12,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.github.clans.fab.FloatingActionButton;
@@ -22,15 +22,11 @@ import com.transitionseverywhere.TransitionManager;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cz.kinst.jakub.view.SimpleStatefulLayout;
-import jonathanfinerty.once.Once;
 import me.calebjones.pubgtrackerforandroid.R;
-import me.calebjones.pubgtrackerforandroid.data.Config;
 import me.calebjones.pubgtrackerforandroid.data.enums.PUBGRegion;
 import me.calebjones.pubgtrackerforandroid.data.enums.PUBGSeason;
 import me.calebjones.pubgtrackerforandroid.data.models.PlayerStat;
@@ -62,11 +58,16 @@ public class StatsViewImpl implements StatsContract.View {
     LinearLayout sortingView;
     @BindView(R.id.sort_fab)
     FloatingActionButton sortFab;
+    @BindView(R.id.viewMode_picker)
+    AppCompatSpinner viewModePicker;
+    @BindView(R.id.root)
+    FrameLayout root;
     private StatsContract.Presenter statsPresenter;
     private View mRootView;
     private Context context;
     private ArrayAdapter<String> seasonAdapter;
     private ArrayAdapter<String> regionAdapter;
+    private ArrayAdapter<String> viewModeAdapter;
     private Fragment fragment;
     private boolean sortViewVisible = false;
 
@@ -147,6 +148,11 @@ public class StatsViewImpl implements StatsContract.View {
     }
 
     @Override
+    public int getViewModeFilter() {
+        return viewModePicker.getSelectedItemPosition();
+    }
+
+    @Override
     public String getSeason(int position) {
         if (seasonAdapter.getCount() < position) {
             return null;
@@ -160,6 +166,11 @@ public class StatsViewImpl implements StatsContract.View {
             return null;
         }
         return regionAdapter.getItem(position);
+    }
+
+    @Override
+    public int getViewMode(int position) {
+        return position;
     }
 
     @Override
@@ -189,11 +200,15 @@ public class StatsViewImpl implements StatsContract.View {
     private void setUpSpinners() {
         List<PUBGRegion> regionList = Arrays.asList(PUBGRegion.values());
         List<PUBGSeason> seasonList = new ArrayList<>();
+        List<String> modeList = new ArrayList<>();
 
         seasonList.add(PUBGSeason.PRE4_2017);
         seasonList.add(PUBGSeason.PRE3_2017);
         seasonList.add(PUBGSeason.PRE2_2017);
         seasonList.add(PUBGSeason.PRE1_2017);
+
+        modeList.add("First Person Perspective");
+        modeList.add("Third Person Perspective");
 
         int index = 0;
         String[] regionArray = new String[regionList.size()];
@@ -203,8 +218,8 @@ public class StatsViewImpl implements StatsContract.View {
             index++;
         }
 
-        String[] seasonArray = new String[seasonList.size()];
         index = 0;
+        String[] seasonArray = new String[seasonList.size()];
         for (PUBGSeason value : seasonList) {
             seasonArray[index] = value.getSeasonName();
             index++;
@@ -216,10 +231,15 @@ public class StatsViewImpl implements StatsContract.View {
         regionAdapter = new ArrayAdapter<>(this.context,
                 android.R.layout.simple_dropdown_item_1line, regionArray);
 
+        viewModeAdapter = new ArrayAdapter<>(this.context,
+                android.R.layout.simple_dropdown_item_1line, modeList);
+
 
         seasonPicker.setAdapter(seasonAdapter);
 
         regionPicker.setAdapter(regionAdapter);
+
+        viewModePicker.setAdapter(viewModeAdapter);
     }
 
     @OnClick(R.id.sort_fab)

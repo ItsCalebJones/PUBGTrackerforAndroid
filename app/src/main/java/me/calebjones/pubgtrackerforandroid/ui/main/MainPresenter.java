@@ -39,10 +39,17 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     @Override
-    public void onUserEventReceived(UserSelected userSelected) {
+    public void onUserSelectedEventReceived(UserSelected userSelected) {
         Timber.d("UserSelected Event Received.");
         setCurrentUser();
-        mainView.setRefreshing(false);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Override
+    public void onUserRefreshingEventReceived(UserRefreshing userRefreshing) {
+        Timber.d("UserRefreshed Event Received.");
+        boolean refreshing = userRefreshing.refreshing;
+        mainView.setRefreshing(refreshing);
     }
 
 
@@ -63,8 +70,10 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
                 if (response.isSuccessful()){
                     User user = response.body();
                     if (user != null) {
-                        if (user.getError() != null && user.getMessage() != null) {
-                            mainView.createSnackbar(user.getMessage());
+                        if (user.getError() != null){
+                            mainView.createErrorSnackbar(user.getError());
+                        } else if (user.getMessage() != null) {
+                            mainView.createErrorSnackbar(user.getMessage());
                         } else if (user.getPlayerName() != null) {
                             dataManager.getDataSaver().save(user);
                             currentUser = user;
@@ -73,7 +82,7 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
                     }
                 } else {
                     mainView.setRefreshing(false);
-                    mainView.createSnackbar(response.message());
+                    mainView.createErrorSnackbar(response.message());
                     Timber.e(response.message());
                 }
                 sendRefreshingState(false);

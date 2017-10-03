@@ -77,7 +77,7 @@ public class StatsPresenter extends BasePresenter implements StatsContract.Prese
     @Subscribe(threadMode = ThreadMode.MAIN)
     @Override
     public void onUserEventReceived(UserSelected userSelected) {
-        Timber.v("onUserEventReceived - UserSelected event.");
+        Timber.v("onUserSelectedEventReceived - UserSelected event.");
         currentUser = userSelected.user;
         applyUser(currentUser);
     }
@@ -93,32 +93,49 @@ public class StatsPresenter extends BasePresenter implements StatsContract.Prese
             statsView.showContent();
             List<PUBGRegion> regionList = Arrays.asList(PUBGRegion.values());
             List<PUBGSeason> seasonList = new ArrayList<>();
+            List<String> modeList = new ArrayList<>();
 
             seasonList.add(PUBGSeason.PRE4_2017);
             seasonList.add(PUBGSeason.PRE3_2017);
             seasonList.add(PUBGSeason.PRE2_2017);
             seasonList.add(PUBGSeason.PRE1_2017);
 
+            modeList.add("First Person Perspective");
+            modeList.add("Third Person Perspective");
+
             String region = regionList.get(statsView.getRegionFilter()).getKeyName();
             String season = seasonList.get(statsView.getSeasonFilter()).getSeasonKey();
+
+            String solo;
+            String duo;
+            String squad;
+            if (statsView.getViewModeFilter() == 1){
+                solo = PUBGMode.SOLO.getKeyName();
+                duo = PUBGMode.DUO.getKeyName();
+                squad = PUBGMode.SQUAD.getKeyName();
+            } else {
+                solo = PUBGMode.FPP_SOLO.getKeyName();
+                duo = PUBGMode.FPP_DUO.getKeyName();
+                squad = PUBGMode.FPP_SQUAD.getKeyName();
+            }
 
             PlayerStat soloResult = getRealm().where(PlayerStat.class)
                     .equalTo("users.pubgTrackerId", currentUser.getPubgTrackerId())
                     .contains("region", region)
                     .equalTo("season", season)
-                    .equalTo("match", PUBGMode.SOLO.getKeyName()).findFirst();
+                    .equalTo("match", solo).findFirst();
 
             PlayerStat duoResult = getRealm().where(PlayerStat.class)
                     .equalTo("users.pubgTrackerId", currentUser.getPubgTrackerId())
                     .contains("region", region)
                     .equalTo("season", season)
-                    .equalTo("match", PUBGMode.DUO.getKeyName()).findFirst();
+                    .equalTo("match", duo).findFirst();
 
             PlayerStat squadResult = getRealm().where(PlayerStat.class)
                     .equalTo("users.pubgTrackerId", currentUser.getPubgTrackerId())
                     .contains("region", region)
                     .equalTo("season", season)
-                    .equalTo("match", PUBGMode.SQUAD.getKeyName()).findFirst();
+                    .equalTo("match", squad).findFirst();
 
             if (soloResult != null) {
                 statsView.configureSoloPlaylist(soloResult);
