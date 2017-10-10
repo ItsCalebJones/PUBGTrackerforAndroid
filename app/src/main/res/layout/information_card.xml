@@ -7,11 +7,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
-    android:layout_margin="@dimen/material_card_edge_margin"
     app:cardCornerRadius="4dp"
     app:cardElevation="@dimen/material_card_elevation_resting"
-    app:cardPreventCornerOverlap="true"
-    app:cardUseCompatPadding="true"
     >
 
     <LinearLayout

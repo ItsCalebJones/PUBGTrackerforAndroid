@@ -4,14 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/material_baseline_grid_2x"
-    android:animateLayoutChanges="true"
+    android:layout_margin="@dimen/material_card_edge_margin"
     android:padding="@dimen/material_card_edge_margin"
-    android:paddingBottom="@dimen/material_card_title_block_large_padding_bottom_last_block"
+    android:animateLayoutChanges="true"
     app:cardCornerRadius="4dp"
     app:cardElevation="@dimen/material_card_elevation_resting"
-    app:cardPreventCornerOverlap="true"
-    app:cardUseCompatPadding="true">
+    app:cardPreventCornerOverlap="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -111,7 +109,7 @@
             android:background="@color/divider" />
 
         <!--Second Header-->
-        <me.calebjones.pubgtrackerforandroid.ui.views.MatchView
+        <me.calebjones.pubgtracker.ui.views.MatchView
             android:id="@+id/match_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

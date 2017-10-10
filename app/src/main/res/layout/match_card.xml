@@ -5,13 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/material_baseline_grid_1x"
-    android:layout_marginStart="@dimen/material_baseline_grid_1x"
-    android:layout_marginEnd="@dimen/material_baseline_grid_1x"
+    android:layout_margin="@dimen/material_card_edge_margin"
+    android:padding="@dimen/material_card_edge_margin"
     android:animateLayoutChanges="true"
     app:cardCornerRadius="4dp"
     app:cardElevation="@dimen/material_card_elevation_resting"
-    app:cardPreventCornerOverlap="true"
-    app:cardUseCompatPadding="true">
+    >
 
     <include
         layout="@layout/match_layout"

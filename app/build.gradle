@@ -53,6 +53,10 @@ android {
 
         }
         release {
+            minifyEnabled false
+            applicationName = "PUBG Tracker"
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
             manifestPlaceholders = [appNameLabel: "PUBG Tracker"]
         }
     }

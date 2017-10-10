@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <me.calebjones.pubgtrackerforandroid.ui.views.ExtendedStatefulLayout
+        <me.calebjones.pubgtracker.ui.views.ExtendedStatefulLayout
             android:id="@+id/stateful_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -33,24 +33,24 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <me.calebjones.pubgtrackerforandroid.ui.views.PlaylistView
+                    <me.calebjones.pubgtracker.ui.views.PlaylistView
                         android:id="@+id/solo_playlist"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
-                    <me.calebjones.pubgtrackerforandroid.ui.views.PlaylistView
+                    <me.calebjones.pubgtracker.ui.views.PlaylistView
                         android:id="@+id/duo_playlist"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
-                    <me.calebjones.pubgtrackerforandroid.ui.views.PlaylistView
+                    <me.calebjones.pubgtracker.ui.views.PlaylistView
                         android:id="@+id/squad_playlist"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
             </android.support.v4.widget.NestedScrollView>
 
-        </me.calebjones.pubgtrackerforandroid.ui.views.ExtendedStatefulLayout>
+        </me.calebjones.pubgtracker.ui.views.ExtendedStatefulLayout>
 
         <LinearLayout
             android:id="@+id/sorting_view"
@@ -97,6 +97,24 @@
                 android:layout_marginStart="@dimen/material_baseline_grid_2x"
                 android:hint="Select a Region" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/material_baseline_grid_2x"
+                android:layout_marginStart="@dimen/material_baseline_grid_2x"
+                android:layout_marginTop="@dimen/material_baseline_grid_1x"
+                android:text="View Mode"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/viewMode_picker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/material_baseline_grid_1x"
+                android:layout_marginEnd="@dimen/material_baseline_grid_2x"
+                android:layout_marginStart="@dimen/material_baseline_grid_2x"
+                android:hint="Select a Viewmode" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -133,7 +151,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="@dimen/material_baseline_grid_16x"
-        android:layout_marginEnd="@dimen/material_baseline_grid_3x"
+        android:layout_marginEnd="@dimen/material_baseline_grid_1x"
         android:clickable="true"
         app:fab_colorNormal="@color/colorAccent"
         app:fab_colorPressed="@color/colorAccentDark"
