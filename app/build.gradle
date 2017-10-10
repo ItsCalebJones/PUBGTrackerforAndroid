@@ -83,6 +83,7 @@ android {
         }
         release {
             minifyEnabled true
+            shrinkResources true
             applicationName = "PUBG Tracker"
             proguardFile 'proguard-project-app.pro'
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
