@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 
-import me.calebjones.pubgtrackerforandroid.R;
+import me.calebjones.pubgtracker.R;
 
 public class SplashScreenHelper implements Application.ActivityLifecycleCallbacks {
 

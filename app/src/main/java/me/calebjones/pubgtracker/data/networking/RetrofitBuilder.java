@@ -17,7 +17,7 @@ import io.realm.RealmList;
 import io.realm.RealmObject;
 import me.calebjones.pubgtracker.TrackerApplication;
 import me.calebjones.pubgtracker.data.Config;
-import me.calebjones.pubgtrackerforandroid.R;
+import me.calebjones.pubgtracker.R;
 import me.calebjones.pubgtracker.data.models.RealmStr;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;

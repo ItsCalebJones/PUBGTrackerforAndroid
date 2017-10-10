@@ -6,7 +6,7 @@ import android.view.MenuItem;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import me.calebjones.pubgtrackerforandroid.R;
+import me.calebjones.pubgtracker.R;
 import me.calebjones.pubgtracker.common.BaseActivity;
 
 public class SettingsActivity extends BaseActivity {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="me.calebjones.pubgtrackerforandroid">
+    package="me.calebjones.pubgtracker">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -54,7 +54,7 @@
             android:theme="@style/FullscreenTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="me.calebjones.pubgtrackerforandroid.me.calebjones.pubgtracker.ui.main.MainActivity" />
+                android:value="me.calebjones.pubgtracker.ui.main.MainActivity" />
         </activity>
     </application>
 

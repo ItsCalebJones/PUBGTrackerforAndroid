@@ -23,7 +23,7 @@ import butterknife.OnClick;
 import me.calebjones.pubgtracker.data.models.Match;
 import me.calebjones.pubgtracker.ui.views.ExtendedStatefulLayout;
 import me.calebjones.pubgtracker.ui.views.MatchView;
-import me.calebjones.pubgtrackerforandroid.R;
+import me.calebjones.pubgtracker.R;
 import me.calebjones.pubgtracker.data.enums.PUBGSeason;
 import me.calebjones.pubgtracker.data.models.PlayerStat;
 
@@ -39,7 +39,7 @@ public class OverviewViewImpl implements OverviewContract.View {
     @BindView(R.id.root)
     ViewGroup container;
     @BindView(R.id.close_information_button)
-    AppCompatButton exploreButton;
+    AppCompatButton closeButton;
     @BindView(R.id.overview_stat_one)
     TextView overviewStatOne;
     @BindView(R.id.overview_stat_one_ranking)

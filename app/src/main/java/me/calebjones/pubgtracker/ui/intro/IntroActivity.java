@@ -14,7 +14,7 @@ import java.util.List;
 import jonathanfinerty.once.Once;
 import me.calebjones.pubgtracker.data.Config;
 import me.calebjones.pubgtracker.ui.main.MainActivity;
-import me.calebjones.pubgtrackerforandroid.R;
+import me.calebjones.pubgtracker.R;
 
 /**
  * Created by ALPCJONESM2 on 8/30/17.

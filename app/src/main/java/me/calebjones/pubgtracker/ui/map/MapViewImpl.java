@@ -18,7 +18,7 @@ import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import me.calebjones.pubgtrackerforandroid.R;
+import me.calebjones.pubgtracker.R;
 
 
 public class MapViewImpl implements MapContract.View, AHBottomNavigation.OnTabSelectedListener {

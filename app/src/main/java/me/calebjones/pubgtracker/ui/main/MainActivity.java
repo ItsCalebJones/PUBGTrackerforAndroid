@@ -14,7 +14,7 @@ import me.calebjones.pubgtracker.ui.history.HistoryFragment;
 import me.calebjones.pubgtracker.ui.main.adapters.MainViewPagerAdapter;
 import me.calebjones.pubgtracker.ui.overview.OverviewFragment;
 import me.calebjones.pubgtracker.ui.statistics.StatsFragment;
-import me.calebjones.pubgtrackerforandroid.R;
+import me.calebjones.pubgtracker.R;
 import me.calebjones.pubgtracker.ui.intro.IntroActivity;
 import timber.log.Timber;
 
