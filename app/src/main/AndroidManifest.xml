@@ -8,9 +8,10 @@
     <application
         android:name="me.calebjones.pubgtracker.TrackerApplication"
         android:allowBackup="true"
-        android:icon="@drawable/ic_jones_logo"
+        android:icon="@mipmap/ic_launcher"
         android:label="${appNameLabel}"
         android:supportsRtl="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:value="26.1.0"
         tools:replace="android:value,android:label">
         <activity
