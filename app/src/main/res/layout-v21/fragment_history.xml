@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <me.calebjones.pubgtrackerforandroid.ui.views.ExtendedStatefulLayout
+        <me.calebjones.pubgtracker.ui.views.ExtendedStatefulLayout
             android:id="@+id/stateful_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -34,7 +34,7 @@
 
                 </android.support.v7.widget.RecyclerView>
             </android.support.v4.widget.NestedScrollView>
-        </me.calebjones.pubgtrackerforandroid.ui.views.ExtendedStatefulLayout>
+        </me.calebjones.pubgtracker.ui.views.ExtendedStatefulLayout>
 
 
         <LinearLayout

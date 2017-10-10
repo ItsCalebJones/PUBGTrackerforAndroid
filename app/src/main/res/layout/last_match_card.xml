@@ -109,7 +109,7 @@
             android:background="@color/divider" />
 
         <!--Second Header-->
-        <me.calebjones.pubgtrackerforandroid.ui.views.MatchView
+        <me.calebjones.pubgtracker.ui.views.MatchView
             android:id="@+id/match_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

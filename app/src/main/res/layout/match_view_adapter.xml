@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <me.calebjones.pubgtrackerforandroid.ui.views.MatchCardView
+    <me.calebjones.pubgtracker.ui.views.MatchCardView
         android:id="@+id/match_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

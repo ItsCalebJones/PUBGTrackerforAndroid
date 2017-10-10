@@ -73,7 +73,8 @@ android {
             versionNameSuffix "debug"
         }
         release {
-            minifyEnabled true
+            minifyEnabled false
+            applicationName = "PUBG Tracker"
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             manifestPlaceholders = [appNameLabel: "PUBG Tracker"]
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
