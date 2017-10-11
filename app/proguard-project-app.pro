@@ -28,7 +28,7 @@
 # (unless you are using a system that supports de-obfuscate the stack traces).
 -dontobfuscate
 
--keep class me.calebjones.pubgtrackerforandroid.** { *; }
+-keep class me.calebjones.pubgtracker.** { *; }
 #-keep class .R
 #-keep class **.R$* {
 #    <fields>;

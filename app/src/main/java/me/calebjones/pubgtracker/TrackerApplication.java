@@ -20,7 +20,6 @@ import me.calebjones.pubgtracker.data.DataManager;
 import me.calebjones.pubgtracker.data.networking.DataClient;
 import me.calebjones.pubgtracker.utils.GlideApp;
 import me.calebjones.pubgtracker.utils.SplashScreenHelper;
-import me.calebjones.pubgtracker.BuildConfig;
 import timber.log.Timber;
 import com.crashlytics.android.Crashlytics;
 

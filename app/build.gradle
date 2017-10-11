@@ -40,7 +40,26 @@ def getGitHash = { ->
     }
     return stdout.toString().trim()
 }
+
+// Create a variable called keystorePropertiesFile, and initialize it to your
+// keystore.properties file, in the rootProject folder.
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+
+// Initialize a new Properties() object called keystoreProperties.
+def keystoreProperties = new Properties()
+
+// Load your keystore.properties file into the keystoreProperties object.
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
+    signingConfigs {
+        releaseConfig {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
+    }
     flavorDimensions "release"
     compileSdkVersion 26
     buildToolsVersion '26.0.2'
@@ -52,7 +71,7 @@ android {
 
         def versionBuild = versionProps['VERSION_CODE'].toInteger() + 1
 
-        versionProps['VERSION_CODE']=versionBuild.toString()
+        versionProps['VERSION_CODE'] = versionBuild.toString()
         versionProps.store(versionPropsFile.newWriter(), null)
 
         defaultConfig {
@@ -69,7 +88,6 @@ android {
     } else {
         throw new GradleException("Could not read version.properties!")
     }
-
     buildTypes {
         debug {
             ext.alwaysUpdateBuildId = false
@@ -79,11 +97,9 @@ android {
             manifestPlaceholders = [appNameLabel: "PUBG - Debug"]
             debuggable true
             versionNameSuffix ".debug"
-
         }
         release {
             minifyEnabled true
-            shrinkResources true
             applicationName = "PUBG Tracker"
             proguardFile 'proguard-project-app.pro'
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -94,6 +110,7 @@ android {
                     outputFileName = "PUBG-Tracker-release-${variant.versionName}.${variant.versionCode}-${getGitHash()}.apk"
                 }
             }
+            signingConfig signingConfigs.releaseConfig
         }
     }
     configurations.all {
@@ -114,7 +131,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -147,7 +164,7 @@ dependencies {
     implementation 'com.jonathanfinerty.once:once:1.2.2'
     implementation 'uk.co.samuelwall:material-tap-target-prompt:2.0.1'
     implementation 'com.github.jrvansuita:MaterialAbout:0.1.8'
-    implementation ('com.afollestad.material-dialogs:core:0.9.4.7'){
+    implementation('com.afollestad.material-dialogs:core:0.9.4.7') {
         exclude module: 'support-v13'
     }
     implementation 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
