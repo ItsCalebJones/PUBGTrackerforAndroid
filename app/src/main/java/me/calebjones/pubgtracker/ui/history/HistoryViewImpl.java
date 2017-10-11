@@ -28,7 +28,7 @@ import butterknife.OnClick;
 import cz.kinst.jakub.view.SimpleStatefulLayout;
 import io.realm.RealmResults;
 import jonathanfinerty.once.Once;
-import me.calebjones.pubgtrackerforandroid.R;
+import me.calebjones.pubgtracker.R;
 import me.calebjones.pubgtracker.data.Config;
 import me.calebjones.pubgtracker.data.enums.PUBGMode;
 import me.calebjones.pubgtracker.data.enums.PUBGRegion;

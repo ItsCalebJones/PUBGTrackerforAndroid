@@ -11,7 +11,7 @@ import android.preference.PreferenceFragment;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 
-import me.calebjones.pubgtrackerforandroid.R;
+import me.calebjones.pubgtracker.R;
 import me.calebjones.pubgtracker.ui.settings.about.AboutActivity;
 
 public class SettingsFragment extends PreferenceFragment {

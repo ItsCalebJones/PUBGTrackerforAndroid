@@ -99,7 +99,9 @@ public class OverviewPresenter extends BasePresenter implements OverviewContract
 
     @Override
     public void setInformationCardDismissed(boolean state) {
-        Once.markDone(Config.SHOW_WELCOME_CARD);
+        if (state) {
+            Once.markDone(Config.SHOW_WELCOME_CARD);
+        }
     }
 
     @Override

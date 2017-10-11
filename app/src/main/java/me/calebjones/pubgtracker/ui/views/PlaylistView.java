@@ -15,7 +15,7 @@ import butterknife.OnClick;
 import me.calebjones.pubgtracker.data.enums.PUBGMode;
 import me.calebjones.pubgtracker.data.enums.PUBGRegion;
 import me.calebjones.pubgtracker.data.models.Stats;
-import me.calebjones.pubgtrackerforandroid.R;
+import me.calebjones.pubgtracker.R;
 import me.calebjones.pubgtracker.data.enums.PUBGSeason;
 import me.calebjones.pubgtracker.data.models.PlayerStat;
 import timber.log.Timber;

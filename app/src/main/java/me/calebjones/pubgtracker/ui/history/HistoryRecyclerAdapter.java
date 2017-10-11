@@ -12,7 +12,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.RealmResults;
-import me.calebjones.pubgtrackerforandroid.R;
+import me.calebjones.pubgtracker.R;
 import me.calebjones.pubgtracker.data.models.Match;
 import me.calebjones.pubgtracker.ui.views.MatchCardView;
 

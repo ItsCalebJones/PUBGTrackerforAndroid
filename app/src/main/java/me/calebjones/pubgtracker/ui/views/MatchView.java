@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.calebjones.pubgtracker.data.models.Match;
-import me.calebjones.pubgtrackerforandroid.R;
+import me.calebjones.pubgtracker.R;
 
 
 public class MatchView extends LinearLayout {

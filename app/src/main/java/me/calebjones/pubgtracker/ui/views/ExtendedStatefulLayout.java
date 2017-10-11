@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 
 import cz.kinst.jakub.view.SimpleStatefulLayout;
 import cz.kinst.jakub.view.StatefulLayout;
-import me.calebjones.pubgtrackerforandroid.R;
+import me.calebjones.pubgtracker.R;
 
 public class ExtendedStatefulLayout extends SimpleStatefulLayout {
     public ExtendedStatefulLayout(Context context) {

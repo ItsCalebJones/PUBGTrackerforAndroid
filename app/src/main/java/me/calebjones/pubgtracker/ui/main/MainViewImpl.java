@@ -51,7 +51,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import jonathanfinerty.once.Once;
-import me.calebjones.pubgtrackerforandroid.R;
+import me.calebjones.pubgtracker.R;
 import me.calebjones.pubgtracker.data.Config;
 import me.calebjones.pubgtracker.data.models.PlayerStat;
 import me.calebjones.pubgtracker.data.models.User;

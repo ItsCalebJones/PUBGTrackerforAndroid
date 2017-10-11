@@ -41,6 +41,8 @@ public class OverviewFragment extends BaseFragment implements OverviewContract.N
     private void checkInformationCard() {
         if (!Once.beenDone(Once.THIS_APP_INSTALL, Config.SHOW_WELCOME_CARD)){
             overviewView.setInformationCardVisible(true);
+        } else {
+            overviewView.setInformationCardVisible(false);
         }
     }
 

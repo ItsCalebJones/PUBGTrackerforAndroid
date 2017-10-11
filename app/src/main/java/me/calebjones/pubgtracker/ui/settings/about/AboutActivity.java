@@ -7,8 +7,7 @@ import android.widget.FrameLayout;
 
 import com.vansuita.materialabout.builder.AboutBuilder;
 import com.vansuita.materialabout.views.AboutView;
-
-import me.calebjones.pubgtrackerforandroid.R;
+import me.calebjones.pubgtracker.R;
 import me.calebjones.pubgtracker.ui.intro.IntroActivity;
 
 public class AboutActivity extends AppCompatActivity {
@@ -24,7 +23,7 @@ public class AboutActivity extends AppCompatActivity {
         final FrameLayout flHolder = (FrameLayout) this.findViewById(R.id.about);
 
         AboutBuilder builder = AboutBuilder.with(this)
-                .setAppIcon(R.drawable.ic_jones_logo)
+                .setAppIcon(R.mipmap.ic_launcher_foreground)
                 .setAppName(R.string.app_name)
                 .setPhoto(R.drawable.ic_jones_logo)
                 .setCover(R.mipmap.profile_cover)
