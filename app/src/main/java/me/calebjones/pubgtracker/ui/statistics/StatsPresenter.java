@@ -12,12 +12,18 @@ import java.util.List;
 
 import me.calebjones.pubgtracker.data.DataManager;
 import me.calebjones.pubgtracker.common.BasePresenter;
+import me.calebjones.pubgtracker.data.DataSaver;
 import me.calebjones.pubgtracker.data.enums.PUBGMode;
 import me.calebjones.pubgtracker.data.enums.PUBGRegion;
 import me.calebjones.pubgtracker.data.enums.PUBGSeason;
 import me.calebjones.pubgtracker.data.events.UserSelected;
+import me.calebjones.pubgtracker.data.models.Match;
 import me.calebjones.pubgtracker.data.models.PlayerStat;
 import me.calebjones.pubgtracker.data.models.User;
+import me.calebjones.pubgtracker.data.networking.DataClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import timber.log.Timber;
 
 
@@ -71,13 +77,59 @@ public class StatsPresenter extends BasePresenter implements StatsContract.Prese
     public void onUserEventReceived(UserSelected userSelected) {
         Timber.v("onUserSelectedEventReceived - UserSelected event.");
         currentUser = userSelected.user;
-        applyUser(currentUser);
+        if (currentUser != null) {
+            getStats(currentUser);
+        }
     }
 
     @Override
     public void retrieveCachedUser() {
         currentUser = dataManager.getCurrentUser();
-        applyUser(currentUser);
+        if (currentUser != null) {
+            getStats(currentUser);
+        }
+    }
+
+    private void getStats(User user){
+        List<PUBGRegion> regionList = Arrays.asList(PUBGRegion.values());
+        List<PUBGSeason> seasonList = new ArrayList<>();
+        List<String> modeList = new ArrayList<>();
+
+        seasonList.add(PUBGSeason.PRE6_2017);
+        seasonList.add(PUBGSeason.PRE5_2017);
+        seasonList.add(PUBGSeason.PRE4_2017);
+        seasonList.add(PUBGSeason.PRE3_2017);
+        seasonList.add(PUBGSeason.PRE2_2017);
+        seasonList.add(PUBGSeason.PRE1_2017);
+
+        modeList.add("First Person Perspective");
+        modeList.add("Third Person Perspective");
+
+        String region = regionList.get(statsView.getRegionFilter()).getKeyName();
+        String season = seasonList.get(statsView.getSeasonFilter()).getSeasonKey();
+
+        DataClient.getInstance().getUserStatsByName(user, region, season, new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.isSuccessful()) {
+                    User user = response.body();
+                    if (user != null) {
+                        if (user.getError() != null && user.getMessage() != null) {
+                            statsView.createSnackbar(user.getMessage());
+                        } else if (user.getPlayerName() != null) {
+                            DataSaver dataSaver = new DataSaver();
+                            dataSaver.saveStats(user);
+                            applyUser(user);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Timber.e(t);
+            }
+        });
     }
 
     private void applyUser(User currentUser) {
@@ -87,6 +139,8 @@ public class StatsPresenter extends BasePresenter implements StatsContract.Prese
             List<PUBGSeason> seasonList = new ArrayList<>();
             List<String> modeList = new ArrayList<>();
 
+            seasonList.add(PUBGSeason.PRE6_2017);
+            seasonList.add(PUBGSeason.PRE5_2017);
             seasonList.add(PUBGSeason.PRE4_2017);
             seasonList.add(PUBGSeason.PRE3_2017);
             seasonList.add(PUBGSeason.PRE2_2017);

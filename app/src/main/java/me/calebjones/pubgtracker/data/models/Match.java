@@ -13,99 +13,110 @@ import io.realm.annotations.PrimaryKey;
 public class Match extends RealmObject {
 
     @PrimaryKey
-    @SerializedName("Id")
+    @SerializedName("id")
     @Expose
     private int id;
-    @SerializedName("Updated")
+    @SerializedName("updated")
     @Expose
     private Date updated;
-    @SerializedName("UpdatedJS")
+    @SerializedName("updatedJS")
     @Expose
     private String updatedJS;
-    @SerializedName("Season")
+    @SerializedName("season")
     @Expose
     private int season;
-    @SerializedName("SeasonDisplay")
+    @SerializedName("seasonDisplay")
     @Expose
     private String seasonDisplay;
-    @SerializedName("Match")
+    @SerializedName("match")
     @Expose
     private int match;
-    @SerializedName("MatchDisplay")
+    @SerializedName("matchDisplay")
     @Expose
     private String matchDisplay;
-    @SerializedName("Region")
+    @SerializedName("region")
     @Expose
     private int region;
-    @SerializedName("RegionDisplay")
+    @SerializedName("regionDisplay")
     @Expose
     private String regionDisplay;
-    @SerializedName("Rounds")
+    @SerializedName("rounds")
     @Expose
     private int rounds;
-    @SerializedName("Wins")
+    @SerializedName("wins")
     @Expose
     private int wins;
-    @SerializedName("Kills")
+    @SerializedName("kills")
     @Expose
     private int kills;
-    @SerializedName("Assists")
+    @SerializedName("assists")
     @Expose
     private int assists;
-    @SerializedName("Top10")
+    @SerializedName("top10")
     @Expose
     private int top10;
-    @SerializedName("Rating")
+    @SerializedName("rating")
     @Expose
     private float rating;
-    @SerializedName("RatingChange")
+    @SerializedName("ratingChange")
     @Expose
     private float ratingChange;
-    @SerializedName("RatingRank")
+    @SerializedName("ratingRank")
     @Expose
     private int ratingRank;
-    @SerializedName("RatingRankChange")
+    @SerializedName("ratingRankChange")
     @Expose
     private int ratingRankChange;
-    @SerializedName("Headshots")
+    @SerializedName("headshots")
     @Expose
     private int headshots;
-    @SerializedName("Kd")
+    @SerializedName("kd")
     @Expose
     private float kd;
-    @SerializedName("Damage")
+    @SerializedName("damage")
     @Expose
     private int damage;
-    @SerializedName("TimeSurvived")
+    @SerializedName("timeSurvived")
     @Expose
     private float timeSurvived;
-    @SerializedName("WinRating")
+    @SerializedName("winRating")
     @Expose
     private int winRating;
-    @SerializedName("WinRank")
+    @SerializedName("winRank")
     @Expose
     private int winRank;
-    @SerializedName("WinRatingChange")
+    @SerializedName("winRatingChange")
     @Expose
     private int winRatingChange;
-    @SerializedName("WinRatingRankChange")
+    @SerializedName("winRatingRankChange")
     @Expose
     private int winRatingRankChange;
-    @SerializedName("KillRating")
+    @SerializedName("killRating")
     @Expose
     private int killRating;
-    @SerializedName("KillRank")
+    @SerializedName("killRank")
     @Expose
     private int killRank;
-    @SerializedName("KillRatingChange")
+    @SerializedName("killRatingChange")
     @Expose
     private int killRatingChange;
-    @SerializedName("KillRatingRankChange")
+    @SerializedName("killRatingRankChange")
     @Expose
     private int killRatingRankChange;
-    @SerializedName("MoveDistance")
+    @SerializedName("moveDistance")
     @Expose
     private float moveDistance;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    private User user;
+
     @LinkingObjects("matchHistory") // <-- !
     private final RealmResults<User> users = null; // <-- !
 

@@ -3,91 +3,61 @@ package me.calebjones.pubgtracker.data.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 public class User extends RealmObject {
 
-    @SerializedName("platformId")
+    @SerializedName("platform")
     @Expose
     private int platformId;
-    @SerializedName("AccountId")
+    @SerializedName("accountId")
     @Expose
     private String accountId;
-    @SerializedName("Avatar")
+    @SerializedName("steamId")
+    @Expose
+    private String steamId;
+    @SerializedName("twitch")
+    @Expose
+    private String twitch;
+    @SerializedName("avatar")
     @Expose
     private String avatar;
-    @SerializedName("selectedRegion")
-    @Expose
-    private String selectedRegion;
-    @SerializedName("defaultSeason")
-    @Expose
-    private String defaultSeason;
     @SerializedName("seasonDisplay")
     @Expose
     private String seasonDisplay;
     @SerializedName("LastUpdated")
     @Expose
     private String lastUpdated;
-    @SerializedName("LiveTracking")
+    @SerializedName("timePlayed")
     @Expose
-    private RealmList<LiveTracking> liveTracking = null;
-    @SerializedName("PlayerName")
+    private String timePlayed;
+    @SerializedName("nickname")
     @Expose
     private String playerName;
     @PrimaryKey
-    @SerializedName("PubgTrackerId")
+    @SerializedName("pubgTrackerId")
     @Expose
     private int pubgTrackerId;
-    @SerializedName("Stats")
+    @SerializedName("stats")
     @Expose
     private RealmList<PlayerStat> playerStats = null;
+    @SerializedName("error")
+    private String error;
+    @SerializedName("message")
+    private String message;
+    @SerializedName("code")
+    private int code;
     @SerializedName("MatchHistory")
     @Expose
     private RealmList<Match> matchHistory = null;
 
-    @SerializedName("error")
-    private String error;
-
-    @SerializedName("message")
-    private String message;
-
     private boolean favoriteUser = false;
 
     private boolean currentUser = false;
-
-    public boolean isCurrentUser() {
-        return currentUser;
-    }
-
-    public void setCurrentUser(boolean currentUser) {
-        this.currentUser = currentUser;
-    }
-
-    public boolean isFavoriteUser() {
-        return favoriteUser;
-    }
-
-    public void setFavoriteUser(boolean favoriteUser) {
-        this.favoriteUser = favoriteUser;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getError() {
-        return error;
-    }
-
-    public void setError(String error) {
-        this.error = error;
-    }
 
     public int getPlatformId() {
         return platformId;
@@ -105,28 +75,28 @@ public class User extends RealmObject {
         this.accountId = accountId;
     }
 
+    public String getSteamId() {
+        return steamId;
+    }
+
+    public void setSteamId(String steamId) {
+        this.steamId = steamId;
+    }
+
+    public String getTwitch() {
+        return twitch;
+    }
+
+    public void setTwitch(String twitch) {
+        this.twitch = twitch;
+    }
+
     public String getAvatar() {
         return avatar;
     }
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
-    }
-
-    public String getSelectedRegion() {
-        return selectedRegion;
-    }
-
-    public void setSelectedRegion(String selectedRegion) {
-        this.selectedRegion = selectedRegion;
-    }
-
-    public String getDefaultSeason() {
-        return defaultSeason;
-    }
-
-    public void setDefaultSeason(String defaultSeason) {
-        this.defaultSeason = defaultSeason;
     }
 
     public String getSeasonDisplay() {
@@ -145,12 +115,12 @@ public class User extends RealmObject {
         this.lastUpdated = lastUpdated;
     }
 
-    public RealmList<LiveTracking> getLiveTracking() {
-        return liveTracking;
+    public String getTimePlayed() {
+        return timePlayed;
     }
 
-    public void setLiveTracking(RealmList<LiveTracking> liveTracking) {
-        this.liveTracking = liveTracking;
+    public void setTimePlayed(String timePlayed) {
+        this.timePlayed = timePlayed;
     }
 
     public String getPlayerName() {
@@ -175,6 +145,46 @@ public class User extends RealmObject {
 
     public void setPlayerStats(RealmList<PlayerStat> playerStats) {
         this.playerStats = playerStats;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public boolean isFavoriteUser() {
+        return favoriteUser;
+    }
+
+    public void setFavoriteUser(boolean favoriteUser) {
+        this.favoriteUser = favoriteUser;
+    }
+
+    public boolean isCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(boolean currentUser) {
+        this.currentUser = currentUser;
     }
 
     public RealmList<Match> getMatchHistory() {

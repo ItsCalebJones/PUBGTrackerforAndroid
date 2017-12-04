@@ -25,7 +25,7 @@ public class Stats extends RealmObject {
     @SerializedName("ValueInt")
     @Expose
     private int valueInt;
-    @SerializedName("ValueDec")
+    @SerializedName("valueDec")
     @Expose
     private float valueDec;
     @SerializedName("value")

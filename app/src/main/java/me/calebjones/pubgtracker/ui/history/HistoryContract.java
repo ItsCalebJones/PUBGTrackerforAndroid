@@ -2,12 +2,15 @@ package me.calebjones.pubgtracker.ui.history;
 
 import android.support.annotation.NonNull;
 
+import java.util.List;
+
 import io.realm.RealmResults;
 import me.calebjones.pubgtracker.common.BaseNavigator;
 import me.calebjones.pubgtracker.common.BaseView;
 import me.calebjones.pubgtracker.data.events.UserSelected;
 import me.calebjones.pubgtracker.data.models.Match;
 import me.calebjones.pubgtracker.common.BasePresenterInterface;
+import me.calebjones.pubgtracker.data.models.User;
 
 
 public interface HistoryContract {
@@ -32,7 +35,7 @@ public interface HistoryContract {
 
         void createSnackbar(String localizedMessage);
 
-        void setAdapterMatches(RealmResults<Match> matches);
+        void setAdapterMatches(List<Match> matches);
 
         int getRegionFilter();
 
@@ -59,7 +62,7 @@ public interface HistoryContract {
 
         void retrieveCachedUser();
 
-        RealmResults<Match> retrieveMatchHistory(int pubgTrackerId);
+        RealmResults<Match> retrieveMatchHistory(User user);
 
         void sortSubmitClicked();
 

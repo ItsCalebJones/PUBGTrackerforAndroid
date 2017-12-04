@@ -7,14 +7,19 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.List;
+
 import io.realm.Realm;
 import io.realm.RealmResults;
 import me.calebjones.pubgtracker.common.BasePresenter;
 import me.calebjones.pubgtracker.data.DataManager;
+import me.calebjones.pubgtracker.data.DataSaver;
 import me.calebjones.pubgtracker.data.events.UserFavoriteEvent;
 import me.calebjones.pubgtracker.data.events.UserRefreshing;
 import me.calebjones.pubgtracker.data.events.UserSelected;
+import me.calebjones.pubgtracker.data.models.Match;
 import me.calebjones.pubgtracker.data.models.User;
+import me.calebjones.pubgtracker.data.networking.DataClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -56,12 +61,12 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
     @Override
     public boolean searchQuerySubmitted(final String query) {
         sendRefreshingState(true);
-        getUserByName(query);
+        getUserByName(query, null);
         mainView.closeSearchView();
         return true;
     }
 
-    private void getUserByName(String query) {
+    private void getUserByName(String query, final User user) {
         Timber.v("Searching for %s...", query);
         EventBus.getDefault().post(new UserRefreshing(true));
         dataManager.updateUserByProfileName(query, new Callback<User>() {
@@ -76,6 +81,7 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
                             mainView.createErrorSnackbar(user.getMessage());
                         } else if (user.getPlayerName() != null) {
                             dataManager.getDataSaver().save(user);
+                            dataManager.getUserMatchHistory(user);
                             currentUser = user;
                             mainView.setActiveUser(user);
                         }
@@ -83,6 +89,10 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
                 } else {
                     mainView.setRefreshing(false);
                     mainView.createErrorSnackbar(response.message());
+                    if (user != null){
+                        currentUser = user;
+                        mainView.setActiveUser(user);
+                    }
                     Timber.e(response.message());
                 }
                 sendRefreshingState(false);
@@ -95,6 +105,10 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
                 mainView.createSnackbar(t.getLocalizedMessage());
                 mainView.setRefreshing(false);
                 sendRefreshingState(false);
+                if (user != null){
+                    currentUser = user;
+                    mainView.setActiveUser(user);
+                }
             }
         });
     }
@@ -175,7 +189,7 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
     @Override
     public void setCurrentUser(long identifier) {
         User user = dataManager.getUserByID((int) identifier);
-        getUserByName(user.getPlayerName());
+        getUserByName(user.getPlayerName(), user);
 
     }
 
@@ -208,6 +222,7 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
                             mainView.createSnackbar(user.getMessage());
                         } else if (user.getPlayerName() != null) {
                             dataManager.getDataSaver().save(user);
+                            dataManager.getUserMatchHistory(user);
                         }
                     }
                 } else {

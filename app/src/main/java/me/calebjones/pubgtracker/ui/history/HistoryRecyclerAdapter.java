@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -19,7 +20,7 @@ import me.calebjones.pubgtracker.ui.views.MatchCardView;
 
 public class HistoryRecyclerAdapter extends RecyclerView.Adapter<HistoryRecyclerAdapter.HistoryViewHolder> {
 
-    private RealmResults<Match> matches;
+    private List<Match> matches;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm zzz - EEEE, MMMM dd, yyyy ", Locale.US);
     private Context context;
 
@@ -27,7 +28,7 @@ public class HistoryRecyclerAdapter extends RecyclerView.Adapter<HistoryRecycler
         this.context = context;
     }
 
-    public void setMatches(RealmResults<Match> newMatches) {
+    public void setMatches(List<Match> newMatches) {
         if (newMatches == null || newMatches.size() == 0) {
             return;
         }

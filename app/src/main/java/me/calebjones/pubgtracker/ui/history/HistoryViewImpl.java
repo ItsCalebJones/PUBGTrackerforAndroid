@@ -224,7 +224,7 @@ public class HistoryViewImpl implements HistoryContract.View {
     }
 
     @Override
-    public void setAdapterMatches(RealmResults<Match> matches) {
+    public void setAdapterMatches(List<Match> matches) {
         historyAdapter.setMatches(matches);
     }
 

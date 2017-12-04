@@ -147,7 +147,11 @@ public class OverviewViewImpl implements OverviewContract.View {
         playlistOneRoot.setVisibility(View.VISIBLE);
         playlistOverviewSeason.setText(PUBGSeason.findByKey(playerStat.getSeason()));
         String match = playerStat.getMatch();
-        match = match.substring(0, 1).toUpperCase() + match.substring(1).toLowerCase();
+        if (match != null) {
+            match = match.substring(0, 1).toUpperCase() + match.substring(1).toLowerCase();
+        } else {
+            match = "Unknown";
+        }
         playlistOverviewMatch.setText(playerStat.getRegion().toUpperCase() + " - " + match);
 
         overviewStatOneRoot.setVisibility(View.VISIBLE);

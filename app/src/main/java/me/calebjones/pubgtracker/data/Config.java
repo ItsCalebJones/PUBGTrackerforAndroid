@@ -5,7 +5,7 @@ package me.calebjones.pubgtracker.data;
  */
 
 public final class Config {
-    public static String API_BASE_URL = "https://pubgtracker.com/api/";
+    public static String API_BASE_URL = "https://api.pubgtracker.com/v2/";
     public static String SHOW_WELCOME_CARD = "SHOW_WELCOME_CARD";
     public static String SHOW_APP_TOUR = "SHOW_APP_TOUR";
     public static String SHOW_USERNAME_HINT = "SHOW_USERNAME_HINT";

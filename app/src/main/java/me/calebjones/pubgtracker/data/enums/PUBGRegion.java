@@ -8,7 +8,11 @@ public enum PUBGRegion {
     AAG("agg", "All"),
     NA("na", "[NA] North America"),
     AS("as", "[AS] Asia"),
-    EU("eu", "[EU] Europe");
+    EU("eu", "[EU] Europe"),
+    OC("oc","[OC] Oceanic"),
+    SA("sa","[SA] South America"),
+    SEA("sea","[SEA] South East Asia"),
+    KRJP("krjp","[KRJP] Korea Japan");
 
 
     PUBGRegion(String keyName, String modeName) {

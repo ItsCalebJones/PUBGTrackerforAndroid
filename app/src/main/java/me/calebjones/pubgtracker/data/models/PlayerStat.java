@@ -7,23 +7,30 @@ import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
 import io.realm.annotations.LinkingObjects;
+import io.realm.annotations.PrimaryKey;
 
 public class PlayerStat extends RealmObject {
 
-    @SerializedName("Region")
+    @PrimaryKey
+    private String key;
+    @SerializedName("region")
     @Expose
     private String region;
-    @SerializedName("Season")
+    @SerializedName("season")
     @Expose
     private String season;
-    @SerializedName("Match")
+    @SerializedName("mode")
     @Expose
     private String match;
-    @SerializedName("Stats")
+    @SerializedName("stats")
     @Expose
     private RealmList<Stats> stats = null;
     @LinkingObjects("playerStats") // <-- !
     private final RealmResults<User> users = null; // <-- !
+
+    public void setPrimrayKey(){
+        key = region + season + match;
+    }
 
     public String getRegion() {
         return region;

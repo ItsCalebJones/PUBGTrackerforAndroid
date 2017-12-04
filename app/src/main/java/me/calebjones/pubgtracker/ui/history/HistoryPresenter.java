@@ -12,6 +12,7 @@ import me.calebjones.pubgtracker.data.DataManager;
 import me.calebjones.pubgtracker.data.enums.PUBGMode;
 import me.calebjones.pubgtracker.data.enums.PUBGRegion;
 import me.calebjones.pubgtracker.data.enums.PUBGSeason;
+import me.calebjones.pubgtracker.data.events.MatchResults;
 import me.calebjones.pubgtracker.data.events.UserSelected;
 import me.calebjones.pubgtracker.data.models.Match;
 import me.calebjones.pubgtracker.data.models.User;
@@ -24,7 +25,7 @@ public class HistoryPresenter extends BasePresenter implements HistoryContract.P
     private DataManager dataManager;
     private RealmResults<Match> matches;
 
-    public HistoryPresenter(HistoryContract.View view){
+    public HistoryPresenter(HistoryContract.View view) {
         Timber.v("Creating HistoryPresenter with View.");
         historyView = view;
         historyView.setPresenter(this);
@@ -42,7 +43,7 @@ public class HistoryPresenter extends BasePresenter implements HistoryContract.P
     public void onStop() {
         Timber.v("onStop");
         unRegisterEventBus();
-        if (matches != null){
+        if (matches != null) {
             matches.removeAllChangeListeners();
         }
     }
@@ -61,11 +62,21 @@ public class HistoryPresenter extends BasePresenter implements HistoryContract.P
         updateAdapter(currentUser);
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMatchResultReceived(MatchResults results) {
+        currentUser = results.user;
+        Timber.i("onMatchResultReceived - EventBus - Message received - User: %s", currentUser.getPlayerName());
+        updateAdapter(currentUser);
+    }
+
     private void updateAdapter(User user) {
         Timber.d("updateAdapter - Retrieving match history.");
-        matches = retrieveMatchHistory(user.getPubgTrackerId());
+        matches = retrieveMatchHistory(user);
         if (matches.size() > 0) {
             Timber.v("updateAdapter RealmChangeListener - Found %s matches - Adding to adapter.", matches.size());
+            if (matches.size() > 25){
+                matches = matches.
+            }
             historyView.setAdapterMatches(matches);
             historyView.showContent();
         } else {
@@ -103,7 +114,7 @@ public class HistoryPresenter extends BasePresenter implements HistoryContract.P
     }
 
     @Override
-    public RealmResults<Match> retrieveMatchHistory(int pubgTrackerId) {
+    public RealmResults<Match> retrieveMatchHistory(final User user) {
         Timber.d("retrieveMatchHistory - Retrieving Match History...");
         String region = historyView.getRegion(historyView.getRegionFilter());
         String season = historyView.getSeason(historyView.getSeasonFilter());
@@ -111,22 +122,21 @@ public class HistoryPresenter extends BasePresenter implements HistoryContract.P
         Timber.v("retrieveMatchHistory - Region: %s - Season: %s - Mode: %s", region, season, mode);
 
         RealmQuery<Match> matchRealmQuery = getRealm().where(Match.class)
-                .equalTo("users.pubgTrackerId", pubgTrackerId);
+                .equalTo("users.accountId", user.getAccountId());
 
-        if (!region.equals(PUBGRegion.AAG.getRegionName())){
+        if (!region.equals(PUBGRegion.AAG.getRegionName())) {
             matchRealmQuery.contains("regionDisplay", region);
         }
 
-        if (!season.equals(PUBGSeason.ALL.getSeasonName())){
+        if (!season.equals(PUBGSeason.ALL.getSeasonName())) {
             matchRealmQuery.equalTo("seasonDisplay", season);
         }
 
-        if (!mode.equals(PUBGMode.ALL.getModeName())){
+        if (!mode.equals(PUBGMode.ALL.getModeName())) {
             matchRealmQuery.contains("matchDisplay", mode);
         }
 
         return matchRealmQuery.findAllSorted("updated", Sort.DESCENDING);
-
     }
 
     @Override

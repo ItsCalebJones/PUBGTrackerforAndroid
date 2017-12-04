@@ -12,6 +12,7 @@ import jonathanfinerty.once.Once;
 import me.calebjones.pubgtracker.common.BasePresenter;
 import me.calebjones.pubgtracker.data.Config;
 import me.calebjones.pubgtracker.data.DataManager;
+import me.calebjones.pubgtracker.data.events.MatchResults;
 import me.calebjones.pubgtracker.data.events.UserRefreshing;
 import me.calebjones.pubgtracker.data.events.UserSelected;
 import me.calebjones.pubgtracker.data.models.User;
@@ -42,9 +43,11 @@ public class OverviewPresenter extends BasePresenter implements OverviewContract
     }
 
     private void configureMatchCard(User user) {
-        if (user.getMatchHistory().size() > 0) {
+        if (user.getMatchHistory() != null && user.getMatchHistory().size() > 0) {
             overviewView.setMatchCardVisible(true);
             overviewView.setMatchCardContent(user.getMatchHistory().get(0));
+        } else {
+            overviewView.setMatchCardVisible(false);
         }
     }
 
@@ -52,8 +55,7 @@ public class OverviewPresenter extends BasePresenter implements OverviewContract
         overviewView.setOverviewCardVisible(true);
         PlayerStat highestElo = null;
         for (PlayerStat playerStat : user.getPlayerStats()) {
-            if (Objects.equals(playerStat.getSeason(), user.getDefaultSeason()) &&
-                    !Objects.equals(playerStat.getRegion(), "agg")) {
+            if (Objects.equals(playerStat.getRegion(), "agg")) {
                 float elo = playerStat.getStats().get(9).getValueDec();
                 if (highestElo == null) {
                     highestElo = playerStat;
@@ -73,6 +75,13 @@ public class OverviewPresenter extends BasePresenter implements OverviewContract
     @Override
     public void onUserEventReceived(UserSelected userSelected) {
         Timber.v("onUserSelectedEventReceived - UserSelected event.");
+        overviewView.showContent();
+        applyUser(userSelected.user);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMatchResultReceived(MatchResults userSelected) {
+        Timber.v("onMatchResultReceived - UserSelected event.");
         overviewView.showContent();
         applyUser(userSelected.user);
     }

@@ -457,8 +457,7 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
         accountHeader.setActiveProfile(convertUserToProfile(user));
         PlayerStat highestElo = null;
         for (PlayerStat playerStat : user.getPlayerStats()) {
-            if (Objects.equals(playerStat.getSeason(), user.getDefaultSeason()) &&
-                    !Objects.equals(playerStat.getRegion(), "agg")) {
+            if (Objects.equals(playerStat.getRegion(), "agg")) {
                 float elo = playerStat.getStats().get(9).getValueDec();
                 if (highestElo == null) {
                     highestElo = playerStat;
@@ -482,8 +481,7 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     private String findKD(User user) {
         Float highestKD = null;
         for (PlayerStat playerStat : user.getPlayerStats()) {
-            if (Objects.equals(playerStat.getSeason(), user.getDefaultSeason()) &&
-                    Objects.equals(playerStat.getRegion(), "agg")) {
+            if (Objects.equals(playerStat.getRegion(), "agg")) {
                 float currentKd = playerStat.getStats().get(0).getValueDec();
                 if (highestKD == null) {
                     highestKD = currentKd;
