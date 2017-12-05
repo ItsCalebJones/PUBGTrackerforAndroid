@@ -4,9 +4,14 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import io.realm.RealmObject;
+import io.realm.RealmResults;
+import io.realm.annotations.LinkingObjects;
+import io.realm.annotations.PrimaryKey;
 
 public class Stats extends RealmObject {
 
+    @PrimaryKey
+    private String statKey;
     @SerializedName("partition")
     @Expose
     private String partition;
@@ -40,6 +45,15 @@ public class Stats extends RealmObject {
     @SerializedName("displayValue")
     @Expose
     private String displayValue;
+
+    private PlayerStat playerStat;
+
+    @LinkingObjects("stats") // <-- !
+    private final RealmResults<PlayerStat> stats = null; // <-- !
+
+    public void setPrimrayKey(){
+        statKey = playerStat.getPrimaryKey() + label;
+    }
 
     public String getPartition() {
         return partition;

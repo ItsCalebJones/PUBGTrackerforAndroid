@@ -25,11 +25,16 @@ public class PlayerStat extends RealmObject {
     @SerializedName("stats")
     @Expose
     private RealmList<Stats> stats = null;
+
     @LinkingObjects("playerStats") // <-- !
     private final RealmResults<User> users = null; // <-- !
 
     public void setPrimrayKey(){
         key = region + season + match;
+    }
+
+    public String getPrimaryKey(){
+        return key;
     }
 
     public String getRegion() {

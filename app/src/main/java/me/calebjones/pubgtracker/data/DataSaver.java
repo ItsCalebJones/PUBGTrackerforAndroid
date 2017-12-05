@@ -15,6 +15,7 @@ import me.calebjones.pubgtracker.data.events.UserRefreshing;
 import me.calebjones.pubgtracker.data.events.UserSelected;
 import me.calebjones.pubgtracker.data.models.Match;
 import me.calebjones.pubgtracker.data.models.PlayerStat;
+import me.calebjones.pubgtracker.data.models.Stats;
 import me.calebjones.pubgtracker.data.models.User;
 import timber.log.Timber;
 
@@ -46,6 +47,9 @@ public class DataSaver {
 
                 for (PlayerStat stat: user.getPlayerStats()){
                     stat.setPrimrayKey();
+                    for (Stats stats: stat.getStats()){
+                        stats.setPrimrayKey();
+                    }
                 }
                 user.setCurrentUser(true);
                 realm.copyToRealmOrUpdate(user);
@@ -66,6 +70,9 @@ public class DataSaver {
 
                 for (PlayerStat stat: user.getPlayerStats()){
                     stat.setPrimrayKey();
+                    for (Stats stats: stat.getStats()){
+                        stats.setPrimrayKey();
+                    }
                 }
                 realm.copyToRealmOrUpdate(matches);
                 RealmResults<Match> realmList = realm.where(Match.class).equalTo("user.accountId", user.getAccountId()).findAll();
@@ -97,6 +104,9 @@ public class DataSaver {
                 RealmList<PlayerStat> currentStats = currentUser.getPlayerStats();
                 for (PlayerStat stat: user.getPlayerStats()){
                     stat.setPrimrayKey();
+                    for (Stats stats: stat.getStats()){
+                        stats.setPrimrayKey();
+                    }
                 }
                 RealmList<PlayerStat> newStats = user.getPlayerStats();
                 newStats.addAll(currentStats);

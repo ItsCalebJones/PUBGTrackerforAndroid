@@ -74,9 +74,6 @@ public class HistoryPresenter extends BasePresenter implements HistoryContract.P
         matches = retrieveMatchHistory(user);
         if (matches.size() > 0) {
             Timber.v("updateAdapter RealmChangeListener - Found %s matches - Adding to adapter.", matches.size());
-            if (matches.size() > 25){
-                matches = matches.
-            }
             historyView.setAdapterMatches(matches);
             historyView.showContent();
         } else {
