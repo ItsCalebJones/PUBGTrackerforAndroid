@@ -10,6 +10,7 @@ import android.text.format.DateFormat;
 import android.widget.ImageView;
 
 import com.crashlytics.android.core.CrashlyticsCore;
+import com.google.android.gms.ads.MobileAds;
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.pixplicity.easyprefs.library.Prefs;
@@ -38,6 +39,8 @@ public class TrackerApplication extends Application {
         mContext = this;
         registerActivityLifecycleCallbacks(new SplashScreenHelper());
         Realm.init(this);
+
+        MobileAds.initialize(this, "ca-app-pub-9824528399164059~7893837161");
                 /*
         * Init Crashlytics and gather additional device information.
         * Always leave this at the top so it catches any init failures.

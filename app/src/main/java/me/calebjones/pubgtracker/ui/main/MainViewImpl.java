@@ -23,6 +23,9 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationViewPager;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.lapism.searchview.SearchAdapter;
 import com.lapism.searchview.SearchHistoryTable;
 import com.lapism.searchview.SearchItem;
@@ -85,6 +88,8 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     TextView currentKD;
     @BindView(R.id.refresh)
     SwipeRefreshLayout refresh;
+    @BindView(R.id.adView)
+    AdView adView;
     private View mRootView;
     private MainContract.Presenter mainPresenter;
     private SearchHistoryTable historyDatabase;
@@ -568,6 +573,19 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
                 }
             }
         }
+    }
+
+    @Override
+    public void loadAd() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+        adView.setAdListener(new AdListener(){
+            @Override
+            public void onAdLoaded() {
+                TransitionManager.beginDelayedTransition(coordinator);
+                adView.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     private IProfile convertUserToProfile(User user) {

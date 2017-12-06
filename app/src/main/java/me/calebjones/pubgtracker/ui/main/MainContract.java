@@ -80,6 +80,8 @@ public interface MainContract {
         void setRefreshing(boolean refreshing);
 
         void setRefreshEnabled(boolean enable);
+
+        void loadAd();
     }
 
     interface Presenter extends BasePresenterInterface {

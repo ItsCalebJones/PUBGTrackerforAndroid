@@ -150,7 +150,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginBottom="@dimen/material_baseline_grid_16x"
+        android:layout_marginBottom="@dimen/material_baseline_grid_17x"
         android:layout_marginEnd="@dimen/material_baseline_grid_1x"
         android:clickable="true"
         app:fab_colorNormal="@color/colorAccent"

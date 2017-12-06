@@ -29,7 +29,7 @@ public class User extends RealmObject {
     @SerializedName("seasonDisplay")
     @Expose
     private String seasonDisplay;
-    @SerializedName("LastUpdated")
+    @SerializedName("lastUpdated")
     @Expose
     private String lastUpdated;
     @SerializedName("timePlayed")

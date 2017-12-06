@@ -28,16 +28,22 @@ public class DataSaver {
         realm = Realm.getDefaultInstance();
     }
 
-    public void save(final User user) {
-        Timber.i("save - Saving user %s", user.getPlayerName());
+    public void saveUser(final User user) {
+        Timber.i("saveUser - Saving user %s", user.getPlayerName());
         realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
                 User cachedUser = realm.where(User.class).equalTo("pubgTrackerId", user.getPubgTrackerId()).findFirst();
-                if (cachedUser != null && cachedUser.isFavoriteUser()){
-                    Timber.d("save -executeTransaction - %s is favorite.", user.getPlayerName());
-                    user.setFavoriteUser(true);
+                if (cachedUser != null){
+                    if (cachedUser.isFavoriteUser()) {
+                        Timber.d("saveUser -executeTransaction - %s is favorite.", user.getPlayerName());
+                        user.setFavoriteUser(true);
+                    }
+                    if (cachedUser.getMatchHistory() != null && cachedUser.getMatchHistory().size() > 0){
+                        user.setMatchHistory(cachedUser.getMatchHistory());
+                    }
                 }
+
                 User currentUser = realm.where(User.class).equalTo("currentUser", true).findFirst();
 
                 if (currentUser != null) {
@@ -48,7 +54,7 @@ public class DataSaver {
                 for (PlayerStat stat: user.getPlayerStats()){
                     stat.setPrimrayKey();
                     for (Stats stats: stat.getStats()){
-                        stats.setPrimrayKey();
+                        stats.setId(stat.getPrimaryKey()+stats.getField()+user.getPlayerName());
                     }
                 }
                 user.setCurrentUser(true);
@@ -71,7 +77,7 @@ public class DataSaver {
                 for (PlayerStat stat: user.getPlayerStats()){
                     stat.setPrimrayKey();
                     for (Stats stats: stat.getStats()){
-                        stats.setPrimrayKey();
+                        stats.setId(stat.getPrimaryKey()+stats.getField()+user.getPlayerName());
                     }
                 }
                 realm.copyToRealmOrUpdate(matches);
@@ -91,9 +97,14 @@ public class DataSaver {
             @Override
             public void execute(Realm realm) {
                 User cachedUser = realm.where(User.class).equalTo("pubgTrackerId", user.getPubgTrackerId()).findFirst();
-                if (cachedUser != null && cachedUser.isFavoriteUser()){
-                    Timber.d("save -executeTransaction - %s is favorite.", user.getPlayerName());
-                    user.setFavoriteUser(true);
+                if (cachedUser != null){
+                    if (cachedUser.isFavoriteUser()) {
+                        Timber.d("saveUser -executeTransaction - %s is favorite.", user.getPlayerName());
+                        user.setFavoriteUser(true);
+                    }
+                    if (cachedUser.getMatchHistory() != null && cachedUser.getMatchHistory().size() > 0){
+                        user.setMatchHistory(cachedUser.getMatchHistory());
+                    }
                 }
                 User currentUser = realm.where(User.class).equalTo("currentUser", true).findFirst();
 
@@ -105,7 +116,7 @@ public class DataSaver {
                 for (PlayerStat stat: user.getPlayerStats()){
                     stat.setPrimrayKey();
                     for (Stats stats: stat.getStats()){
-                        stats.setPrimrayKey();
+                        stats.setId(stat.getPrimaryKey()+stats.getField()+user.getPlayerName());
                     }
                 }
                 RealmList<PlayerStat> newStats = user.getPlayerStats();

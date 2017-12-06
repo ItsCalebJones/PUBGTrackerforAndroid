@@ -11,7 +11,7 @@ import io.realm.annotations.PrimaryKey;
 public class Stats extends RealmObject {
 
     @PrimaryKey
-    private String statKey;
+    private String id;
     @SerializedName("partition")
     @Expose
     private String partition;
@@ -46,13 +46,15 @@ public class Stats extends RealmObject {
     @Expose
     private String displayValue;
 
-    private PlayerStat playerStat;
-
     @LinkingObjects("stats") // <-- !
     private final RealmResults<PlayerStat> stats = null; // <-- !
 
-    public void setPrimrayKey(){
-        statKey = playerStat.getPrimaryKey() + label;
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getPartition() {

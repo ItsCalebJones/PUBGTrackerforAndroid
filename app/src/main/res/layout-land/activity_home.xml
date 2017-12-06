@@ -83,14 +83,29 @@
             android:layout_below="@+id/appbar"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <com.aurelhubert.ahbottomnavigation.AHBottomNavigationViewPager
-                android:id="@+id/contentFrame"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignStart="@+id/navigation_view"
-                android:layout_below="@+id/appbar"
-                android:paddingStart="@dimen/material_baseline_grid_6x"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                android:layout_height="match_parent">
+
+                <com.google.android.gms.ads.AdView
+                    xmlns:ads="http://schemas.android.com/apk/res-auto"
+                    android:visibility="gone"
+                    android:id="@+id/adView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    ads:adSize="SMART_BANNER"
+                    ads:adUnitId="ca-app-pub-9824528399164059/8549833312" />
+
+                <com.aurelhubert.ahbottomnavigation.AHBottomNavigationViewPager
+                    android:id="@+id/contentFrame"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    android:layout_below="@id/adView"/>
+
+            </RelativeLayout>
         </android.support.v4.widget.SwipeRefreshLayout>
 
         <com.aurelhubert.ahbottomnavigation.AHBottomNavigation

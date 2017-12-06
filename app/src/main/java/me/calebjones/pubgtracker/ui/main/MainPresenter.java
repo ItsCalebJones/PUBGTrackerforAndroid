@@ -7,19 +7,14 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.List;
-
 import io.realm.Realm;
 import io.realm.RealmResults;
 import me.calebjones.pubgtracker.common.BasePresenter;
 import me.calebjones.pubgtracker.data.DataManager;
-import me.calebjones.pubgtracker.data.DataSaver;
 import me.calebjones.pubgtracker.data.events.UserFavoriteEvent;
 import me.calebjones.pubgtracker.data.events.UserRefreshing;
 import me.calebjones.pubgtracker.data.events.UserSelected;
-import me.calebjones.pubgtracker.data.models.Match;
 import me.calebjones.pubgtracker.data.models.User;
-import me.calebjones.pubgtracker.data.networking.DataClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -80,7 +75,7 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
                         } else if (user.getMessage() != null) {
                             mainView.createErrorSnackbar(user.getMessage());
                         } else if (user.getPlayerName() != null) {
-                            dataManager.getDataSaver().save(user);
+                            dataManager.getDataSaver().saveUser(user);
                             dataManager.getUserMatchHistory(user);
                             currentUser = user;
                             mainView.setActiveUser(user);
@@ -221,7 +216,7 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
                         if (user.getError() != null && user.getMessage() != null) {
                             mainView.createSnackbar(user.getMessage());
                         } else if (user.getPlayerName() != null) {
-                            dataManager.getDataSaver().save(user);
+                            dataManager.getDataSaver().saveUser(user);
                             dataManager.getUserMatchHistory(user);
                         }
                     }
