@@ -110,7 +110,7 @@ public class MapViewImpl implements MapContract.View, AHBottomNavigation.OnTabSe
                         ContextCompat.getColor(context, R.color.primary));
 
         AHBottomNavigationItem desertItem = new AHBottomNavigationItem
-                ("Desert (TBD)",
+                ("Mirimar",
                         ContextCompat.getDrawable(context, R.drawable.desert),
                         ContextCompat.getColor(context, R.color.accent));
 
