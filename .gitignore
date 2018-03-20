@@ -19,3 +19,4 @@ gradlew.bat
 keystore.properties
 
 keystore.properties
+app/src/main/res/values/api_key.xml

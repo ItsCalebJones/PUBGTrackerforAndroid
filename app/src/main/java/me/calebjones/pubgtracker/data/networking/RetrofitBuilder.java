@@ -47,7 +47,7 @@ public class RetrofitBuilder {
 
     public static Retrofit getPUBGAPIRetrofit() {
 
-        ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true);
 
         ResourceConverter converter = new ResourceConverter(objectMapper, PUBGMatch.class, Asset.class, Roster.class, Participant.class);
         converter.enableDeserializationOption(com.github.jasminb.jsonapi.DeserializationFeature.ALLOW_UNKNOWN_INCLUSIONS);
@@ -73,7 +73,7 @@ public class RetrofitBuilder {
 
                 // Request customization: add request headers
                 Request.Builder requestBuilder = original.newBuilder()
-                        .addHeader("TRN-Api-Key", TrackerApplication.getContext().getString(R.string.pubg_tracker_key));
+                        .addHeader("TRN-Api-Key", "");
 
                 Request request = requestBuilder.build();
                 return chain.proceed(request);

@@ -68,17 +68,17 @@ public class TrackerApplication extends Application {
         Realm.setDefaultConfiguration(config);
         DataClient.create();
 
-        DataClient.getInstance().getTest(new Callback<JSONAPIDocument<List<PUBGMatch>>>() {
+        DataClient.getInstance().getTest("17e27f4e-e7f7-4c5a-a3a1-5721eb67db58", new Callback<JSONAPIDocument<PUBGMatch>>() {
             @Override
-            public void onResponse(Call<JSONAPIDocument<List<PUBGMatch>>> call, Response<JSONAPIDocument<List<PUBGMatch>>> response) {
+            public void onResponse(Call<JSONAPIDocument<PUBGMatch>> call, Response<JSONAPIDocument<PUBGMatch>> response) {
                 Timber.v("Hello");
-                JSONAPIDocument<List<PUBGMatch>> document = response.body();
-                List<PUBGMatch> match = document.get();
+                JSONAPIDocument<PUBGMatch> document = response.body();
+                PUBGMatch match = document.get();
                 Timber.v(match.toString());
             }
 
             @Override
-            public void onFailure(Call<JSONAPIDocument<List<PUBGMatch>>> call, Throwable t) {
+            public void onFailure(Call<JSONAPIDocument<PUBGMatch>> call, Throwable t) {
                 Timber.v(t);
             }
         });
