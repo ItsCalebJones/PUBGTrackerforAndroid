@@ -5,7 +5,8 @@ package me.calebjones.pubgtracker.data;
  */
 
 public final class Config {
-    public static String API_BASE_URL = "https://api.pubgtracker.com/v2/";
+    public static String TRACKER_API_BASE_URL = "https://api.pubgtracker.com/v2/";
+    public static String PUBG_API_BASE_URL = "https://api.playbattlegrounds.com";
     public static String SHOW_WELCOME_CARD = "SHOW_WELCOME_CARD";
     public static String SHOW_APP_TOUR = "SHOW_APP_TOUR";
     public static String SHOW_USERNAME_HINT = "SHOW_USERNAME_HINT";

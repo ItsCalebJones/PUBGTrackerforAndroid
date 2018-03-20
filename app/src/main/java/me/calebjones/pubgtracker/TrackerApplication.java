@@ -10,6 +10,7 @@ import android.text.format.DateFormat;
 import android.widget.ImageView;
 
 import com.crashlytics.android.core.CrashlyticsCore;
+import com.github.jasminb.jsonapi.JSONAPIDocument;
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.pixplicity.easyprefs.library.Prefs;
@@ -17,12 +18,18 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import jonathanfinerty.once.Once;
 import me.calebjones.pubgtracker.data.DataManager;
+import me.calebjones.pubgtracker.data.models.PUBGMatch;
 import me.calebjones.pubgtracker.data.networking.DataClient;
 import me.calebjones.pubgtracker.utils.GlideApp;
 import me.calebjones.pubgtracker.utils.SplashScreenHelper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import timber.log.Timber;
 import com.crashlytics.android.Crashlytics;
 
+import java.lang.annotation.Documented;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -60,6 +67,21 @@ public class TrackerApplication extends Application {
                 .build();
         Realm.setDefaultConfiguration(config);
         DataClient.create();
+
+        DataClient.getInstance().getTest(new Callback<JSONAPIDocument<List<PUBGMatch>>>() {
+            @Override
+            public void onResponse(Call<JSONAPIDocument<List<PUBGMatch>>> call, Response<JSONAPIDocument<List<PUBGMatch>>> response) {
+                Timber.v("Hello");
+                JSONAPIDocument<List<PUBGMatch>> document = response.body();
+                List<PUBGMatch> match = document.get();
+                Timber.v(match.toString());
+            }
+
+            @Override
+            public void onFailure(Call<JSONAPIDocument<List<PUBGMatch>>> call, Throwable t) {
+                Timber.v(t);
+            }
+        });
         DataManager.create();
         Timber.plant(new Timber.DebugTree());
 

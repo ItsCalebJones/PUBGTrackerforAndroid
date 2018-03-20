@@ -14,6 +14,6 @@
     <item
         android:id="@+id/navigation_history"
         android:icon="@drawable/ic_history_black_24dp"
-        android:title="@string/title_history" />
+        android:title="@string/title_match_history" />
 
 </menu>

@@ -9,13 +9,13 @@ import me.calebjones.pubgtracker.common.BaseFragment;
 import timber.log.Timber;
 
 
-public class HistoryFragment extends BaseFragment {
+public class MatchHistoryFragment extends BaseFragment {
 
     private HistoryPresenter historyPresenter;
     private HistoryViewImpl historyView;
     private boolean visibleToUser = false;
 
-    public HistoryFragment() {
+    public MatchHistoryFragment() {
         // Required empty public constructor
     }
 

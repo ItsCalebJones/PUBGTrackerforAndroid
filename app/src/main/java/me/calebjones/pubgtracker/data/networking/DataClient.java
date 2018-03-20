@@ -1,9 +1,13 @@
 package me.calebjones.pubgtracker.data.networking;
 
+import com.github.jasminb.jsonapi.JSONAPIDocument;
+
 import java.util.List;
 
 import me.calebjones.pubgtracker.data.models.Match;
+import me.calebjones.pubgtracker.data.models.PUBGMatch;
 import me.calebjones.pubgtracker.data.models.User;
+import me.calebjones.pubgtracker.data.networking.interfaces.PUBGAPIService;
 import me.calebjones.pubgtracker.data.networking.interfaces.TrackerService;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -14,12 +18,17 @@ import retrofit2.Retrofit;
 public class DataClient {
 
     private final TrackerService apiService;
+    private final PUBGAPIService pubgAPIService;
     private static DataClient mInstance;
     private Retrofit apiRetrofit;
+    private Retrofit pubgAPIRetrofit;
 
     private DataClient(){
-        apiRetrofit = RetrofitBuilder.getAPIRetrofit();
+        apiRetrofit = RetrofitBuilder.getTrackerAPIRetrofit();
         apiService = apiRetrofit.create(TrackerService.class);
+
+        pubgAPIRetrofit = RetrofitBuilder.getPUBGAPIRetrofit();
+        pubgAPIService = pubgAPIRetrofit.create(PUBGAPIService.class);
     }
 
     /**
@@ -34,6 +43,12 @@ public class DataClient {
             throw new AssertionError("Did you forget to call create() ?");
         }
         return mInstance;
+    }
+
+    public Call<JSONAPIDocument<List<PUBGMatch>>> getTest (Callback<JSONAPIDocument<List<PUBGMatch>>> callback){
+        Call<JSONAPIDocument<List<PUBGMatch>>> call = pubgAPIService.getTest();
+        call.enqueue(callback);
+        return call;
     }
 
     public Call<User> getProfileByName(String name, Callback<User> callback){
