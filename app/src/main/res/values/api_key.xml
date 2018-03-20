@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="PUBG_API">Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJjNDRjZjk0MC0wZGRmLTAxMzYtZGUyNy0wNzE2OGJiZTYwNTIiLCJpc3MiOiJnYW1lbG9ja2VyIiwiaWF0IjoxNTIxNDkwMzQ2LCJwdWIiOiJibHVlaG9sZSIsInRpdGxlIjoicHViZyIsImFwcCI6InB1Ymctc3RhdC10cmFja2VyIiwic2NvcGUiOiJjb21tdW5pdHkiLCJsaW1pdCI6MTB9.ybcHwf76B5urOHWTHB738-0s-Ja2hn1X2RByANAn4W8</string>
+</resources>

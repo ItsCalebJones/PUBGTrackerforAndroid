@@ -28,6 +28,17 @@
 # (unless you are using a system that supports de-obfuscate the stack traces).
 -dontobfuscate
 
+-keepattributes *Annotation*,EnclosingMethod,Signature
+-keepnames class com.fasterxml.jackson.** { *; }
+-dontwarn com.fasterxml.jackson.databind.**
+-keep class org.codehaus.** { *; }
+-keepclassmembers public final enum org.codehaus.jackson.annotate.JsonAutoDetect$Visibility {
+    public static final org.codehaus.jackson.annotate.JsonAutoDetect$Visibility *; }
+-keep public class your.class.** {
+    public void set*(***);
+    public *** get*();
+}
+
 -keep class me.calebjones.pubgtracker.** { *; }
 #-keep class .R
 #-keep class **.R$* {

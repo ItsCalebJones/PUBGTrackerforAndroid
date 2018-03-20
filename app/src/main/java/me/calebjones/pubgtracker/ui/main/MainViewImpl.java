@@ -10,8 +10,10 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,9 +22,7 @@ import android.view.Window;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigationViewPager;
 import com.lapism.searchview.SearchAdapter;
 import com.lapism.searchview.SearchHistoryTable;
 import com.lapism.searchview.SearchItem;
@@ -41,8 +41,6 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
-import com.transitionseverywhere.Recolor;
-import com.transitionseverywhere.TransitionManager;
 
 import java.util.List;
 import java.util.Objects;
@@ -60,7 +58,7 @@ import timber.log.Timber;
 
 public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextListener,
         SearchView.OnMenuClickListener,
-        AHBottomNavigation.OnTabSelectedListener,
+        TabLayout.OnTabSelectedListener,
         SwipeRefreshLayout.OnRefreshListener {
 
     public int[] color;
@@ -68,11 +66,11 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     @BindView(R.id.coordinator)
     CoordinatorLayout coordinator;
     @BindView(R.id.navigation_view)
-    AHBottomNavigation navigation;
+    TabLayout navigation;
     @BindView(R.id.searchView)
     SearchView searchView;
     @BindView(R.id.contentFrame)
-    AHBottomNavigationViewPager viewPager;
+    ViewPager viewPager;
     @BindView(R.id.appbar)
     AppBarLayout appbar;
     @BindView(R.id.profile_name)
@@ -161,23 +159,15 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
                         color[1]);
 
         AHBottomNavigationItem historyItem = new AHBottomNavigationItem
-                (context.getResources().getString(R.string.title_history),
+                (context.getResources().getString(R.string.title_match_history),
                         R.drawable.ic_history_black_24dp,
                         color[2]);
-
-        navigation.addItem(statsItem);
-        navigation.addItem(homeItem);
-        navigation.addItem(historyItem);
-        navigation.setColored(true);
-        navigation.setBehaviorTranslationEnabled(true);
-        navigation.setTranslucentNavigationEnabled(true);
-        navigation.setOnTabSelectedListener(this);
+        navigation.addOnTabSelectedListener(this);
     }
 
     private void updateTopColor(int color, int topColor) {
-        ViewGroup viewGroup = coordinator;
-        TransitionManager.beginDelayedTransition(viewGroup, new Recolor());
         appbar.setBackgroundColor(color);
+        navigation.setBackgroundColor(color);
         if (result != null) {
             result.getDrawerLayout().setStatusBarBackgroundColor(topColor);
             result.getHeader().setBackgroundColor(color);
@@ -249,15 +239,14 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     public void onPageChaged(int position) {
         switch (position) {
             case 0:
-                navigation.setCurrentItem(0);
                 updateTopColor(color[0], topColor[0]);
                 break;
             case 1:
-                navigation.setCurrentItem(1);
+//                navigation.setCurrentItem(1);
                 updateTopColor(color[1], topColor[1]);
                 break;
             case 2:
-                navigation.setCurrentItem(2);
+//                navigation.setCurrentItem(2);
                 updateTopColor(color[2], topColor[2]);
                 break;
         }
@@ -579,29 +568,6 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     }
 
     @Override
-    public boolean onTabSelected(int position, boolean wasSelected) {
-        if (navigation.isHidden()) {
-            navigation.restoreBottomNavigation(true);
-        }
-        switch (position) {
-            case 1:
-                onOverviewClicked();
-                updateTopColor(color[1], topColor[1]);
-                return true;
-            case 2:
-                onMatchHistoryClicked();
-                updateTopColor(color[2], topColor[2]);
-                return true;
-            case 0:
-                onStatisticsClicked();
-                updateTopColor(color[0], topColor[0]);
-                return true;
-            default:
-                return false;
-        }
-    }
-
-    @Override
     public void setProfileName(String name) {
         profileName.setText(name);
     }
@@ -657,5 +623,33 @@ public class MainViewImpl implements MainContract.View, SearchView.OnQueryTextLi
     @Override
     public void onRefresh() {
         mainPresenter.refreshCurrentUser();
+    }
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        switch (tab.getPosition()) {
+            case 1:
+                onOverviewClicked();
+                updateTopColor(color[1], topColor[1]);
+                break;
+            case 2:
+                onMatchHistoryClicked();
+                updateTopColor(color[2], topColor[2]);
+                break;
+            case 0:
+                onStatisticsClicked();
+                updateTopColor(color[0], topColor[0]);
+                break;
+        }
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
     }
 }

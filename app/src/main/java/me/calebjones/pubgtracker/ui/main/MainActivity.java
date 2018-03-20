@@ -3,6 +3,7 @@ package me.calebjones.pubgtracker.ui.main;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
 import com.mikepenz.materialdrawer.Drawer;
@@ -10,7 +11,7 @@ import com.mikepenz.materialdrawer.Drawer;
 import jonathanfinerty.once.Once;
 import me.calebjones.pubgtracker.common.BaseActivity;
 import me.calebjones.pubgtracker.data.Config;
-import me.calebjones.pubgtracker.ui.history.HistoryFragment;
+import me.calebjones.pubgtracker.ui.history.MatchHistoryFragment;
 import me.calebjones.pubgtracker.ui.main.adapters.MainViewPagerAdapter;
 import me.calebjones.pubgtracker.ui.overview.OverviewFragment;
 import me.calebjones.pubgtracker.ui.statistics.StatsFragment;
@@ -36,7 +37,6 @@ public class MainActivity extends BaseActivity implements MainContract.Navigator
         setContentView(mainView.getRootView());
         mainPresenter = new MainPresenter(mainView);
         mainPresenter.setNavigator(getNavigator(mainPresenter));
-        mainView.navigation.setCurrentItem(1);
         setupViewPager();
         mainView.setUpDrawer(this, savedInstanceState);
         if (!Once.beenDone(Once.THIS_APP_INSTALL, Config.SHOW_USERNAME_HINT)) {
@@ -44,18 +44,33 @@ public class MainActivity extends BaseActivity implements MainContract.Navigator
         }
     }
 
-    private MainViewPagerAdapter setupViewPager() {
+    private void setupViewPager() {
         MainViewPagerAdapter adapter = new MainViewPagerAdapter(getSupportFragmentManager());
         OverviewFragment homeFragment = new OverviewFragment();
-        HistoryFragment historyFragment = new HistoryFragment();
+        MatchHistoryFragment historyFragment = new MatchHistoryFragment();
         StatsFragment statFragment = new StatsFragment();
         adapter.addFragment(statFragment);
         adapter.addFragment(homeFragment);
         adapter.addFragment(historyFragment);
         mainView.viewPager.setAdapter(adapter);
-        mainView.viewPager.setCurrentItem(1);
         mainView.viewPager.setOffscreenPageLimit(3);
-        mainView.viewPager.setPagingEnabled(true);
+        mainView.viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mainView.navigation));
+        mainView.navigation.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mainView.viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
         mainView.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -72,7 +87,7 @@ public class MainActivity extends BaseActivity implements MainContract.Navigator
                 mainView.setRefreshEnabled( state == ViewPager.SCROLL_STATE_IDLE );
             }
         });
-        return adapter;
+        mainView.viewPager.setCurrentItem(1);
     }
 
     @NonNull
