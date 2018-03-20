@@ -45,8 +45,9 @@ public class DataClient {
         return mInstance;
     }
 
-    public Call<JSONAPIDocument<List<PUBGMatch>>> getTest (Callback<JSONAPIDocument<List<PUBGMatch>>> callback){
-        Call<JSONAPIDocument<List<PUBGMatch>>> call = pubgAPIService.getTest();
+
+    public Call<JSONAPIDocument<PUBGMatch>> getTest (String matchId, Callback<JSONAPIDocument<PUBGMatch>> callback){
+        Call<JSONAPIDocument<PUBGMatch>> call = pubgAPIService.getTest(matchId);
         call.enqueue(callback);
         return call;
     }

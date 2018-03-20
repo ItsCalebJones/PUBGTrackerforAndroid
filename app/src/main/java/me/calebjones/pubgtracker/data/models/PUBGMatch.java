@@ -28,9 +28,26 @@ public class PUBGMatch extends RealmObject {
 
     private String gameMode;
 
-    @Relationship("rosters")
+
+    @Relationship(value="rosters")
     private RealmList<Roster> rosters;
 
-    @Relationship("assets")
+    @Relationship(value="assets")
     private RealmList<Asset> assets;
+
+    public String getGameMode() {
+        return gameMode;
+    }
+
+    public void setGameMode(String gameMode) {
+        this.gameMode = gameMode;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }

@@ -73,7 +73,29 @@ public class RetrofitBuilder {
 
                 // Request customization: add request headers
                 Request.Builder requestBuilder = original.newBuilder()
-                        .addHeader("TRN-Api-Key", TrackerApplication.getContext().getString(R.string.pubg_tracker_key));
+                        .addHeader("TRN-Api-Key", "");
+
+                Request request = requestBuilder.build();
+                return chain.proceed(request);
+            }
+        });
+        return client.build();
+    }
+
+    private static OkHttpClient getPUBGAPIClient() {
+        OkHttpClient.Builder client = new OkHttpClient().newBuilder();
+        client.connectTimeout(15, TimeUnit.SECONDS);
+        client.readTimeout(15, TimeUnit.SECONDS);
+        client.writeTimeout(15, TimeUnit.SECONDS);
+        client.addInterceptor(new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request original = chain.request();
+
+                // Request customization: add request headers
+                Request.Builder requestBuilder = original.newBuilder()
+                        .addHeader("Authorization", TrackerApplication.getContext().getString(R.string.PUBG_API))
+                        .addHeader("Accept", "application/vnd.api+json");
 
                 Request request = requestBuilder.build();
                 return chain.proceed(request);
