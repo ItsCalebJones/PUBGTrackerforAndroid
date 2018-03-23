@@ -18,7 +18,7 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import jonathanfinerty.once.Once;
 import me.calebjones.pubgtracker.data.DataManager;
-import me.calebjones.pubgtracker.data.models.PUBGMatch;
+import me.calebjones.pubgtracker.data.models.Match;
 import me.calebjones.pubgtracker.data.networking.DataClient;
 import me.calebjones.pubgtracker.utils.GlideApp;
 import me.calebjones.pubgtracker.utils.SplashScreenHelper;
@@ -28,8 +28,6 @@ import retrofit2.Response;
 import timber.log.Timber;
 import com.crashlytics.android.Crashlytics;
 
-import java.lang.annotation.Documented;
-import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -68,18 +66,22 @@ public class TrackerApplication extends Application {
         Realm.setDefaultConfiguration(config);
         DataClient.create();
 
-        DataClient.getInstance().getTest("17e27f4e-e7f7-4c5a-a3a1-5721eb67db58", new Callback<JSONAPIDocument<PUBGMatch>>() {
+        DataClient.getInstance().getTest("17e27f4e-e7f7-4c5a-a3a1-5721eb67db58", new Callback<JSONAPIDocument<Match>>() {
             @Override
-            public void onResponse(Call<JSONAPIDocument<PUBGMatch>> call, Response<JSONAPIDocument<PUBGMatch>> response) {
+            public void onResponse(Call<JSONAPIDocument<Match>> call, Response<JSONAPIDocument<Match>> response) {
                 Timber.v("Hello");
-                JSONAPIDocument<PUBGMatch> document = response.body();
-                PUBGMatch match = document.get();
-                Timber.v(match.toString());
+                if (response.isSuccessful()) {
+                    JSONAPIDocument<Match> document = response.body();
+                    if (document != null) {
+                        Match match = document.get();
+                        Timber.v(match.toString());
+                    }
+                }
             }
 
             @Override
 
-            public void onFailure(Call<JSONAPIDocument<PUBGMatch>> call, Throwable t) {
+            public void onFailure(Call<JSONAPIDocument<Match>> call, Throwable t) {
                 Timber.v(t);
             }
         });

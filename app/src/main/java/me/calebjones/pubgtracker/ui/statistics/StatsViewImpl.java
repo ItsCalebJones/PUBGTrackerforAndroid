@@ -30,7 +30,7 @@ import me.calebjones.pubgtracker.ui.views.ExtendedStatefulLayout;
 import me.calebjones.pubgtracker.R;
 import me.calebjones.pubgtracker.data.enums.PUBGRegion;
 import me.calebjones.pubgtracker.data.enums.PUBGSeason;
-import me.calebjones.pubgtracker.data.models.PlayerStat;
+import me.calebjones.pubgtracker.data.models.tracker.PlayerStat;
 import me.calebjones.pubgtracker.ui.views.PlaylistView;
 
 

@@ -6,10 +6,10 @@ import me.calebjones.pubgtracker.common.BaseNavigator;
 import me.calebjones.pubgtracker.common.BaseView;
 import me.calebjones.pubgtracker.data.events.UserRefreshing;
 import me.calebjones.pubgtracker.data.events.UserSelected;
-import me.calebjones.pubgtracker.data.models.Match;
-import me.calebjones.pubgtracker.data.models.User;
+import me.calebjones.pubgtracker.data.models.tracker.TrackerMatch;
+import me.calebjones.pubgtracker.data.models.tracker.User;
 import me.calebjones.pubgtracker.common.BasePresenterInterface;
-import me.calebjones.pubgtracker.data.models.PlayerStat;
+import me.calebjones.pubgtracker.data.models.tracker.PlayerStat;
 
 
 public interface OverviewContract {
@@ -37,7 +37,7 @@ public interface OverviewContract {
 
         void setMatchCardVisible(boolean state);
 
-        void setMatchCardContent(Match match);
+        void setMatchCardContent(TrackerMatch match);
 
         void setOverviewContent(PlayerStat playerStat);
 

@@ -26,14 +26,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cz.kinst.jakub.view.SimpleStatefulLayout;
-import io.realm.RealmResults;
 import jonathanfinerty.once.Once;
 import me.calebjones.pubgtracker.R;
 import me.calebjones.pubgtracker.data.Config;
 import me.calebjones.pubgtracker.data.enums.PUBGMode;
 import me.calebjones.pubgtracker.data.enums.PUBGRegion;
 import me.calebjones.pubgtracker.data.enums.PUBGSeason;
-import me.calebjones.pubgtracker.data.models.Match;
+import me.calebjones.pubgtracker.data.models.tracker.TrackerMatch;
 import me.calebjones.pubgtracker.ui.views.ExtendedStatefulLayout;
 import timber.log.Timber;
 
@@ -224,7 +223,7 @@ public class HistoryViewImpl implements HistoryContract.View {
     }
 
     @Override
-    public void setAdapterMatches(List<Match> matches) {
+    public void setAdapterMatches(List<TrackerMatch> matches) {
         historyAdapter.setMatches(matches);
     }
 

@@ -12,15 +12,14 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.realm.RealmResults;
 import me.calebjones.pubgtracker.R;
-import me.calebjones.pubgtracker.data.models.Match;
+import me.calebjones.pubgtracker.data.models.tracker.TrackerMatch;
 import me.calebjones.pubgtracker.ui.views.MatchCardView;
 
 
 public class HistoryRecyclerAdapter extends RecyclerView.Adapter<HistoryRecyclerAdapter.HistoryViewHolder> {
 
-    private List<Match> matches;
+    private List<TrackerMatch> matches;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm zzz - EEEE, MMMM dd, yyyy ", Locale.US);
     private Context context;
 
@@ -28,7 +27,7 @@ public class HistoryRecyclerAdapter extends RecyclerView.Adapter<HistoryRecycler
         this.context = context;
     }
 
-    public void setMatches(List<Match> newMatches) {
+    public void setMatches(List<TrackerMatch> newMatches) {
         if (newMatches == null || newMatches.size() == 0) {
             return;
         }
@@ -44,7 +43,7 @@ public class HistoryRecyclerAdapter extends RecyclerView.Adapter<HistoryRecycler
 
     @Override
     public void onBindViewHolder(HistoryViewHolder holder, int position) {
-        Match match = matches.get(position);
+        TrackerMatch match = matches.get(position);
         holder.matchView.setMatch(match, simpleDateFormat);
     }
 

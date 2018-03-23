@@ -13,7 +13,7 @@ import me.calebjones.pubgtracker.common.BaseView;
 import me.calebjones.pubgtracker.data.events.UserFavoriteEvent;
 import me.calebjones.pubgtracker.data.events.UserRefreshing;
 import me.calebjones.pubgtracker.data.events.UserSelected;
-import me.calebjones.pubgtracker.data.models.User;
+import me.calebjones.pubgtracker.data.models.tracker.User;
 
 public interface MainContract {
 

@@ -2,8 +2,6 @@ package me.calebjones.pubgtracker.data;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.net.MalformedURLException;
-import java.util.Collection;
 import java.util.List;
 
 import io.realm.Realm;
@@ -13,10 +11,10 @@ import me.calebjones.pubgtracker.data.events.MatchRefreshing;
 import me.calebjones.pubgtracker.data.events.MatchResults;
 import me.calebjones.pubgtracker.data.events.UserRefreshing;
 import me.calebjones.pubgtracker.data.events.UserSelected;
-import me.calebjones.pubgtracker.data.models.Match;
-import me.calebjones.pubgtracker.data.models.PlayerStat;
-import me.calebjones.pubgtracker.data.models.Stats;
-import me.calebjones.pubgtracker.data.models.User;
+import me.calebjones.pubgtracker.data.models.tracker.TrackerMatch;
+import me.calebjones.pubgtracker.data.models.tracker.PlayerStat;
+import me.calebjones.pubgtracker.data.models.tracker.Stats;
+import me.calebjones.pubgtracker.data.models.tracker.User;
 import timber.log.Timber;
 
 
@@ -59,12 +57,12 @@ public class DataSaver {
         EventBus.getDefault().post(new UserSelected(user));
     }
 
-    public void saveMatches(final List<Match> matches, final User user) {
+    public void saveMatches(final List<TrackerMatch> matches, final User user) {
         Timber.i("saveMatches - Saving matches for user %s", user.getPlayerName());
         realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                for (Match match: matches){
+                for (TrackerMatch match: matches){
                     match.setUser(user);
                 }
 
@@ -75,8 +73,8 @@ public class DataSaver {
                     }
                 }
                 realm.copyToRealmOrUpdate(matches);
-                RealmResults<Match> realmList = realm.where(Match.class).equalTo("user.accountId", user.getAccountId()).findAll();
-                RealmList<Match> results = new RealmList<Match>();
+                RealmResults<TrackerMatch> realmList = realm.where(TrackerMatch.class).equalTo("user.accountId", user.getAccountId()).findAll();
+                RealmList<TrackerMatch> results = new RealmList<TrackerMatch>();
                 results.addAll(realmList.subList(0, realmList.size()));
                 user.setMatchHistory(results);
                 realm.copyToRealmOrUpdate(user);

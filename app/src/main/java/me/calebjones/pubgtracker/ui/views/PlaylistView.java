@@ -14,10 +14,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.calebjones.pubgtracker.data.enums.PUBGMode;
 import me.calebjones.pubgtracker.data.enums.PUBGRegion;
-import me.calebjones.pubgtracker.data.models.Stats;
+import me.calebjones.pubgtracker.data.models.tracker.Stats;
 import me.calebjones.pubgtracker.R;
 import me.calebjones.pubgtracker.data.enums.PUBGSeason;
-import me.calebjones.pubgtracker.data.models.PlayerStat;
+import me.calebjones.pubgtracker.data.models.tracker.PlayerStat;
 import timber.log.Timber;
 
 public class PlaylistView extends CardView {

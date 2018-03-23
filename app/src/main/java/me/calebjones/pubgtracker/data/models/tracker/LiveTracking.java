@@ -1,4 +1,4 @@
-package me.calebjones.pubgtracker.data.models;
+package me.calebjones.pubgtracker.data.models.tracker;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -10,7 +10,7 @@ import io.realm.RealmObject;
 
 public class LiveTracking extends RealmObject {
 
-    @SerializedName("Match")
+    @SerializedName("TrackerMatch")
     @Expose
     private int match;
     @SerializedName("MatchDisplay")

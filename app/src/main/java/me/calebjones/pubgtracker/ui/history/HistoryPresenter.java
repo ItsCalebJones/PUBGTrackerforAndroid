@@ -14,8 +14,8 @@ import me.calebjones.pubgtracker.data.enums.PUBGRegion;
 import me.calebjones.pubgtracker.data.enums.PUBGSeason;
 import me.calebjones.pubgtracker.data.events.MatchResults;
 import me.calebjones.pubgtracker.data.events.UserSelected;
-import me.calebjones.pubgtracker.data.models.Match;
-import me.calebjones.pubgtracker.data.models.User;
+import me.calebjones.pubgtracker.data.models.tracker.TrackerMatch;
+import me.calebjones.pubgtracker.data.models.tracker.User;
 import timber.log.Timber;
 
 public class HistoryPresenter extends BasePresenter implements HistoryContract.Presenter {
@@ -23,7 +23,7 @@ public class HistoryPresenter extends BasePresenter implements HistoryContract.P
     private final HistoryContract.View historyView;
     private User currentUser;
     private DataManager dataManager;
-    private RealmResults<Match> matches;
+    private RealmResults<TrackerMatch> matches;
 
     public HistoryPresenter(HistoryContract.View view) {
         Timber.v("Creating HistoryPresenter with View.");
@@ -111,17 +111,17 @@ public class HistoryPresenter extends BasePresenter implements HistoryContract.P
     }
 
     @Override
-    public RealmResults<Match> retrieveMatchHistory(final User user) {
-        Timber.d("retrieveMatchHistory - Retrieving Match History...");
+    public RealmResults<TrackerMatch> retrieveMatchHistory(final User user) {
+        Timber.d("retrieveMatchHistory - Retrieving TrackerMatch History...");
         String region = historyView.getRegion(historyView.getRegionFilter());
         String season = historyView.getSeason(historyView.getSeasonFilter());
         String mode = historyView.getMode(historyView.getModeFilter());
         Timber.v("retrieveMatchHistory - Region: %s - Season: %s - Mode: %s", region, season, mode);
 
-        RealmQuery<Match> matchRealmQuery = getRealm().where(Match.class)
+        RealmQuery<TrackerMatch> matchRealmQuery = getRealm().where(TrackerMatch.class)
                 .equalTo("users.accountId", user.getAccountId());
 
-        if (!region.equals(PUBGRegion.AAG.getRegionName())) {
+        if (!region.equals(PUBGRegion.PC_NA.getRegionName())) {
             matchRealmQuery.contains("regionDisplay", region);
         }
 

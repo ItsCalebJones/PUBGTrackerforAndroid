@@ -5,8 +5,8 @@ import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
-import me.calebjones.pubgtracker.data.models.Match;
-import me.calebjones.pubgtracker.data.models.User;
+import me.calebjones.pubgtracker.data.models.tracker.TrackerMatch;
+import me.calebjones.pubgtracker.data.models.tracker.User;
 import me.calebjones.pubgtracker.data.networking.DataClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,18 +45,18 @@ public class DataManager {
 
     public void getUserMatchHistory(final User user) {
         Timber.d("getUserMatchHistory - %s", user.getPlayerName());
-        DataClient.getInstance().getMatchHistoryByAccountId(user, new Callback<List<Match>>() {
+        DataClient.getInstance().getMatchHistoryByAccountId(user, new Callback<List<TrackerMatch>>() {
             @Override
-            public void onResponse(Call<List<Match>> call, Response<List<Match>> response) {
+            public void onResponse(Call<List<TrackerMatch>> call, Response<List<TrackerMatch>> response) {
                 if (response.isSuccessful()) {
-                    List<Match> matches = response.body();
+                    List<TrackerMatch> matches = response.body();
                     DataSaver dataSaver = new DataSaver();
                     dataSaver.saveMatches(matches, user);
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Match>> call, Throwable t) {
+            public void onFailure(Call<List<TrackerMatch>> call, Throwable t) {
                 Timber.e(t);
             }
         });

@@ -5,8 +5,8 @@ import com.github.jasminb.jsonapi.JSONAPIDocument;
 import java.util.List;
 
 import me.calebjones.pubgtracker.data.models.Match;
-import me.calebjones.pubgtracker.data.models.PUBGMatch;
-import me.calebjones.pubgtracker.data.models.User;
+import me.calebjones.pubgtracker.data.models.tracker.TrackerMatch;
+import me.calebjones.pubgtracker.data.models.tracker.User;
 import me.calebjones.pubgtracker.data.networking.interfaces.PUBGAPIService;
 import me.calebjones.pubgtracker.data.networking.interfaces.TrackerService;
 import retrofit2.Call;
@@ -46,8 +46,8 @@ public class DataClient {
     }
 
 
-    public Call<JSONAPIDocument<PUBGMatch>> getTest (String matchId, Callback<JSONAPIDocument<PUBGMatch>> callback){
-        Call<JSONAPIDocument<PUBGMatch>> call = pubgAPIService.getTest(matchId);
+    public Call<JSONAPIDocument<Match>> getTest (String matchId, Callback<JSONAPIDocument<Match>> callback){
+        Call<JSONAPIDocument<Match>> call = pubgAPIService.getMatchesById(matchId);
         call.enqueue(callback);
         return call;
     }
@@ -64,14 +64,14 @@ public class DataClient {
         return call;
     }
 
-    public Call<List<Match>>  getMatchHistoryByAccountId(User user, String region, String mode, String season, Callback<List<Match>> callback){
-        Call<List<Match>> call = apiService.getMatchesByAccountId(user.getAccountId(), region, season, mode);
+    public Call<List<TrackerMatch>>  getMatchHistoryByAccountId(User user, String region, String mode, String season, Callback<List<TrackerMatch>> callback){
+        Call<List<TrackerMatch>> call = apiService.getMatchesByAccountId(user.getAccountId(), region, season, mode);
         call.enqueue(callback);
         return call;
     }
 
-    public Call<List<Match>>  getMatchHistoryByAccountId(User user, Callback<List<Match>> callback){
-        Call<List<Match>> call = apiService.getMatchesByAccountId(user.getAccountId(), null, null, null);
+    public Call<List<TrackerMatch>>  getMatchHistoryByAccountId(User user, Callback<List<TrackerMatch>> callback){
+        Call<List<TrackerMatch>> call = apiService.getMatchesByAccountId(user.getAccountId(), null, null, null);
         call.enqueue(callback);
         return call;
     }

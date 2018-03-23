@@ -6,7 +6,7 @@ import me.calebjones.pubgtracker.common.BaseNavigator;
 import me.calebjones.pubgtracker.common.BasePresenterInterface;
 import me.calebjones.pubgtracker.common.BaseView;
 import me.calebjones.pubgtracker.data.events.UserSelected;
-import me.calebjones.pubgtracker.data.models.PlayerStat;
+import me.calebjones.pubgtracker.data.models.tracker.PlayerStat;
 
 
 public interface StatsContract {

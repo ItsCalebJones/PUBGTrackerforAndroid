@@ -8,9 +8,9 @@ import io.realm.RealmResults;
 import me.calebjones.pubgtracker.common.BaseNavigator;
 import me.calebjones.pubgtracker.common.BaseView;
 import me.calebjones.pubgtracker.data.events.UserSelected;
-import me.calebjones.pubgtracker.data.models.Match;
+import me.calebjones.pubgtracker.data.models.tracker.TrackerMatch;
 import me.calebjones.pubgtracker.common.BasePresenterInterface;
-import me.calebjones.pubgtracker.data.models.User;
+import me.calebjones.pubgtracker.data.models.tracker.User;
 
 
 public interface HistoryContract {
@@ -35,7 +35,7 @@ public interface HistoryContract {
 
         void createSnackbar(String localizedMessage);
 
-        void setAdapterMatches(List<Match> matches);
+        void setAdapterMatches(List<TrackerMatch> matches);
 
         int getRegionFilter();
 
@@ -62,7 +62,7 @@ public interface HistoryContract {
 
         void retrieveCachedUser();
 
-        RealmResults<Match> retrieveMatchHistory(User user);
+        RealmResults<TrackerMatch> retrieveMatchHistory(User user);
 
         void sortSubmitClicked();
 

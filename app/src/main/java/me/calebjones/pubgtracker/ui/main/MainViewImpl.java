@@ -51,8 +51,8 @@ import butterknife.OnClick;
 import jonathanfinerty.once.Once;
 import me.calebjones.pubgtracker.R;
 import me.calebjones.pubgtracker.data.Config;
-import me.calebjones.pubgtracker.data.models.PlayerStat;
-import me.calebjones.pubgtracker.data.models.User;
+import me.calebjones.pubgtracker.data.models.tracker.PlayerStat;
+import me.calebjones.pubgtracker.data.models.tracker.User;
 import timber.log.Timber;
 
 

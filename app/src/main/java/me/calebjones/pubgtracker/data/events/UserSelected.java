@@ -1,7 +1,7 @@
 package me.calebjones.pubgtracker.data.events;
 
 
-import me.calebjones.pubgtracker.data.models.User;
+import me.calebjones.pubgtracker.data.models.tracker.User;
 import timber.log.Timber;
 
 public class UserSelected {

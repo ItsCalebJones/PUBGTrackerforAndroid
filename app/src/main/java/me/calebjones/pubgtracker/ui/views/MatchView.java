@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import me.calebjones.pubgtracker.data.models.Match;
+import me.calebjones.pubgtracker.data.models.tracker.TrackerMatch;
 import me.calebjones.pubgtracker.R;
 
 
@@ -64,7 +64,7 @@ public class MatchView extends LinearLayout {
         ButterKnife.bind(this);
     }
 
-    public void setMatch(Match match, SimpleDateFormat simpleDateFormat) {
+    public void setMatch(TrackerMatch match, SimpleDateFormat simpleDateFormat) {
         setMatchResult(match);
 
         String matchRatingText = String.valueOf((int) match.getRating());
@@ -92,7 +92,7 @@ public class MatchView extends LinearLayout {
         matchOverviewDate.setText(matchOverviewDateText);
     }
 
-    private void setMatchResult(Match match) {
+    private void setMatchResult(TrackerMatch match) {
         if (match.getRounds() > 1){
             sessionContainer.setVisibility(View.VISIBLE);
             matchCount.setText(String.valueOf(match.getRounds()));

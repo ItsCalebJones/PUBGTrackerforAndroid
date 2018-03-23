@@ -7,19 +7,14 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.List;
-
 import io.realm.Realm;
 import io.realm.RealmResults;
 import me.calebjones.pubgtracker.common.BasePresenter;
 import me.calebjones.pubgtracker.data.DataManager;
-import me.calebjones.pubgtracker.data.DataSaver;
 import me.calebjones.pubgtracker.data.events.UserFavoriteEvent;
 import me.calebjones.pubgtracker.data.events.UserRefreshing;
 import me.calebjones.pubgtracker.data.events.UserSelected;
-import me.calebjones.pubgtracker.data.models.Match;
-import me.calebjones.pubgtracker.data.models.User;
-import me.calebjones.pubgtracker.data.networking.DataClient;
+import me.calebjones.pubgtracker.data.models.tracker.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

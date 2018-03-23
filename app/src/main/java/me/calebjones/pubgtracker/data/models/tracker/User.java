@@ -1,9 +1,7 @@
-package me.calebjones.pubgtracker.data.models;
+package me.calebjones.pubgtracker.data.models.tracker;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
@@ -53,7 +51,7 @@ public class User extends RealmObject {
     private int code;
     @SerializedName("MatchHistory")
     @Expose
-    private RealmList<Match> matchHistory = null;
+    private RealmList<TrackerMatch> matchHistory = null;
 
     private boolean favoriteUser = false;
 
@@ -187,11 +185,11 @@ public class User extends RealmObject {
         this.currentUser = currentUser;
     }
 
-    public RealmList<Match> getMatchHistory() {
+    public RealmList<TrackerMatch> getMatchHistory() {
         return matchHistory;
     }
 
-    public void setMatchHistory(RealmList<Match> matchHistory) {
+    public void setMatchHistory(RealmList<TrackerMatch> matchHistory) {
         this.matchHistory = matchHistory;
     }
 }

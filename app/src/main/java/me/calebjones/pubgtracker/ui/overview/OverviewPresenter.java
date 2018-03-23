@@ -15,8 +15,8 @@ import me.calebjones.pubgtracker.data.DataManager;
 import me.calebjones.pubgtracker.data.events.MatchResults;
 import me.calebjones.pubgtracker.data.events.UserRefreshing;
 import me.calebjones.pubgtracker.data.events.UserSelected;
-import me.calebjones.pubgtracker.data.models.User;
-import me.calebjones.pubgtracker.data.models.PlayerStat;
+import me.calebjones.pubgtracker.data.models.tracker.User;
+import me.calebjones.pubgtracker.data.models.tracker.PlayerStat;
 import timber.log.Timber;
 
 

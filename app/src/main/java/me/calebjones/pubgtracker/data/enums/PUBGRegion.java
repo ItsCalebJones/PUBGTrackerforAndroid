@@ -5,14 +5,32 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum PUBGRegion {
-    AAG("agg", "All"),
-    NA("na", "[NA] North America"),
-    AS("as", "[AS] Asia"),
-    EU("eu", "[EU] Europe"),
-    OC("oc","[OC] Oceanic"),
-    SA("sa","[SA] South America"),
-    SEA("sea","[SEA] South East Asia"),
-    KRJP("krjp","[KRJP] Korea Japan");
+    /** Asian server for Xbox */
+    XBOX_AS("xbox-as", "[Xbox] Asia"),
+    /** European server for Xbox */
+    XBOX_EU("xbox-eu", "[Xbox] Europe"),
+    /** North American server for Xbox */
+    XBOX_NA("xbox-na", "[Xbox] North America"),
+    /** Oceanic server for Xbox */
+    XBOX_OC("xbox-oc", "[Xbox] Oceanic"),
+    /** Koran and Japaneses server for PC */
+    PC_KRJP("pc-krjp", "[PC] Korea / Japan"),
+    /** North American server for PC */
+    PC_NA("pc-na", "[PC] North American"),
+    /** European server for PC */
+    PC_EU("pc-eu", "[PC] Europe"),
+    /** Oceanic server for PC */
+    PC_OC("pc-oc", "[PC] Oceanic"),
+    /** South East Asian server for PC */
+    PC_SEA("pc-sea", "[PC] South East Asia"),
+    /** South and Central American server for PC */
+    PC_SA("pc-sa", "[PC] South Central America"),
+    /** Asian server for PC */
+    PC_AS("pc-as", "[PC] Asia"),
+    /** Spoopy PC server with no name */
+    PC_KAKAO("xbox-as", "[PC] Unknown");
+
+
 
 
     PUBGRegion(String keyName, String modeName) {

@@ -1,4 +1,4 @@
-package me.calebjones.pubgtracker.data.models;
+package me.calebjones.pubgtracker.data.models.tracker;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

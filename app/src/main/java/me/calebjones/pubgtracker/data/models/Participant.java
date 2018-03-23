@@ -20,11 +20,21 @@ public class Participant extends RealmObject{
 
     private String shardId;
 
+    private Stat stats;
+
     public String getShardId() {
         return shardId;
     }
 
     public void setShardId(String shardId) {
         this.shardId = shardId;
+    }
+
+    public Stat getStats() {
+        return stats;
+    }
+
+    public void setStats(Stat stats) {
+        this.stats = stats;
     }
 }

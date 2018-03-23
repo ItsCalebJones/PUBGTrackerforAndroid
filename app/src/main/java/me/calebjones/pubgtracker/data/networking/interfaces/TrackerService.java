@@ -2,8 +2,8 @@ package me.calebjones.pubgtracker.data.networking.interfaces;
 
 import java.util.List;
 
-import me.calebjones.pubgtracker.data.models.Match;
-import me.calebjones.pubgtracker.data.models.User;
+import me.calebjones.pubgtracker.data.models.tracker.TrackerMatch;
+import me.calebjones.pubgtracker.data.models.tracker.User;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -23,8 +23,8 @@ public interface TrackerService {
     Call<User> getProfileBySteamID(@Query("steamId") int steamId);
 
     @GET("matches/pc/{account_id}")
-    Call<List<Match>> getMatchesByAccountId(@Path("account_id") String accountId,
-                                            @Query("region") String region,
-                                            @Query("season") String season,
-                                            @Query("mode") String mode);
+    Call<List<TrackerMatch>> getMatchesByAccountId(@Path("account_id") String accountId,
+                                                   @Query("region") String region,
+                                                   @Query("season") String season,
+                                                   @Query("mode") String mode);
 }

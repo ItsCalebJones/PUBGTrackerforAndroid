@@ -20,12 +20,12 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import me.calebjones.pubgtracker.data.models.Match;
+import me.calebjones.pubgtracker.data.models.tracker.TrackerMatch;
 import me.calebjones.pubgtracker.ui.views.ExtendedStatefulLayout;
 import me.calebjones.pubgtracker.ui.views.MatchView;
 import me.calebjones.pubgtracker.R;
 import me.calebjones.pubgtracker.data.enums.PUBGSeason;
-import me.calebjones.pubgtracker.data.models.PlayerStat;
+import me.calebjones.pubgtracker.data.models.tracker.PlayerStat;
 
 
 public class OverviewViewImpl implements OverviewContract.View {
@@ -135,7 +135,7 @@ public class OverviewViewImpl implements OverviewContract.View {
     }
 
     @Override
-    public void setMatchCardContent(Match match) {
+    public void setMatchCardContent(TrackerMatch match) {
         TransitionManager.beginDelayedTransition(container);
         matchView.setMatch(match, new SimpleDateFormat("HH:mm zzz - EEEE, MMMM dd, yyyy ",
                 Locale.US));
