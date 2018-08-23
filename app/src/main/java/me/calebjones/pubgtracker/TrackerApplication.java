@@ -10,21 +10,15 @@ import android.text.format.DateFormat;
 import android.widget.ImageView;
 
 import com.crashlytics.android.core.CrashlyticsCore;
-import com.github.jasminb.jsonapi.JSONAPIDocument;
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.pixplicity.easyprefs.library.Prefs;
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
 import jonathanfinerty.once.Once;
 import me.calebjones.pubgtracker.data.DataManager;
-import me.calebjones.pubgtracker.data.models.Match;
 import me.calebjones.pubgtracker.data.networking.DataClient;
+import me.calebjones.pubgtracker.di.DaggerAppComponent;
 import me.calebjones.pubgtracker.utils.GlideApp;
 import me.calebjones.pubgtracker.utils.SplashScreenHelper;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import timber.log.Timber;
 import com.crashlytics.android.Crashlytics;
 
@@ -41,8 +35,14 @@ public class TrackerApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mContext = this;
+
+        DaggerAppComponent
+                .builder()
+                .application(this)
+                .build()
+                .inject(this);
+
         registerActivityLifecycleCallbacks(new SplashScreenHelper());
-        Realm.init(this);
                 /*
         * Init Crashlytics and gather additional device information.
         * Always leave this at the top so it catches any init failures.
@@ -55,36 +55,8 @@ public class TrackerApplication extends Application {
                 .build();
         Fabric.with(this, crashlyticsKit);
 
-        // Initialize Fabric with the debug-disabled crashlytics.
-        Crashlytics.setString("Timezone", String.valueOf(TimeZone.getDefault().getDisplayName()));
-        Crashlytics.setString("Language", Locale.getDefault().getDisplayLanguage());
-        Crashlytics.setBool("is24", DateFormat.is24HourFormat(getApplicationContext()));
 
-        RealmConfiguration config = new RealmConfiguration.Builder()
-                .deleteRealmIfMigrationNeeded()
-                .build();
-        Realm.setDefaultConfiguration(config);
         DataClient.create();
-
-        DataClient.getInstance().getTest("17e27f4e-e7f7-4c5a-a3a1-5721eb67db58", new Callback<JSONAPIDocument<Match>>() {
-            @Override
-            public void onResponse(Call<JSONAPIDocument<Match>> call, Response<JSONAPIDocument<Match>> response) {
-                Timber.v("Hello");
-                if (response.isSuccessful()) {
-                    JSONAPIDocument<Match> document = response.body();
-                    if (document != null) {
-                        Match match = document.get();
-                        Timber.v(match.toString());
-                    }
-                }
-            }
-
-            @Override
-
-            public void onFailure(Call<JSONAPIDocument<Match>> call, Throwable t) {
-                Timber.v(t);
-            }
-        });
         DataManager.create();
         Timber.plant(new Timber.DebugTree());
 

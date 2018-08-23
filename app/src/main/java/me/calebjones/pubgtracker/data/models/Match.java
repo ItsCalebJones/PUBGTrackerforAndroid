@@ -10,16 +10,11 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 import java.util.List;
 
-import io.realm.RealmList;
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
-
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Type("match")
-public class Match extends RealmObject {
-
-    @PrimaryKey
+public class Match {
+    
     @Id(CustomIdHandler.class)
     @SerializedName("id")
     @Expose
@@ -30,6 +25,29 @@ public class Match extends RealmObject {
     private String titleId;
     private String shardId;
     private Date createdAt;
+
+    @Relationship(value="rosters")
+    private List<Roster> rosters;
+
+
+    @Relationship(value="assets")
+    private List<Asset> assets;
+
+    public List<Roster> getRosters() {
+        return rosters;
+    }
+
+    public void setRosters(List<Roster> rosters) {
+        this.rosters = rosters;
+    }
+
+    public List<Asset> getAssets() {
+        return assets;
+    }
+
+    public void setAssets(List<Asset> assets) {
+        this.assets = assets;
+    }
 
     public int getDuration() {
         return duration;
@@ -62,13 +80,6 @@ public class Match extends RealmObject {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
-
-
-    @Relationship(value="rosters")
-    private RealmList<Roster> rosters;
-
-    @Relationship(value="assets")
-    private RealmList<Asset> assets;
 
     public String getGameMode() {
         return gameMode;

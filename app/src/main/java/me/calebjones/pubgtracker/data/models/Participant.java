@@ -6,13 +6,9 @@ import com.github.jasminb.jsonapi.annotations.Type;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Type("participant")
-public class Participant extends RealmObject{
-    @PrimaryKey
+public class Participant{
     @Id(CustomIdHandler.class)
     @SerializedName("id")
     @Expose

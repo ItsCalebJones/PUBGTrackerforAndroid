@@ -8,30 +8,36 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 
-import io.realm.RealmList;
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
+import java.util.List;
+
 import me.calebjones.pubgtracker.data.enums.PUBGRegion;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Type("roster")
-public class Roster extends RealmObject {
+public class Roster {
 
-    @PrimaryKey
     @Id(CustomIdHandler.class)
     @SerializedName("id")
     @Expose
     private String id;
 
     @Relationship(value="participants")
-    private RealmList<Participant> participant;
+    private List<Participant> participant;
 
     private String won;
 
     private String shardId;
 
     private RosterStat stats;
+
+    public List<Participant> getParticipant() {
+        return participant;
+    }
+
+    public void setParticipant(List<Participant> participant) {
+        this.participant = participant;
+    }
 
     public RosterStat getStats() {
         return stats;

@@ -1,9 +1,6 @@
 package me.calebjones.pubgtracker.data.models;
 
-import io.realm.RealmObject;
-
-
-public class Stat extends RealmObject {
+public class Stat {
 
     private int dbnOS;
     private int assists;

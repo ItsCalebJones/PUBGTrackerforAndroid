@@ -1,12 +1,7 @@
 package me.calebjones.pubgtracker.data.models;
 
-import io.realm.RealmObject;
 
-/**
- * Created by ALPCJONESM2 on 3/20/18.
- */
-
-public class RosterStat extends RealmObject {
+public class RosterStat {
 
     private int rank;
 

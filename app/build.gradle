@@ -7,14 +7,13 @@ buildscript {
     }
 
     dependencies {
-        classpath 'io.fabric.tools:gradle:1.24.0'
+        classpath 'io.fabric.tools:gradle:1.25.2'
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.8.2'
         classpath 'com.github.hotchemi:gradle-proguard-plugin:0.1.0'
     }
 }
 
 apply plugin: 'com.android.application'
-apply plugin: 'realm-android'
 apply plugin: 'io.fabric'
 apply plugin: 'com.getkeepsafe.dexcount'
 apply plugin: 'org.moallemi.advanced-build-version'
@@ -141,6 +140,17 @@ dependencies {
     // TESTING
     implementation "com.github.jasminb:jsonapi-converter:0.8.1"
     implementation "io.reactivex.rxjava2:rxjava:2.1.0"
+    implementation 'com.google.dagger:dagger:2.15'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.15'
+
+    // ViewModel and LiveData
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+
+    annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
+
+    // Room (use 1.1.0-beta1 for latest beta)
+    implementation "android.arch.persistence.room:runtime:1.0.0"
+    annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
 
     // Android Official Libraries
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'

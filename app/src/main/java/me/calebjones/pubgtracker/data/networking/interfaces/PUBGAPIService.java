@@ -18,7 +18,6 @@ public interface PUBGAPIService {
 
     @GET("/shards/{region}/matches")
     Call<JSONAPIDocument<Match[]>> getMatchesByName(@Path("region") String region,
-                                                    @Path("match_id") String matchId,
                                                     @Query("filter[playerNames]") String playerName,
                                                     @Query("filter[gameMode]") String gameMode);
 

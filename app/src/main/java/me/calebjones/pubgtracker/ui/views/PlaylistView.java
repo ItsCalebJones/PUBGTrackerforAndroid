@@ -12,12 +12,8 @@ import net.cachapa.expandablelayout.ExpandableLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import me.calebjones.pubgtracker.data.enums.PUBGMode;
-import me.calebjones.pubgtracker.data.enums.PUBGRegion;
-import me.calebjones.pubgtracker.data.models.tracker.Stats;
+import me.calebjones.pubgtracker.data.models.Stat;
 import me.calebjones.pubgtracker.R;
-import me.calebjones.pubgtracker.data.enums.PUBGSeason;
-import me.calebjones.pubgtracker.data.models.tracker.PlayerStat;
 import timber.log.Timber;
 
 public class PlaylistView extends CardView {
@@ -116,87 +112,7 @@ public class PlaylistView extends CardView {
         return expandButton;
     }
 
-    public void setStats(PlayerStat stat) {
-        playlistOverviewType.setText(PUBGRegion.findByKey(stat.getRegion()) + " | " + PUBGMode.findByKey(stat.getMatch()));
-        playlistOverviewSeason.setText(PUBGSeason.findByKey(stat.getSeason()));
-        for (Stats perfStat : stat.getStats()) {
-            switch (perfStat.getField()) {
-                case "KillDeathRatio":
-                    playlistKdRatio.setText(perfStat.getDisplayValue());
-                    break;
-                case "AvgSurvivalTime":
-                    playlistAverageSurvived.setText(perfStat.getDisplayValue());
-                    break;
-                case "RoundsPlayed":
-                    playlistMatchesPlayed.setText(perfStat.getDisplayValue());
-                    break;
-                case "Rating":
-                    playlistRating.setText(perfStat.getDisplayValue());
-                    playlistRank.setText(String.valueOf(perfStat.getRank()));
-                    break;
-                case "Wins":
-                    playlistWins.setText(perfStat.getDisplayValue());
-                    break;
-                case "Top10s":
-                    playlistTopTen.setText(perfStat.getDisplayValue());
-                    break;
-                case "BestRating":
-                    playlistTopRank.setText(perfStat.getDisplayValue());
-                    break;
-                case "Kills":
-                    playlistKills.setText(perfStat.getDisplayValue());
-                    break;
-                case "Assists":
-                    playlistAssists.setText(perfStat.getDisplayValue());
-                    break;
-                case "DBNOs":
-                    playlistKnockOuts.setText(perfStat.getDisplayValue());
-                    break;
-                case "KillsPg":
-                    playlistKillsAvg.setText(perfStat.getDisplayValue());
-                    break;
-                case "DamagePg":
-                    playlistDamage.setText(perfStat.getDisplayValue());
-                    break;
-                case "LongestKill":
-                    playlistLongestKill.setText(perfStat.getDisplayValue());
-                    break;
-                case "HeadshotKills":
-                    playlistHeadshotKills.setText(perfStat.getDisplayValue());
-                    break;
-                case "VehicleDestroys":
-                    playlistVehiclesDestroyed.setText(perfStat.getDisplayValue());
-                    break;
-                case "RoadKills":
-                    playlistVehicleKills.setText(perfStat.getDisplayValue());
-                    break;
-                case "Heals":
-                    playlistHeals.setText(perfStat.getDisplayValue());
-                    break;
-                case "Revives":
-                    playlistRevives.setText(perfStat.getDisplayValue());
-                    break;
-                case "Boosts":
-                    playlistBoosts.setText(perfStat.getDisplayValue());
-                    break;
-                case "Suicides":
-                    playlistSuicides.setText(perfStat.getDisplayValue());
-                    break;
-                case "TeamKills":
-                    playlistTeamKills.setText(perfStat.getDisplayValue());
-                    break;
-                case "RoundMostKills":
-                    playlistMostKills.setText(perfStat.getDisplayValue());
-                    break;
-                case "WinRatio":
-                    playlistWinRate.setText(perfStat.getDisplayValue());
-                    break;
-                case "Top10Ratio":
-                    playlistTopTenRate.setText(perfStat.getDisplayValue());
-                    break;
-
-            }
-        }
+    public void setStats(Stat stat) {
     }
 
     @OnClick(R.id.expand_button)

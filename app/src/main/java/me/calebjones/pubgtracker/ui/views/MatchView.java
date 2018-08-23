@@ -3,7 +3,6 @@ package me.calebjones.pubgtracker.ui.views;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -11,7 +10,7 @@ import java.text.SimpleDateFormat;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import me.calebjones.pubgtracker.data.models.tracker.TrackerMatch;
+import me.calebjones.pubgtracker.data.models.Match;
 import me.calebjones.pubgtracker.R;
 
 
@@ -64,51 +63,51 @@ public class MatchView extends LinearLayout {
         ButterKnife.bind(this);
     }
 
-    public void setMatch(TrackerMatch match, SimpleDateFormat simpleDateFormat) {
-        setMatchResult(match);
-
-        String matchRatingText = String.valueOf((int) match.getRating());
-        String matchRatingChangeText = String.valueOf((int) match.getRatingChange());
-
-        if (match.getRatingChange() > 0) {
-            matchRatingText = matchRatingText + " (+" + matchRatingChangeText + ")";
-        } else {
-            matchRatingText = matchRatingText + " (" + matchRatingChangeText + ")";
-        }
-        String matchKillsText = String.valueOf(match.getKills());
-        String matchDamageText = String.valueOf(match.getDamage());
-        String matchDistanceText = String.valueOf((int) match.getMoveDistance()) + "m";
-        String matchSurvivedText = String.valueOf((int) match.getTimeSurvived()) + " sec";
-        String matchOverviewMatchTitleText = match.getRegionDisplay() + " - " + match.getMatchDisplay();
-        String matchOverviewDateText = simpleDateFormat.format(match.getUpdated());
-
-
-        matchRating.setText(matchRatingText);
-        matchKills.setText(matchKillsText);
-        matchDamage.setText(matchDamageText);
-        matchDistance.setText(matchDistanceText);
-        matchSurvived.setText(matchSurvivedText);
-        matchOverviewMatchTitle.setText(matchOverviewMatchTitleText);
-        matchOverviewDate.setText(matchOverviewDateText);
+    public void setMatch(Match match, SimpleDateFormat simpleDateFormat) {
+//        setMatchResult(match);
+//
+//        String matchRatingText = String.valueOf((int) match.getRating());
+//        String matchRatingChangeText = String.valueOf((int) match.getRatingChange());
+//
+//        if (match.getRatingChange() > 0) {
+//            matchRatingText = matchRatingText + " (+" + matchRatingChangeText + ")";
+//        } else {
+//            matchRatingText = matchRatingText + " (" + matchRatingChangeText + ")";
+//        }
+//        String matchKillsText = String.valueOf(match.getKills());
+//        String matchDamageText = String.valueOf(match.getDamage());
+//        String matchDistanceText = String.valueOf((int) match.getMoveDistance()) + "m";
+//        String matchSurvivedText = String.valueOf((int) match.getTimeSurvived()) + " sec";
+//        String matchOverviewMatchTitleText = match.getRegionDisplay() + " - " + match.getMatchDisplay();
+//        String matchOverviewDateText = simpleDateFormat.format(match.getUpdated());
+//
+//
+//        matchRating.setText(matchRatingText);
+//        matchKills.setText(matchKillsText);
+//        matchDamage.setText(matchDamageText);
+//        matchDistance.setText(matchDistanceText);
+//        matchSurvived.setText(matchSurvivedText);
+//        matchOverviewMatchTitle.setText(matchOverviewMatchTitleText);
+//        matchOverviewDate.setText(matchOverviewDateText);
     }
 
-    private void setMatchResult(TrackerMatch match) {
-        if (match.getRounds() > 1){
-            sessionContainer.setVisibility(View.VISIBLE);
-            matchCount.setText(String.valueOf(match.getRounds()));
-            matchResultTitle.setText("TOP TENS");
-            matchResult.setText(String.valueOf(match.getTop10()));
-            matchWin.setText(String.valueOf(match.getWins()));
-        } else {
-            sessionContainer.setVisibility(View.GONE);
-            matchResultTitle.setText("RESULT");
-            if (match.getWins() == 1) {
-                matchResult.setText("Win");
-            } else if (match.getTop10() == 1) {
-                matchResult.setText("Top Ten");
-            } else {
-                matchResult.setText("Died");
-            }
-        }
+    private void setMatchResult(Match match) {
+//        if (match.getRounds() > 1){
+//            sessionContainer.setVisibility(View.VISIBLE);
+//            matchCount.setText(String.valueOf(match.getRounds()));
+//            matchResultTitle.setText("TOP TENS");
+//            matchResult.setText(String.valueOf(match.getTop10()));
+//            matchWin.setText(String.valueOf(match.getWins()));
+//        } else {
+//            sessionContainer.setVisibility(View.GONE);
+//            matchResultTitle.setText("RESULT");
+//            if (match.getWins() == 1) {
+//                matchResult.setText("Win");
+//            } else if (match.getTop10() == 1) {
+//                matchResult.setText("Top Ten");
+//            } else {
+//                matchResult.setText("Died");
+//            }
+//        }
     }
 }
